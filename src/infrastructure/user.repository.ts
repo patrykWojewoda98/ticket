@@ -1,8 +1,8 @@
 import { PrismaClient } from "@prisma/client";
 import { User } from "@/domain/user/user.entity";
-import { UserRepository } from "@/domain/user/user.irepository";
+import { IUserRepository } from "@/domain/user/user.irepository";
 
-export class PrismaUserRepository implements UserRepository {
+export class UserRepository implements IUserRepository {
   constructor(private prisma: PrismaClient) {}
 
   async findByRole(role: string): Promise<User[]> {
