@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { Poppins } from "next/font/google";
 import Header from "@/components/layout/header";
+import Footer from "@/components/layout/footer";
 import "./globals.css";
 const poppins = Poppins({
   subsets: ["latin", "latin-ext"],
@@ -22,6 +23,7 @@ export default async function Layout({ children }: LayoutProps) {
           <div className="gap-8 sm:gap-16 md:gap-24 lg:gap-32 grid">
             <Header />
             <main>{children}</main>
+            <Footer></Footer>
           </div>
         </div>
       </body>
