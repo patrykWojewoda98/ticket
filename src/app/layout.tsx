@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { Poppins } from "next/font/google";
-import Header from "@/components/header";
+import Header from "@/components/layout/header";
 import "./globals.css";
 const poppins = Poppins({
   subsets: ["latin", "latin-ext"],
