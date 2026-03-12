@@ -5,7 +5,7 @@ namespace Domain.Abstractions;
 
 public interface ITicketStatusRepository
 {
-  Task<IEnumerable<TicketStatus>> GetAllAsync();
+  Task<List<TicketStatus>> GetAllAsync();
   Task<TicketStatus?> GetByIdAsync(string id);
   Task<TicketStatus?> FindByNameAsync(string name);
   Task<TicketStatus> CreateAsync(TicketStatus ticketStatus);
