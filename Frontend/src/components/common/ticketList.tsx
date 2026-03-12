@@ -1,8 +1,7 @@
-import { Ticket } from "@/backend/domain/ticket/ticket.entity";
 import Link from "next/link";
 
 interface Props {
-  tickets: Ticket[];
+  tickets: any[];
 }
 
 export function TicketList({ tickets }: Props) {

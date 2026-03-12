@@ -1,29 +1,12 @@
-import { TicketRepository } from "@/backend/infrastructure/ticket.repository";
-import { TicketList } from "@/frontend/components/layout/ticketList";
-import { Button } from "@/frontend/components/ui/button";
-import { PrismaClient } from "@prisma/client";
+import { Button } from "@/components/ui/button";
+import { TicketList } from "@/components/common/ticketList";
 
 export default async function Home() {
-  const globalForPrisma = global as unknown as { prisma: PrismaClient };
-
-  const prisma =
-    globalForPrisma.prisma ??
-    new PrismaClient({
-      log: ["error"],
-    });
-
-  if (process.env.NODE_ENV !== "production") {
-    globalForPrisma.prisma = prisma;
-  }
-
-  const repo = new TicketRepository(prisma);
-
-  const tickets = await repo.findAll();
-  const lastTickets = tickets.slice(0, 5);
+  // const tickets = await repo.findAll();
+  // const lastTickets = tickets.slice(0, 5);
 
   return (
     <div className="flex flex-col gap-16">
-      {/* O nas */}
       <section className="flex flex-col gap-4">
         <h1 className="font-bold text-slate-900 text-3xl">Centrum wsparcia</h1>
 
@@ -35,7 +18,6 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Ostatnie tickety */}
       <section className="flex flex-col gap-6">
         <div className="flex justify-between items-center">
           <h2 className="font-bold text-slate-900 text-xl">Ostatnie tickety</h2>

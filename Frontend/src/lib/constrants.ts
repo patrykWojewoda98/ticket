@@ -1,15 +1,15 @@
-import { LogIn, LogOut, Plus } from "lucide-react";
+import { Home, Info, LogIn, LogOut, Mail, Plus, Ticket } from "lucide-react";
 
 export const NAV_LINKS = {
   authenticated: [
-    { label: "Tickety", href: "/tickets" },
-    { label: "O nas", href: "/about" },
-    { label: "Kontakt", href: "/contact" },
+    { label: "Tickety", href: "/tickets", icon: Ticket },
+    { label: "O nas", href: "/about", icon: Info },
+    { label: "Kontakt", href: "/contact", icon: Mail },
   ],
   unauthenticated: [
-    { label: "Strona główna", href: "/" },
-    { label: "O nas", href: "/about" },
-    { label: "Kontakt", href: "/contact" },
+    { label: "Strona główna", href: "/", icon: Home },
+    { label: "O nas", href: "/about", icon: Info },
+    { label: "Kontakt", href: "/contact", icon: Mail },
   ],
 };
 

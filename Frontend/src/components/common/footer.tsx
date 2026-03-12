@@ -1,7 +1,7 @@
 "use client";
 
-import { Button } from "@/frontend/components/ui/button";
 import { Facebook, Twitter, Instagram } from "lucide-react";
+import { Button } from "../ui/button";
 
 export default function Footer() {
   const socialLinks = [

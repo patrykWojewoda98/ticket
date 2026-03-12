@@ -1,12 +1,12 @@
 "use client";
 
 import { Ticket, Menu, X } from "lucide-react";
-import { Button } from "@/frontend/components/ui/button";
 import { useEffect } from "react";
-import { usePrevent } from "@/frontend/hooks/usePrevent";
-import { useToggle } from "@/frontend/hooks/useToggle";
 import { NAV_BUTTONS, NAV_LINKS } from "../../lib/constrants";
 import Link from "next/link";
+import { useToggle } from "@/hooks/useToggle";
+import { usePrevent } from "@/hooks/usePrevent";
+import { Button } from "../ui/button";
 const isAuthenticated = false;
 
 export default function Header() {
