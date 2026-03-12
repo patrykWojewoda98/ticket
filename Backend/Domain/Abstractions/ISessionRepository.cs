@@ -5,6 +5,6 @@ namespace Domain.Abstractions;
 
 public interface ISessionRepository : IBaseRepository<Session>
 {
-  Task<List<Session>> FindByUserIdAsync(string userId);
+  Task<List<Session>> FindByUserIdAsync(int userId);
   Task<Session?> FindByTokenAsync(string token);
 }

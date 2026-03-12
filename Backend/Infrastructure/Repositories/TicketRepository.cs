@@ -10,14 +10,14 @@ public class TicketRepository : BaseRepository<Ticket>, ITicketRepository
 {
   public TicketRepository(DatabaseContext databaseContext) : base(databaseContext) { }
 
-  public async Task<List<Ticket>> FindByUserIdAsync(string userId)
+  public async Task<List<Ticket>> FindByUserIdAsync(int userId)
   {
     return await _dbSet
                  .Where(ticket => ticket.UserId == userId)
                  .ToListAsync();
   }
 
-  public async Task<List<Ticket>> FindByAssigneeIdAsync(string assigneeId)
+  public async Task<List<Ticket>> FindByAssigneeIdAsync(int assigneeId)
   {
     return await _dbSet
                  .Where(ticket => ticket.AssigneeId == assigneeId)

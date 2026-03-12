@@ -22,7 +22,7 @@ public class BaseRepository<T> : IBaseRepository<T> where T : Base
     return await _dbSet.ToListAsync();
   }
 
-  public virtual async Task<T?> GetByIdAsync(string id)
+  public virtual async Task<T?> GetByIdAsync(int id)
   {
     return await _dbSet.FindAsync(id);
   }
@@ -43,7 +43,7 @@ public class BaseRepository<T> : IBaseRepository<T> where T : Base
     }
   }
 
-  public virtual async void DeleteAsync(string id)
+  public virtual async void DeleteAsync(int id)
   {
     var existing = await _dbSet.FindAsync(id);
     if (existing != null)

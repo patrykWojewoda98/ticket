@@ -4,9 +4,9 @@ namespace Domain.Entities;
 
 public class Account : Base
 {
-  public string UserId { get; set; }
-  public string ProviderId { get; set; }
-  public string AccountId { get; set; }
+  public int UserId { get; set; }
+  public int ProviderId { get; set; }
+  public int AccountId { get; set; }
   public string? Password { get; set; }
   public string? Scope { get; set; }
   public string? IdToken { get; set; }

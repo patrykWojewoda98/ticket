@@ -6,8 +6,8 @@ namespace Domain.Abstractions;
 public interface IBaseRepository<T> where T : Base
 {
   Task<List<T>> GetAllAsync();
-  Task<T?> GetByIdAsync(string id);
+  Task<T?> GetByIdAsync(int id);
   void CreateAsync(T entity);
   void UpdateAsync(T entity);
-  void DeleteAsync(string id);
+  void DeleteAsync(int id);
 }

@@ -5,6 +5,6 @@ namespace Domain.Abstractions;
 
 public interface ICommentRepository : IBaseRepository<Comment>
 {
-  Task<List<Comment>> FindByTicketIdAsync(string ticketId);
-  Task<List<Comment>> FindByUserIdAsync(string userId);
+  Task<List<Comment>> FindByTicketIdAsync(int ticketId);
+  Task<List<Comment>> FindByUserIdAsync(int userId);
 }

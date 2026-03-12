@@ -4,7 +4,7 @@ namespace Domain.Entities;
 
 public class User : Base
 {
-  public string? CompanyId { get; set; }
+  public int? CompanyId { get; set; }
   public string Email { get; set; }
   public bool EmailVerified { get; set; }
   public string Role { get; set; }

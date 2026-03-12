@@ -17,7 +17,7 @@ public class UserRepository : BaseRepository<User>, IUserRepository
                  .ToListAsync();
   }
 
-  public async Task<User> SetUserRoleAsync(string userId, string role)
+  public async Task<User> SetUserRoleAsync(int userId, string role)
   {
     var existingUser = await _dbSet
         .FirstOrDefaultAsync(user => user.Id == userId);
