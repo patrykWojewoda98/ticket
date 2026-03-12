@@ -8,7 +8,7 @@ export const NAV_LINKS = {
   ],
   unauthenticated: [
     { label: "Strona główna", href: "/", icon: Home },
-    { label: "O nas", href: "/about", icon: Info },
+    { label: "Lista ticketów", href: "/tickets", icon: Info },
     { label: "Kontakt", href: "/contact", icon: Mail },
   ],
 };
