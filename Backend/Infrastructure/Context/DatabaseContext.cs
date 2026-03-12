@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Context;
 
-public class BackendContext : DbContext
+public class DatabaseContext : DbContext
 {
   public DbSet<Account> Accounts { get; set; }
   public DbSet<Comment> Comments { get; set; }
@@ -19,7 +19,7 @@ public class BackendContext : DbContext
   public DbSet<TicketStatus> TicketStatuses { get; set; }
   public DbSet<User> Users { get; set; }
 
-  public BackendContext(DbContextOptions<BackendContext> options) : base(options) { }
+  public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) { }
 
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {
