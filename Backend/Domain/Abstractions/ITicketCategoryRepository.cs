@@ -5,7 +5,7 @@ namespace Domain.Abstractions;
 
 public interface ITicketCategoryRepository
 {
-  Task<IEnumerable<TicketCategory>> GetAllAsync();
+  Task<List<TicketCategory>> GetAllAsync();
   Task<TicketCategory?> GetByIdAsync(string id);
   Task<TicketCategory?> FindByNameAsync(string name);
   Task<TicketCategory> CreateAsync(TicketCategory category);

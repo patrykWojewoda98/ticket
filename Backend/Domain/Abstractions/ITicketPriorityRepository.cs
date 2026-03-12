@@ -5,7 +5,7 @@ namespace Domain.Abstractions;
 
 public interface ITicketPriorityRepository
 {
-  Task<IEnumerable<TicketPriority>> GetAllAsync();
+  Task<List<TicketPriority>> GetAllAsync();
   Task<TicketPriority?> GetByIdAsync(string id);
   Task<TicketPriority?> FindByNameAsync(string name);
   Task<TicketPriority> CreateAsync(TicketPriority ticketPriority);
