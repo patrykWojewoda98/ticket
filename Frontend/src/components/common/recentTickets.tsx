@@ -12,25 +12,25 @@ type Ticket = {
 
 export function RecentTickets() {
   const [tickets, setTickets] = useState<Ticket[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const loadTickets = async () => {
       try {
-        const res = await fetch("/api/tickets?limit=5");
-        const data = await res.json();
-        setTickets(data);
-      } catch (e) {
-        console.error(e);
+        const response = await fetch("/api/tickets?limit=5");
+        const ticketData = await response.json();
+        setTickets(ticketData);
+      } catch (error) {
+        console.error(error);
       } finally {
-        setLoading(false);
+        setIsLoading(false);
       }
     };
 
     loadTickets();
   }, []);
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="text-sm text-slate-500">
         Wczytywanie ticketów...

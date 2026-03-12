@@ -10,10 +10,10 @@ export default function NewTicketPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // na razie tylko console.log, bo backendu nie ma
+   
     console.log({ title, description, status });
     alert("Ticket został utworzony (mock)");
-    // reset form
+    
     setTitle("");
     setDescription("");
     setStatus("OPEN");

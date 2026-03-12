@@ -16,7 +16,7 @@ export const NAV_LINKS = {
 export const NAV_BUTTONS = {
   authenticated: [
     { label: "Wyloguj się", href: "/logout", icon: LogOut },
-    { label: "Dodaj ticketa", href: "/submit", icon: Plus },
+    { label: "Dodaj ticketa", href: "/tickets/new", icon: Plus },
   ],
   unauthenticated: [
     { label: "Zaloguj się", href: "/login", icon: LogIn },

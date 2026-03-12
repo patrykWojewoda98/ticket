@@ -7,9 +7,14 @@ import Link from "next/link";
 import { useToggle } from "@/hooks/useToggle";
 import { usePrevent } from "@/hooks/usePrevent";
 import { Button } from "../ui/button";
-const isAuthenticated = false;
 
-export default function Header() {
+
+
+interface HeaderProps {
+  isAuthenticated: boolean;
+}
+
+export default function Header({ isAuthenticated }: HeaderProps) {
   const { stopPropagation, lockScroll, unlockScroll } = usePrevent();
   const { isOpen, toggle } = useToggle();
 
@@ -31,23 +36,21 @@ const renderButtons = (isPlain = false) =>
       isPlain || index === 0 ? (
         <Link
           key={index}
-          href={button.label === "Dodaj ticket" ? "/tickets/new" : button.href}
+          href={button.href}
           className="group relative font-bold text-slate-500 hover:text-slate-900 text-sm transition-colors"
         >
           {button.label}
           <span className="-bottom-1 left-0 absolute bg-slate-900 w-0 group-hover:w-full h-[2px] transition-all duration-300" />
         </Link>
       ) : (
-        <Button
+        <Link
           key={index}
-          asChild
+          href={button.href}
           className="flex items-center bg-slate-900 hover:bg-slate-800 px-5 py-2 rounded-full font-bold text-white hover:scale-95 transition-transform cursor-pointer"
         >
-          <Link href={button.label === "Dodaj ticket" ? "/tickets/new" : button.href} className="flex items-center">
-            {button.icon && <button.icon className="mr-2 w-4 h-4" />}
-            {button.label}
-          </Link>
-        </Button>
+          {button.icon && <button.icon className="mr-2 w-4 h-4" />}
+          {button.label}
+        </Link>
       )
   );
 
