@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.Configurations;
 
-public class TicketHistoryConfiguration : IEntityTypeConfiguration<TicketHistory>
+public class TicketHistoryConfiguration : BaseConfiguration<TicketHistory>
 {
-  public void Configure(EntityTypeBuilder<TicketHistory> builder)
+  public override void Configure(EntityTypeBuilder<TicketHistory> builder)
   {
-    builder.ToTable("ticket_history");
+    base.Configure(builder);
 
-    builder.HasKey(ticketHistory => ticketHistory.Id);
+    builder.ToTable("ticket_history");
     builder.HasIndex(ticketHistory => ticketHistory.TicketId);
 
     builder.Property(ticketHistory => ticketHistory.TicketId).IsRequired();
@@ -19,7 +19,6 @@ public class TicketHistoryConfiguration : IEntityTypeConfiguration<TicketHistory
     builder.Property(ticketHistory => ticketHistory.OldValue).IsRequired(false);
     builder.Property(ticketHistory => ticketHistory.NewValue).IsRequired(false);
     builder.Property(ticketHistory => ticketHistory.UserId).IsRequired(false);
-    builder.Property(ticketHistory => ticketHistory.CreatedAt).HasDefaultValueSql("GETUTCDATE()");
 
     builder.HasOne(ticketHistory => ticketHistory.Ticket)
            .WithMany(ticket => ticket.History)

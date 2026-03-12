@@ -2,9 +2,8 @@ using System;
 
 namespace Domain.Entities;
 
-public class TicketCategory
+public class TicketCategory : Base
 {
-  public string Id { get; set; }
   public string Name { get; set; }
 
   public List<Ticket> Tickets { get; set; }

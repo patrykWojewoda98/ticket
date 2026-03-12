@@ -2,9 +2,8 @@ using System;
 
 namespace Domain.Entities;
 
-public class Account
+public class Account : Base
 {
-  public string Id { get; set; }
   public string UserId { get; set; }
   public string ProviderId { get; set; }
   public string AccountId { get; set; }
@@ -15,8 +14,6 @@ public class Account
   public string? RefreshToken { get; set; }
   public DateTime? AccessTokenExpiresAt { get; set; }
   public DateTime? RefreshTokenExpiresAt { get; set; }
-  public DateTime CreatedAt { get; set; }
-  public DateTime UpdatedAt { get; set; }
 
   public User User { get; set; }
 }

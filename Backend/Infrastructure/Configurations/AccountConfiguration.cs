@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.Configurations;
 
-public class AccountConfiguration : IEntityTypeConfiguration<Account>
+public class AccountConfiguration : BaseConfiguration<Account>
 {
-  public void Configure(EntityTypeBuilder<Account> builder)
+  public override void Configure(EntityTypeBuilder<Account> builder)
   {
-    builder.ToTable("account");
+    base.Configure(builder);
 
-    builder.HasKey(account => account.Id);
+    builder.ToTable("account");
     builder.HasIndex(account => account.UserId);
 
     builder.Property(account => account.UserId).IsRequired();
@@ -24,8 +24,6 @@ public class AccountConfiguration : IEntityTypeConfiguration<Account>
     builder.Property(account => account.RefreshToken).IsRequired(false);
     builder.Property(account => account.AccessTokenExpiresAt).IsRequired(false);
     builder.Property(account => account.RefreshTokenExpiresAt).IsRequired(false);
-    builder.Property(account => account.CreatedAt).HasDefaultValueSql("GETUTCDATE()");
-    builder.Property(account => account.UpdatedAt).HasDefaultValueSql("GETUTCDATE()");
 
     builder.HasOne(account => account.User)
            .WithMany(user => user.Accounts)

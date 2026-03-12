@@ -3,12 +3,7 @@ using Domain.Entities;
 
 namespace Domain.Abstractions;
 
-public interface ITicketStatusRepository
+public interface ITicketStatusRepository : IBaseRepository<TicketStatus>
 {
-  Task<List<TicketStatus>> GetAllAsync();
-  Task<TicketStatus?> GetByIdAsync(string id);
   Task<TicketStatus?> FindByNameAsync(string name);
-  Task<TicketStatus> CreateAsync(TicketStatus ticketStatus);
-  Task<TicketStatus> UpdateAsync(string id, TicketStatus ticketStatus);
-  Task DeleteAsync(string id);
 }

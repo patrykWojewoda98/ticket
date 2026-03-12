@@ -3,11 +3,7 @@ using Domain.Entities;
 
 namespace Domain.Abstractions;
 
-public interface ICompanyRepository
+public interface ICompanyRepository : IBaseRepository<Company>
 {
-  Task<List<Company>> GetAllAsync();
-  Task<Company?> GetByIdAsync(string id);
-  Task<Company> CreateAsync(Company company);
-  Task<Company> UpdateAsync(string id, Company company);
-  Task DeleteAsync(string id);
+  Task<List<Company>> FindByUserIdAsync(string userId);
 }

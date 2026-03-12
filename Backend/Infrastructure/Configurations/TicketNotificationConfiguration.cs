@@ -5,20 +5,19 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.Configurations;
 
-public class TicketNotificationConfiguration : IEntityTypeConfiguration<TicketNotification>
+public class TicketNotificationConfiguration : BaseConfiguration<TicketNotification>
 {
-  public void Configure(EntityTypeBuilder<TicketNotification> builder)
+  public override void Configure(EntityTypeBuilder<TicketNotification> builder)
   {
-    builder.ToTable("ticket_notification");
+    base.Configure(builder);
 
-    builder.HasKey(ticketNotification => ticketNotification.Id);
+    builder.ToTable("ticket_notification");
     builder.HasIndex(ticketNotification => ticketNotification.TicketId);
 
     builder.Property(ticketNotification => ticketNotification.TicketId).IsRequired();
     builder.Property(ticketNotification => ticketNotification.UserId).IsRequired();
     builder.Property(ticketNotification => ticketNotification.Message).IsRequired();
     builder.Property(ticketNotification => ticketNotification.Read).HasDefaultValue(false);
-    builder.Property(ticketNotification => ticketNotification.CreatedAt).HasDefaultValueSql("GETUTCDATE()");
 
     builder.HasOne(ticketNotification => ticketNotification.Ticket)
            .WithMany(ticket => ticket.Notifications)
