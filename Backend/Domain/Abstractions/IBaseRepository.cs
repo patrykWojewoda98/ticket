@@ -7,7 +7,7 @@ public interface IBaseRepository<T> where T : Base
 {
   Task<List<T>> GetAllAsync();
   Task<T?> GetByIdAsync(int id);
-  void CreateAsync(T entity);
-  void UpdateAsync(T entity);
-  void DeleteAsync(int id);
+  void Create(T entity);
+  void Update(T entity);
+  void Delete(T entity);
 }
