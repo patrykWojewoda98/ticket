@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.Configurations;
 
-public class SessionConfiguration : IEntityTypeConfiguration<Session>
+public class SessionConfiguration : BaseConfiguration<Session>
 {
-  public void Configure(EntityTypeBuilder<Session> builder)
+  public override void Configure(EntityTypeBuilder<Session> builder)
   {
-    builder.ToTable("session");
+    base.Configure(builder);
 
-    builder.HasKey(session => session.Id);
+    builder.ToTable("session");
     builder.HasIndex(session => session.UserId);
     builder.HasIndex(session => session.Token).IsUnique();
 
@@ -20,8 +20,6 @@ public class SessionConfiguration : IEntityTypeConfiguration<Session>
     builder.Property(session => session.ExpiresAt).IsRequired();
     builder.Property(session => session.IpAddress).IsRequired(false);
     builder.Property(session => session.UserAgent).IsRequired(false);
-    builder.Property(session => session.CreatedAt).HasDefaultValueSql("GETUTCDATE()");
-    builder.Property(session => session.UpdatedAt).HasDefaultValueSql("GETUTCDATE()");
 
     builder.HasOne(session => session.User)
            .WithMany(user => user.Sessions)

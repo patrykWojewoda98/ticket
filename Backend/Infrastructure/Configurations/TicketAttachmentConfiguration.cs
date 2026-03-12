@@ -5,20 +5,19 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.Configurations;
 
-public class TicketAttachmentConfiguration : IEntityTypeConfiguration<TicketAttachment>
+public class TicketAttachmentConfiguration : BaseConfiguration<TicketAttachment>
 {
-  public void Configure(EntityTypeBuilder<TicketAttachment> builder)
+  public override void Configure(EntityTypeBuilder<TicketAttachment> builder)
   {
-    builder.ToTable("ticket_attachment");
+    base.Configure(builder);
 
-    builder.HasKey(ticketAttachment => ticketAttachment.Id);
+    builder.ToTable("ticket_attachment");
     builder.HasIndex(ticketAttachment => ticketAttachment.TicketId);
 
     builder.Property(ticketAttachment => ticketAttachment.TicketId).IsRequired();
     builder.Property(ticketAttachment => ticketAttachment.Filename).IsRequired();
     builder.Property(ticketAttachment => ticketAttachment.Path).IsRequired();
     builder.Property(ticketAttachment => ticketAttachment.UploadedBy).IsRequired(false);
-    builder.Property(ticketAttachment => ticketAttachment.CreatedAt).HasDefaultValueSql("GETUTCDATE()");
 
     builder.HasOne(ticketAttachment => ticketAttachment.Ticket)
            .WithMany(ticket => ticket.Attachments)

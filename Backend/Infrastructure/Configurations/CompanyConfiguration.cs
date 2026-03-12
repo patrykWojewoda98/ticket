@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.Configurations;
 
-public class CompanyConfiguration : IEntityTypeConfiguration<Company>
+public class CompanyConfiguration : BaseConfiguration<Company>
 {
-  public void Configure(EntityTypeBuilder<Company> builder)
+  public override void Configure(EntityTypeBuilder<Company> builder)
   {
-    builder.ToTable("company");
+    base.Configure(builder);
 
-    builder.HasKey(company => company.Id);
+    builder.ToTable("company");
     builder.HasIndex(company => company.UserId);
     builder.HasIndex(company => company.Email).IsUnique();
 
@@ -20,8 +20,6 @@ public class CompanyConfiguration : IEntityTypeConfiguration<Company>
     builder.Property(company => company.Email).IsRequired();
     builder.Property(company => company.PhoneNumber).IsRequired();
     builder.Property(company => company.Address).IsRequired();
-    builder.Property(company => company.CreatedAt).HasDefaultValueSql("GETUTCDATE()");
-    builder.Property(company => company.UpdatedAt).HasDefaultValueSql("GETUTCDATE()");
 
     builder.HasOne(company => company.User)
            .WithMany(user => user.Companies)

@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.Configurations;
 
-public class TicketPriorityConfiguration : IEntityTypeConfiguration<TicketPriority>
+public class TicketPriorityConfiguration : BaseConfiguration<TicketPriority>
 {
-  public void Configure(EntityTypeBuilder<TicketPriority> builder)
+  public override void Configure(EntityTypeBuilder<TicketPriority> builder)
   {
-    builder.ToTable("ticket_priority");
+    base.Configure(builder);
 
-    builder.HasKey(ticketPriority => ticketPriority.Id);
+    builder.ToTable("ticket_priority");
     builder.HasIndex(ticketPriority => ticketPriority.Id);
     builder.HasIndex(ticketPriority => ticketPriority.Name).IsUnique();
 

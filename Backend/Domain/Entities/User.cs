@@ -2,17 +2,14 @@ using System;
 
 namespace Domain.Entities;
 
-public class User
+public class User : Base
 {
-  public string Id { get; set; }
   public string? CompanyId { get; set; }
   public string Email { get; set; }
   public bool EmailVerified { get; set; }
   public string Role { get; set; }
   public string Name { get; set; }
   public string? Image { get; set; }
-  public DateTime CreatedAt { get; set; }
-  public DateTime UpdatedAt { get; set; }
 
   public List<Account> Accounts { get; set; }
   public List<Session> Sessions { get; set; }
