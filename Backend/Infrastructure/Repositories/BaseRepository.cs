@@ -27,17 +27,17 @@ public class BaseRepository<T> : IBaseRepository<T> where T : Base
     return await _dbSet.FindAsync(id);
   }
 
-  public virtual void Create(T entity)
+  public virtual void CreateEntity(T entity)
   {
     _dbSet.Add(entity);
   }
 
-  public virtual void Update(T entity)
+  public virtual void UpdateEntity(T entity)
   {
     _dbSet.Update(entity);
   }
 
-  public virtual void Delete(T entity)
+  public virtual void DeleteEntity(T entity)
   {
     _dbSet.Remove(entity);
   }

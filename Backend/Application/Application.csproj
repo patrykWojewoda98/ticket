@@ -4,6 +4,31 @@
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="14.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Commands\" />
+    <Folder Include="Commands\AccountCommands\" />
+    <Folder Include="Commands\AccountCommands\CreateAccount\" />
+    <Folder Include="Commands\AccountCommands\DeleteAccount\" />
+    <Folder Include="Commands\AccountCommands\UpdateAccount\" />
+    <Folder Include="Commands\BaseCommands\" />
+    <Folder Include="Commands\BaseCommands\CreateEntity\" />
+    <Folder Include="Commands\BaseCommands\DeleteEntity\" />
+    <Folder Include="Commands\BaseCommands\UpdateEntity\" />
+    <Folder Include="Dtos\" />
+    <Folder Include="Dtos\AccountResultDto\" />
+    <Folder Include="Queries\" />
+    <Folder Include="Queries\AccountQueries\" />
+    <Folder Include="Queries\AccountQueries\FindAccountByProviderId\" />
+    <Folder Include="Queries\AccountQueries\FindAccountsByUserId\" />
+    <Folder Include="Queries\BaseQueries\" />
+    <Folder Include="Queries\BaseQueries\GetAllEntities\" />
+    <Folder Include="Queries\BaseQueries\GetEntityById\" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
