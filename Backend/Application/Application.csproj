@@ -9,7 +9,10 @@
   </ItemGroup>
 
   <ItemGroup>
+<<<<<<< HEAD
     <Folder Include="Commands\" />
+=======
+>>>>>>> 54fd68d8b92754889c6980ac5e00776769acfa2b
     <Folder Include="Commands\AccountCommands\" />
     <Folder Include="Commands\AccountCommands\CreateAccount\" />
     <Folder Include="Commands\AccountCommands\DeleteAccount\" />
@@ -18,6 +21,12 @@
     <Folder Include="Commands\BaseCommands\CreateEntity\" />
     <Folder Include="Commands\BaseCommands\DeleteEntity\" />
     <Folder Include="Commands\BaseCommands\UpdateEntity\" />
+<<<<<<< HEAD
+=======
+    <Folder Include="Commands\CommentCommands\CreateComment\" />
+    <Folder Include="Commands\CommentCommands\DeleteComment\" />
+    <Folder Include="Commands\CommentCommands\UpdateComment\" />
+>>>>>>> 54fd68d8b92754889c6980ac5e00776769acfa2b
     <Folder Include="Dtos\" />
     <Folder Include="Dtos\AccountResultDto\" />
     <Folder Include="Queries\" />
