@@ -1,28 +1,9 @@
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-
-const tickets = [
-  {
-    id: "1",
-    title: "Nie mogę się zalogować",
-    status: "OPEN",
-    createdAt: "2026-03-10",
-  },
-  {
-    id: "2",
-    title: "Problem z płatnością",
-    status: "PENDING",
-    createdAt: "2026-03-09",
-  },
-  {
-    id: "3",
-    title: "Błąd podczas dodawania projektu",
-    status: "CLOSED",
-    createdAt: "2026-03-07",
-  },
-];
+import { mockTickets } from "@/lib/mock-tickets";
+import { RecentTickets } from "@/components/ticket/recentTickets";
 
 export default function Home() {
+  const tickets = mockTickets.slice(0, 3); // tylko pierwsze 3 tickety
+
   return (
     <div className="flex flex-col gap-16 mt-16">
       <section className="flex flex-col gap-4">
@@ -43,41 +24,10 @@ export default function Home() {
 
       <section className="flex flex-col gap-6">
         <div className="flex justify-between items-center">
-          <h2 className="font-bold text-slate-900 text-xl">
-            Ostatnie tickety
-          </h2>
-          
+          <h2 className="font-bold text-slate-900 text-xl">Ostatnie tickety</h2>
         </div>
 
-        <div className="grid gap-3">
-          {tickets.map((ticket) => (
-            <div
-              key={ticket.id}
-              className="flex items-center justify-between rounded-xl border p-4 hover:bg-slate-50 transition"
-            >
-              <div className="flex flex-col">
-                <span className="font-medium text-slate-900">
-                  {ticket.title}
-                </span>
-                <span className="text-xs text-slate-500">
-                  {ticket.createdAt}
-                </span>
-              </div>
-
-              <span
-                className={`text-xs font-medium px-2 py-1 rounded ${
-                  ticket.status === "OPEN"
-                    ? "bg-green-100 text-green-700"
-                    : ticket.status === "PENDING"
-                    ? "bg-yellow-100 text-yellow-700"
-                    : "bg-slate-200 text-slate-700"
-                }`}
-              >
-                {ticket.status}
-              </span>
-            </div>
-          ))}
-        </div>
+        <RecentTickets tickets={tickets} />
       </section>
     </div>
   );

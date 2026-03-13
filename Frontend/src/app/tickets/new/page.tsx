@@ -1,27 +1,24 @@
 "use client";
 
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { useNewTicketForm } from "@/hooks/useNewTicketForm";
 
 export default function NewTicketPage() {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [status, setStatus] = useState("OPEN");
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-   
-    console.log({ title, description, status });
-    alert("Ticket został utworzony (mock)");
-    
-    setTitle("");
-    setDescription("");
-    setStatus("OPEN");
-  };
+  const {
+    title,
+    description,
+    status,
+    setTitle,
+    setDescription,
+    setStatus,
+    handleSubmit,
+  } = useNewTicketForm();
 
   return (
     <div className="max-w-xl mx-auto flex flex-col gap-6">
-      <h1 className="text-2xl font-bold text-slate-900">Utwórz nowy ticket</h1>
+      <h1 className="text-2xl font-bold text-slate-900">
+        Utwórz nowy ticket
+      </h1>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <div className="flex flex-col gap-1">
@@ -48,7 +45,9 @@ export default function NewTicketPage() {
         </div>
 
         <div className="flex flex-col gap-1">
-          <label className="font-medium text-slate-700">Status (na razie tylko mock)</label>
+          <label className="font-medium text-slate-700">
+            Status (na razie tylko mock)
+          </label>
           <select
             value={status}
             onChange={(e) => setStatus(e.target.value)}
@@ -60,7 +59,12 @@ export default function NewTicketPage() {
           </select>
         </div>
 
-        <Button type="submit">Utwórz ticket</Button>
+        <Button
+          type="submit"
+          className="transition-all duration-200 hover:scale-105 active:scale-95"
+        >
+          Utwórz ticket
+        </Button>
       </form>
     </div>
   );
