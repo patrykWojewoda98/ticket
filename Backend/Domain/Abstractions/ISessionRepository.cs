@@ -7,4 +7,5 @@ public interface ISessionRepository : IBaseRepository<Session>
 {
   Task<List<Session>> FindByUserIdAsync(int userId);
   Task<Session?> FindByTokenAsync(string token);
+  Task FindByTokenAsync(string token, CancellationToken cancellationToken);
 }
