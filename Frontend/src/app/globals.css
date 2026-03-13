@@ -161,3 +161,19 @@
 .animate-fadeIn {
   animation: fadeIn 0.2s ease forwards;
 }
+
+.ticket-badge {
+  @apply text-xs font-medium px-2 py-1 rounded w-24 flex items-center justify-center;
+}
+
+.ticket-open {
+  @apply bg-green-100 text-green-700;
+}
+
+.ticket-pending {
+  @apply bg-yellow-100 text-yellow-700;
+}
+
+.ticket-closed {
+  @apply bg-slate-200 text-slate-700;
+}
