@@ -10,7 +10,7 @@ public class CompanyRepository : BaseRepository<Company>, ICompanyRepository
 {
   public CompanyRepository(DatabaseContext databaseContext) : base(databaseContext) { }
 
-  public async Task<List<Company>> FindByUserIdAsync(string userId)
+  public async Task<List<Company>> FindByUserIdAsync(int userId)
   {
     return await _dbSet
                  .Where(company => company.UserId == userId)

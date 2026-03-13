@@ -10,7 +10,7 @@ public class TicketHistoryRepository : BaseRepository<TicketHistory>, ITicketHis
 {
   public TicketHistoryRepository(DatabaseContext databaseContext) : base(databaseContext) { }
 
-  public async Task<List<TicketHistory>> FindByTicketIdAsync(string ticketId)
+  public async Task<List<TicketHistory>> FindByTicketIdAsync(int ticketId)
   {
     return await _dbSet
                  .Where(ticketHistory => ticketHistory.TicketId == ticketId)

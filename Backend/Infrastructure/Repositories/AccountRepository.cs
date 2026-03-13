@@ -10,14 +10,14 @@ public class AccountRepository : BaseRepository<Account>, IAccountRepository
 {
   public AccountRepository(DatabaseContext databaseContext) : base(databaseContext) { }
 
-  public async Task<List<Account>> FindByUserIdAsync(string userId)
+  public async Task<List<Account>> FindByUserIdAsync(int userId)
   {
     return await _dbSet
                  .Where(account => account.UserId == userId)
                  .ToListAsync();
   }
 
-  public async Task<Account?> FindByProviderIdAsync(string providerId, string accountId)
+  public async Task<Account?> FindByProviderIdAsync(int providerId, int accountId)
   {
     return await _dbSet
                  .FirstOrDefaultAsync(account => account.ProviderId == providerId && account.AccountId == accountId);

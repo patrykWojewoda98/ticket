@@ -10,7 +10,7 @@ public class TicketNotificationRepository : BaseRepository<TicketNotification>, 
 {
   public TicketNotificationRepository(DatabaseContext databaseContext) : base(databaseContext) { }
 
-  public async Task<List<TicketNotification>> FindByTicketIdAsync(string ticketId)
+  public async Task<List<TicketNotification>> FindByTicketIdAsync(int ticketId)
   {
     return await _dbSet
                  .Where(ticketNotification => ticketNotification.TicketId == ticketId)

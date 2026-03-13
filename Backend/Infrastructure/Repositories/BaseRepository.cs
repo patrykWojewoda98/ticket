@@ -22,37 +22,23 @@ public class BaseRepository<T> : IBaseRepository<T> where T : Base
     return await _dbSet.ToListAsync();
   }
 
-  public virtual async Task<T?> GetByIdAsync(string id)
+  public virtual async Task<T?> GetByIdAsync(int id)
   {
     return await _dbSet.FindAsync(id);
   }
 
-  public virtual async Task<T> CreateAsync(T entity)
+  public virtual void Create(T entity)
   {
-    await _dbSet.AddAsync(entity);
-    await _dbContext.SaveChangesAsync();
-    return entity;
+    _dbSet.Add(entity);
   }
 
-  public virtual async Task<T> UpdateAsync(T entity)
+  public virtual void Update(T entity)
   {
-    var existing = await _dbSet.FindAsync(entity.Id);
-    if (existing != null)
-    {
-      _dbContext.Entry(existing).CurrentValues.SetValues(entity);
-      await _dbContext.SaveChangesAsync();
-      return existing;
-    }
-    return entity;
+    _dbSet.Update(entity);
   }
 
-  public virtual async Task DeleteAsync(string id)
+  public virtual void Delete(T entity)
   {
-    var existing = await _dbSet.FindAsync(id);
-    if (existing != null)
-    {
-      _dbSet.Remove(existing);
-      await _dbContext.SaveChangesAsync();
-    }
+    _dbSet.Remove(entity);
   }
 }

@@ -4,8 +4,8 @@ namespace Domain.Entities;
 
 public class TicketNotification : Base
 {
-  public string TicketId { get; set; }
-  public string UserId { get; set; }
+  public int TicketId { get; set; }
+  public int UserId { get; set; }
   public string Message { get; set; }
   public bool Read { get; set; }
 

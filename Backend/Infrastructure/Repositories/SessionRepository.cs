@@ -10,7 +10,7 @@ public class SessionRepository : BaseRepository<Session>, ISessionRepository
 {
   public SessionRepository(DatabaseContext databaseContext) : base(databaseContext) { }
 
-  public async Task<List<Session>> FindByUserIdAsync(string userId)
+  public async Task<List<Session>> FindByUserIdAsync(int userId)
   {
     return await _dbSet
                  .Where(session => session.UserId == userId)

@@ -4,7 +4,7 @@ namespace Domain.Entities;
 
 public class TicketAttachment : Base
 {
-  public string TicketId { get; set; }
+  public int TicketId { get; set; }
   public string Filename { get; set; }
   public string Path { get; set; }
   public string? UploadedBy { get; set; }

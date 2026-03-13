@@ -4,11 +4,11 @@ namespace Domain.Entities;
 
 public class Ticket : Base
 {
-  public string UserId { get; set; }
-  public string? AssigneeId { get; set; }
-  public string? CategoryId { get; set; }
-  public string StatusId { get; set; }
-  public string PriorityId { get; set; }
+  public int UserId { get; set; }
+  public int? AssigneeId { get; set; }
+  public int? CategoryId { get; set; }
+  public int StatusId { get; set; }
+  public int PriorityId { get; set; }
   public string Title { get; set; }
   public string Description { get; set; }
 
