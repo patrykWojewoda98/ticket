@@ -14,7 +14,7 @@ public class GetCommentsByTicketHandler : IRequestHandler<GetCommentsByTicketQue
     _repository = repository;
   }
 
-  public async Task<List<CommentDto>> Handle(GetCommentsByTicketQuery request, CancellationToken ct)
+  public async Task<List<CommentDto>> Handle(GetCommentsByTicketQuery request, CancellationToken cancellationToken)
   {
     var comments = await _repository.FindByTicketIdAsync(request.TicketId);
     return comments.Select(comment => new CommentDto

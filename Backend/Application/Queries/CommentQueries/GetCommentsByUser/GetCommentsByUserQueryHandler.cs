@@ -14,7 +14,7 @@ public class GetCommentsByUserQueryHandler : IRequestHandler<GetCommentsByUserQu
     _repository = repository;
   }
 
-  public async Task<List<CommentDto>> Handle(GetCommentsByUserQuery request, CancellationToken ct)
+  public async Task<List<CommentDto>> Handle(GetCommentsByUserQuery request, CancellationToken cancellationToken)
   {
     var comments = await _repository.FindByUserIdAsync(request.UserId);
     return comments.Select(comment => new CommentDto

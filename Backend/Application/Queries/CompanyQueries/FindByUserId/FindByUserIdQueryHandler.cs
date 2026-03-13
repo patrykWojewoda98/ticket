@@ -14,10 +14,10 @@ public class FindByUserIdQueryHandler : IRequestHandler<FindByUserIdQuery, List<
     _repository = repository;
   }
 
-  public async Task<List<CompanyDto>> Handle(FindByUserIdQuery request, CancellationToken ct)
+  public async Task<List<CompanyDto>> Handle(FindByUserIdQuery request, CancellationToken cancellationToken)
   {
-    var comments = await _repository.FindByUserIdAsync(request.UserId);
-    return comments.Select(company => new CompanyDto
+    var companies = await _repository.FindByUserIdAsync(request.UserId);
+    return companies.Select(company => new CompanyDto
     {
       Id = company.Id,
       UserId = company.UserId,

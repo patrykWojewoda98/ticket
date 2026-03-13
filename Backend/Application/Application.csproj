@@ -23,6 +23,10 @@
     <Folder Include="Commands\CompanyCommands\" />
     <Folder Include="Commands\CompanyCommands\DeleteCompany\" />
     <Folder Include="Commands\CompanyCommands\UpdateCompany\" />
+    <Folder Include="Commands\SessionCommands\" />
+    <Folder Include="Commands\SessionCommands\CreateSession\" />
+    <Folder Include="Commands\SessionCommands\DeleteSession\" />
+    <Folder Include="Commands\SessionCommands\UpdateSession\" />
     <Folder Include="Dtos\AccountResultDto\" />
     <Folder Include="Queries\AccountQueries\" />
     <Folder Include="Queries\AccountQueries\FindAccountByProviderId\" />
@@ -33,6 +37,9 @@
     <Folder Include="Queries\CommentQueries\GetCommentsByUser\" />
     <Folder Include="Queries\CompanyQueries\" />
     <Folder Include="Queries\CompanyQueries\FindByUserId\" />
+    <Folder Include="Queries\SessionQueries\" />
+    <Folder Include="Queries\SessionQueries\FindByToken\" />
+    <Folder Include="Queries\SessionQueries\FindByUserId\" />
   </ItemGroup>
 
   <PropertyGroup>
