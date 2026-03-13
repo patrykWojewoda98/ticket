@@ -2,9 +2,8 @@ using System;
 
 namespace Application.Dtos;
 
-public class TicketHistoryDto
+public class TicketHistoryDto : BaseDto
 {
-  public int Id { get; set; }
   public int TicketId { get; set; }
   public int UserId { get; set; }
   public string Action { get; set; }

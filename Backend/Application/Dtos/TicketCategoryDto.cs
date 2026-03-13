@@ -2,8 +2,7 @@ using System;
 
 namespace Application.Dtos;
 
-public class TicketCategoryDto
+public class TicketCategoryDto : BaseDto
 {
-  public int Id { get; set; }
   public string Name { get; set; }
 }
