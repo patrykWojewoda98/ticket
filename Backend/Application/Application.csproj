@@ -27,6 +27,10 @@
     <Folder Include="Commands\SessionCommands\CreateSession\" />
     <Folder Include="Commands\SessionCommands\DeleteSession\" />
     <Folder Include="Commands\SessionCommands\UpdateSession\" />
+    <Folder Include="Commands\TicketAttachmentCommands\" />
+    <Folder Include="Commands\TicketAttachmentCommands\CreateTicketAttachment\" />
+    <Folder Include="Commands\TicketAttachmentCommands\DeleteTicketAttachment\" />
+    <Folder Include="Commands\TicketAttachmentCommands\UpdateTicketAttachment\" />
     <Folder Include="Dtos\AccountResultDto\" />
     <Folder Include="Queries\AccountQueries\" />
     <Folder Include="Queries\AccountQueries\FindAccountByProviderId\" />
@@ -40,6 +44,8 @@
     <Folder Include="Queries\SessionQueries\" />
     <Folder Include="Queries\SessionQueries\FindByToken\" />
     <Folder Include="Queries\SessionQueries\FindByUserId\" />
+    <Folder Include="Queries\TicketAttachmentQueries\" />
+    <Folder Include="Queries\TicketAttachmentQueries\FindByTicketId\" />
   </ItemGroup>
 
   <PropertyGroup>
