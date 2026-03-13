@@ -9,7 +9,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\" />
     <Folder Include="Commands\AccountCommands\" />
     <Folder Include="Commands\AccountCommands\CreateAccount\" />
     <Folder Include="Commands\AccountCommands\DeleteAccount\" />
@@ -18,6 +17,9 @@
     <Folder Include="Commands\BaseCommands\CreateEntity\" />
     <Folder Include="Commands\BaseCommands\DeleteEntity\" />
     <Folder Include="Commands\BaseCommands\UpdateEntity\" />
+    <Folder Include="Commands\CommentCommands\CreateComment\" />
+    <Folder Include="Commands\CommentCommands\DeleteComment\" />
+    <Folder Include="Commands\CommentCommands\UpdateComment\" />
     <Folder Include="Dtos\" />
     <Folder Include="Dtos\AccountResultDto\" />
     <Folder Include="Queries\" />
