@@ -35,6 +35,10 @@
     <Folder Include="Commands\TicketCategoryCommands\CreateTicketCategory\" />
     <Folder Include="Commands\TicketCategoryCommands\DeleteTicketCategory\" />
     <Folder Include="Commands\TicketCategoryCommands\UpdateTicketCategory\" />
+    <Folder Include="Commands\TicketHistoryCommands\" />
+    <Folder Include="Commands\TicketHistoryCommands\CreateTicketHistory\" />
+    <Folder Include="Commands\TicketHistoryCommands\DeleteTicketHistory\" />
+    <Folder Include="Commands\TicketHistoryCommands\UpdateTicketHistory\" />
     <Folder Include="Dtos\AccountResultDto\" />
     <Folder Include="Queries\AccountQueries\" />
     <Folder Include="Queries\AccountQueries\FindAccountByProviderId\" />
@@ -52,6 +56,8 @@
     <Folder Include="Queries\TicketAttachmentQueries\FindByTicketId\" />
     <Folder Include="Queries\TicketCategoryQueries\" />
     <Folder Include="Queries\TicketCategoryQueries\FindByName\" />
+    <Folder Include="Queries\TicketHistoryQueries\" />
+    <Folder Include="Queries\TicketHistoryQueries\FindByTicketId\" />
   </ItemGroup>
 
   <PropertyGroup>

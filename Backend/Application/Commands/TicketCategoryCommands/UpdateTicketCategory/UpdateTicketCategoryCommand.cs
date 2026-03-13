@@ -1,5 +1,5 @@
 using System;
-using Application.Dtos;
+using Domain.Entities;
 using MediatR;
 
 namespace Application.Commands.TicketCategoryCommands.UpdateTicketCategory;
