@@ -22,13 +22,13 @@
     <Folder Include="Commands\CommentCommands\UpdateComment\" />
     <Folder Include="Dtos\" />
     <Folder Include="Dtos\AccountResultDto\" />
-    <Folder Include="Queries\" />
     <Folder Include="Queries\AccountQueries\" />
     <Folder Include="Queries\AccountQueries\FindAccountByProviderId\" />
     <Folder Include="Queries\AccountQueries\FindAccountsByUserId\" />
     <Folder Include="Queries\BaseQueries\" />
     <Folder Include="Queries\BaseQueries\GetAllEntities\" />
     <Folder Include="Queries\BaseQueries\GetEntityById\" />
+    <Folder Include="Queries\CommentQueries\GetCommentsByUser\" />
   </ItemGroup>
 
   <PropertyGroup>
