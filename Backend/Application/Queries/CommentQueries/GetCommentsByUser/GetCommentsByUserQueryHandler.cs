@@ -5,11 +5,11 @@ using MediatR;
 
 namespace Application.Queries.CommentQueries.GetCommentsByUser;
 
-public class GetCommentsByUserHandler : IRequestHandler<GetCommentsByUserQuery, List<CommentDto>>
+public class GetCommentsByUserQueryHandler : IRequestHandler<GetCommentsByUserQuery, List<CommentDto>>
 {
   private readonly ICommentRepository _repository;
 
-  public GetCommentsByUserHandler(ICommentRepository repository)
+  public GetCommentsByUserQueryHandler(ICommentRepository repository)
   {
     _repository = repository;
   }

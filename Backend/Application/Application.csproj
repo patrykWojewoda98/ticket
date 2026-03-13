@@ -20,7 +20,9 @@
     <Folder Include="Commands\CommentCommands\CreateComment\" />
     <Folder Include="Commands\CommentCommands\DeleteComment\" />
     <Folder Include="Commands\CommentCommands\UpdateComment\" />
-    <Folder Include="Dtos\" />
+    <Folder Include="Commands\CompanyCommands\" />
+    <Folder Include="Commands\CompanyCommands\DeleteCompany\" />
+    <Folder Include="Commands\CompanyCommands\UpdateCompany\" />
     <Folder Include="Dtos\AccountResultDto\" />
     <Folder Include="Queries\AccountQueries\" />
     <Folder Include="Queries\AccountQueries\FindAccountByProviderId\" />
@@ -29,6 +31,8 @@
     <Folder Include="Queries\BaseQueries\GetAllEntities\" />
     <Folder Include="Queries\BaseQueries\GetEntityById\" />
     <Folder Include="Queries\CommentQueries\GetCommentsByUser\" />
+    <Folder Include="Queries\CompanyQueries\" />
+    <Folder Include="Queries\CompanyQueries\FindByUserId\" />
   </ItemGroup>
 
   <PropertyGroup>
