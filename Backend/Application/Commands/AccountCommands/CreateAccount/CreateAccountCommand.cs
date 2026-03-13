@@ -1,7 +1,7 @@
 using System;
-using Domain.Entities;
+using Application.Dtos;
 using MediatR;
 
 namespace Application.Commands.AccountCommands.CreateAccount;
 
-public record CreateAccountCommand(Account Account) : IRequest<Unit>;
+public record CreateAccountCommand(int UserId, int ProviderId) : IRequest<AccountDto>;

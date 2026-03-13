@@ -1,7 +1,7 @@
 using System;
-using Domain.Entities;
+using Application.Dtos;
 using MediatR;
 
 namespace Application.Commands.AccountCommands.DeleteAccount;
 
-public record DeleteAccountCommand(Account Account) : IRequest<Unit>;
+public record DeleteAccountCommand(int AccountId) : IRequest<AccountDto>;
