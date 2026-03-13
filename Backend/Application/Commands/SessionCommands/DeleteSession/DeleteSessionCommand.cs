@@ -1,7 +1,9 @@
 using System;
-using Domain.Entities;
+using Application.Dtos;
 using MediatR;
 
 namespace Application.Commands.SessionCommands.DeleteSession;
 
-public record DeleteSessionCommand(Session Session) : IRequest<Unit>;
+public record DeleteSessionCommand(
+  int SessionId
+) : IRequest<SessionDto>;

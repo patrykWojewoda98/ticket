@@ -1,8 +1,9 @@
 using System;
-using Domain.Entities;
+using Application.Dtos;
 using MediatR;
 
 namespace Application.Commands.CompanyCommands.DeleteCompany;
 
-
-public record DeleteCompanyCommand(Company Company) : IRequest<Unit>;
+public record DeleteCompanyCommand(
+  int CompanyId
+) : IRequest<CompanyDto>;

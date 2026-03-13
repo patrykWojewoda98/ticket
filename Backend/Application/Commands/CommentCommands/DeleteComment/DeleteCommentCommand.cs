@@ -1,7 +1,9 @@
 using System;
-using Domain.Entities;
+using Application.Dtos;
 using MediatR;
 
 namespace Application.Commands.CommentCommands.DeleteComment;
 
-public record DeleteCommentCommand(Comment Comment) : IRequest<Unit>;
+public record DeleteCommentCommand(
+  int CommentId
+) : IRequest<CommentDto>;

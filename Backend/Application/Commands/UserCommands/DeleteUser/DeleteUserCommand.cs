@@ -1,7 +1,9 @@
 using System;
-using Domain.Entities;
+using Application.Dtos;
 using MediatR;
 
 namespace Application.Commands.UserCommands.DeleteUser;
 
-public record DeleteUserCommand(User User) : IRequest<Unit>;
+public record DeleteUserCommand(
+  int UserId
+) : IRequest<UserDto>;

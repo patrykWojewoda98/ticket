@@ -1,7 +1,11 @@
 using System;
-using Domain.Entities;
+using Application.Dtos;
 using MediatR;
 
 namespace Application.Commands.CommentCommands.CreateComment;
 
-public record UpdateCommentCommand(Comment Comment) : IRequest<Unit>;
+public record UpdateCommentCommand(
+  int UserId,
+  int TicketId,
+  string Content
+) : IRequest<CommentDto>;

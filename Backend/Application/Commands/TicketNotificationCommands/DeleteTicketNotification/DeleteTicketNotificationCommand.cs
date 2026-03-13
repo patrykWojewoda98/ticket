@@ -1,7 +1,9 @@
 using System;
-using Domain.Entities;
+using Application.Dtos;
 using MediatR;
 
 namespace Application.Commands.TicketNotificationCommands.DeleteTicketNotification;
 
-public record DeleteTicketNotificationCommand(TicketNotification TicketNotification) : IRequest<Unit>;
+public record DeleteTicketNotificationCommand(
+  int TicketNotificationId
+) : IRequest<TicketNotificationDto>;

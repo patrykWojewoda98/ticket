@@ -1,7 +1,13 @@
 using System;
-using Domain.Entities;
+using Application.Dtos;
 using MediatR;
 
 namespace Application.Commands.CompanyCommands.CreateCompany;
 
-public record CreateCompanyCommand(Company Company) : IRequest<Unit>;
+public record CreateCompanyCommand(
+  int UserId,
+  string Name,
+  string Email,
+  string PhoneNumber,
+  string Address
+) : IRequest<CompanyDto>;

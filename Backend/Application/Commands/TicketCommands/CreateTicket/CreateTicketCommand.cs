@@ -1,7 +1,16 @@
 using System;
-using Domain.Entities;
+using Application.Dtos;
 using MediatR;
 
 namespace Application.Commands.TicketCommands.CreateTicket;
 
-public record CreateTicketCommand(Ticket Ticket) : IRequest<Unit>;
+public record CreateTicketCommand(
+  int UserId,
+  int? AssigneeId,
+  int? CategoryId,
+  int StatusId,
+  int PriorityId,
+  string Title,
+  string Description
+) : IRequest<TicketDto>;
+

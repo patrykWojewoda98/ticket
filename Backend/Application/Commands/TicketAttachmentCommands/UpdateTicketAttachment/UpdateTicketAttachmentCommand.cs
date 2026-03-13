@@ -1,7 +1,12 @@
 using System;
-using Domain.Entities;
+using Application.Dtos;
 using MediatR;
 
 namespace Application.Commands.TicketAttachmentCommands.UpdateTicketAttachment;
 
-public record UpdateTicketAttachmentCommand(TicketAttachment TicketAttachment) : IRequest<Unit>;
+public record UpdateTicketAttachmentCommand(
+  int TicketAttachmentId,
+  string? Filename,
+  string? Path,
+  string? UploadedBy
+) : IRequest<TicketAttachmentDto>;

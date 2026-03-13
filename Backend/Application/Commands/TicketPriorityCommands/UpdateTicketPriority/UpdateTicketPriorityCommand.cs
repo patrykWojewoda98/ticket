@@ -1,7 +1,10 @@
 using System;
-using Domain.Entities;
+using Application.Dtos;
 using MediatR;
 
 namespace Application.Commands.TicketPriorityCommands.UpdateTicketPriority;
 
-public record UpdateTicketPriorityCommand(TicketPriority TicketPriority) : IRequest<Unit>;
+public record UpdateTicketPriorityCommand(
+  int TicketPriorityId,
+  string? Name
+) : IRequest<TicketPriorityDto>;

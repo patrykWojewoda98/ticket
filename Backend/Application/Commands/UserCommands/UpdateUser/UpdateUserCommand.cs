@@ -1,7 +1,15 @@
 using System;
-using Domain.Entities;
+using Application.Dtos;
 using MediatR;
 
 namespace Application.Commands.UserCommands.UpdateUser;
 
-public record UpdateUserCommand(User User) : IRequest<Unit>;
+public record UpdateUserCommand(
+  int UserId,
+  string? Email,
+  bool? EmailVerified,
+  string? Role,
+  string? Name,
+  string? Image,
+  int? CompanyId
+) : IRequest<UserDto>;
