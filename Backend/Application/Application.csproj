@@ -35,6 +35,10 @@
     <Folder Include="Commands\TicketCategoryCommands\CreateTicketCategory\" />
     <Folder Include="Commands\TicketCategoryCommands\DeleteTicketCategory\" />
     <Folder Include="Commands\TicketCategoryCommands\UpdateTicketCategory\" />
+    <Folder Include="Commands\TicketCommands\" />
+    <Folder Include="Commands\TicketCommands\CreateTicket\" />
+    <Folder Include="Commands\TicketCommands\DeleteTicket\" />
+    <Folder Include="Commands\TicketCommands\UpdateTicket\" />
     <Folder Include="Commands\TicketHistoryCommands\" />
     <Folder Include="Commands\TicketHistoryCommands\CreateTicketHistory\" />
     <Folder Include="Commands\TicketHistoryCommands\DeleteTicketHistory\" />
@@ -43,6 +47,18 @@
     <Folder Include="Commands\TicketNotificationCommands\CreateTicketNotification\" />
     <Folder Include="Commands\TicketNotificationCommands\DeleteTicketNotification\" />
     <Folder Include="Commands\TicketNotificationCommands\UpdateTicketNotification\" />
+    <Folder Include="Commands\TicketPriorityCommands\" />
+    <Folder Include="Commands\TicketPriorityCommands\CreateTicketPriority\" />
+    <Folder Include="Commands\TicketPriorityCommands\DeleteTicketPriority\" />
+    <Folder Include="Commands\TicketPriorityCommands\UpdateTicketPriority\" />
+    <Folder Include="Commands\TicketStatusCommands\" />
+    <Folder Include="Commands\TicketStatusCommands\CreateTicketStatus\" />
+    <Folder Include="Commands\TicketStatusCommands\DeleteTicketStatus\" />
+    <Folder Include="Commands\TicketStatusCommands\UpdateTicketStatus\" />
+    <Folder Include="Commands\UserCommands\" />
+    <Folder Include="Commands\UserCommands\CreateUser\" />
+    <Folder Include="Commands\UserCommands\DeleteUser\" />
+    <Folder Include="Commands\UserCommands\UpdateUser\" />
     <Folder Include="Dtos\AccountResultDto\" />
     <Folder Include="Queries\AccountQueries\" />
     <Folder Include="Queries\AccountQueries\FindAccountByProviderId\" />
@@ -64,6 +80,14 @@
     <Folder Include="Queries\TicketHistoryQueries\FindByTicketId\" />
     <Folder Include="Queries\TicketNotificationQueries\" />
     <Folder Include="Queries\TicketNotificationQueries\ FindByTicketId\" />
+    <Folder Include="Queries\TicketPriorityQueries\" />
+    <Folder Include="Queries\TicketPriorityQueries\FindByName\" />
+    <Folder Include="Queries\TicketQueries\FindByAssigneeId\" />
+    <Folder Include="Queries\TicketStatusQueries\" />
+    <Folder Include="Queries\TicketStatusQueries\FindByName\" />
+    <Folder Include="Queries\UserQueries\" />
+    <Folder Include="Queries\UserQueries\FindByRole\" />
+    <Folder Include="Queries\UserQueries\SetUserRole\" />
   </ItemGroup>
 
   <PropertyGroup>
