@@ -5,5 +5,5 @@ namespace Domain.Abstractions;
 
 public interface ITicketCategoryRepository : IBaseRepository<TicketCategory>
 {
-  Task<TicketCategory?> FindByNameAsync(string name);
+  Task<TicketCategory?> FindByNameAsync(string name, CancellationToken cancellationToken = default);
 }

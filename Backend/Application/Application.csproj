@@ -5,6 +5,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="12.1.1" />
     <PackageReference Include="MediatR" Version="14.1.0" />
   </ItemGroup>
 
@@ -13,10 +14,6 @@
     <Folder Include="Commands\AccountCommands\CreateAccount\" />
     <Folder Include="Commands\AccountCommands\DeleteAccount\" />
     <Folder Include="Commands\AccountCommands\UpdateAccount\" />
-    <Folder Include="Commands\BaseCommands\" />
-    <Folder Include="Commands\BaseCommands\CreateEntity\" />
-    <Folder Include="Commands\BaseCommands\DeleteEntity\" />
-    <Folder Include="Commands\BaseCommands\UpdateEntity\" />
     <Folder Include="Commands\CommentCommands\CreateComment\" />
     <Folder Include="Commands\CommentCommands\DeleteComment\" />
     <Folder Include="Commands\CommentCommands\UpdateComment\" />

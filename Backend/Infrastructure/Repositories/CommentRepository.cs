@@ -10,17 +10,17 @@ public class CommentRepository : BaseRepository<Comment>, ICommentRepository
 {
   public CommentRepository(DatabaseContext databaseContext) : base(databaseContext) { }
 
-  public async Task<List<Comment>> FindByTicketIdAsync(int ticketId)
+  public async Task<List<Comment>> FindByTicketIdAsync(int ticketId, CancellationToken cancellationToken = default)
   {
-    return await _dbSet
+    return await _dbContext.Set<Comment>()
                  .Where(comment => comment.TicketId == ticketId)
-                 .ToListAsync();
+                 .ToListAsync(cancellationToken);
   }
 
-  public async Task<List<Comment>> FindByUserIdAsync(int userId)
+  public async Task<List<Comment>> FindByUserIdAsync(int userId, CancellationToken cancellationToken = default)
   {
-    return await _dbSet
+    return await _dbContext.Set<Comment>()
                  .Where(comment => comment.UserId == userId)
-                 .ToListAsync();
+                 .ToListAsync(cancellationToken);
   }
 }

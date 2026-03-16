@@ -9,36 +9,35 @@ namespace Infrastructure.Repositories;
 public class BaseRepository<T> : IBaseRepository<T> where T : Base
 {
   protected readonly DatabaseContext _dbContext;
-  protected readonly DbSet<T> _dbSet;
 
   public BaseRepository(DatabaseContext context)
   {
     _dbContext = context;
-    _dbSet = context.Set<T>();
   }
 
-  public virtual async Task<List<T>> GetAllAsync()
+  public virtual async Task<List<T>> GetAllAsync(CancellationToken cancellationToken = default)
   {
-    return await _dbSet.ToListAsync();
+    return await _dbContext.Set<T>().ToListAsync(cancellationToken);
   }
 
-  public virtual async Task<T?> GetByIdAsync(int id)
+  public virtual async Task<T?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
   {
-    return await _dbSet.FindAsync(id);
+    return await _dbContext.Set<T>()
+        .FirstOrDefaultAsync(entity => entity.Id == id, cancellationToken);
   }
 
   public virtual void CreateEntity(T entity)
   {
-    _dbSet.Add(entity);
+    _dbContext.Set<T>().Add(entity);
   }
 
   public virtual void UpdateEntity(T entity)
   {
-    _dbSet.Update(entity);
+    _dbContext.Set<T>().Update(entity);
   }
 
   public virtual void DeleteEntity(T entity)
   {
-    _dbSet.Remove(entity);
+    _dbContext.Set<T>().Remove(entity);
   }
 }

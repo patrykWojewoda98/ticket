@@ -10,16 +10,16 @@ public class AccountRepository : BaseRepository<Account>, IAccountRepository
 {
   public AccountRepository(DatabaseContext databaseContext) : base(databaseContext) { }
 
-  public async Task<List<Account>> FindByUserIdAsync(int userId)
+  public async Task<List<Account>> FindByUserIdAsync(int userId, CancellationToken cancellationToken = default)
   {
-    return await _dbSet
+    return await _dbContext.Set<Account>()
                  .Where(account => account.UserId == userId)
-                 .ToListAsync();
+                 .ToListAsync(cancellationToken);
   }
 
-  public async Task<Account?> FindByProviderIdAsync(int providerId, int accountId)
+  public async Task<Account?> FindByProviderIdAsync(int providerId, int accountId, CancellationToken cancellationToken = default)
   {
-    return await _dbSet
-                 .FirstOrDefaultAsync(account => account.ProviderId == providerId && account.AccountId == accountId);
+    return await _dbContext.Set<Account>()
+                 .FirstOrDefaultAsync(account => account.ProviderId == providerId && account.AccountId == accountId, cancellationToken);
   }
 }

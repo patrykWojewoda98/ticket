@@ -1,7 +1,10 @@
 using System;
-using Domain.Entities;
+using Application.Dtos;
 using MediatR;
 
 namespace Application.Commands.CommentCommands.UpdateComment;
 
-public record UpdateCommentCommand(Comment Comment) : IRequest<Unit>;
+public record UpdateCommentCommand(
+  int CommentId,
+  string? Content
+) : IRequest<CommentDto>;

@@ -1,7 +1,9 @@
 using System;
-using Domain.Entities;
+using Application.Dtos;
 using MediatR;
 
 namespace Application.Commands.TicketCategoryCommands.CreateTicketCategory;
 
-public record CreateTicketCatagoryCommand(TicketCategory TicketCatagory) : IRequest<Unit>;
+public record CreateTicketCategoryCommand(
+  string Name
+) : IRequest<TicketCategoryDto>;

@@ -1,7 +1,13 @@
 using System;
-using Domain.Entities;
+using Application.Dtos;
 using MediatR;
 
 namespace Application.Commands.TicketHistoryCommands.UpdateTicketHistory;
 
-public record UpdateTicketHistoryCommand(TicketHistory TicketHistory) : IRequest<Unit>;
+public record UpdateTicketHistoryCommand(
+  int TicketId,
+  int UserId,
+  string? Action,
+  string? OldValue,
+  string? NewValue
+) : IRequest<TicketHistoryDto>;

@@ -1,7 +1,9 @@
 using System;
-using Domain.Entities;
+using Application.Dtos;
 using MediatR;
 
 namespace Application.Commands.TicketPriorityCommands.CreateTicketPriority;
 
-public record CreateTicketPriorityCommand(TicketPriority TicketPriority) : IRequest<Unit>;
+public record CreateTicketPriorityCommand(
+  string Name
+) : IRequest<TicketPriorityDto>;

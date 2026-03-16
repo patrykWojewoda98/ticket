@@ -1,7 +1,10 @@
 using System;
-using Domain.Entities;
+using Application.Dtos;
 using MediatR;
 
 namespace Application.Commands.TicketStatusCommands.UpdateTicketStatus;
 
-public record UpdateTicketStatusCommand(TicketStatus TicketStatus) : IRequest<Unit>;
+public record UpdateTicketStatusCommand(
+  int TicketStatusId,
+  string? Name
+) : IRequest<TicketStatusDto>;

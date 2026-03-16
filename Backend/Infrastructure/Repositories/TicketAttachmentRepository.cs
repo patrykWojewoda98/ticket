@@ -10,10 +10,10 @@ public class TicketAttachmentRepository : BaseRepository<TicketAttachment>, ITic
 {
   public TicketAttachmentRepository(DatabaseContext databaseContext) : base(databaseContext) { }
 
-  public async Task<List<TicketAttachment>> FindByTicketIdAsync(int ticketId)
+  public async Task<List<TicketAttachment>> FindByTicketIdAsync(int ticketId, CancellationToken cancellationToken = default)
   {
-    return await _dbSet
+    return await _dbContext.Set<TicketAttachment>()
                  .Where(ticketAttachment => ticketAttachment.TicketId == ticketId)
-                 .ToListAsync();
+                 .ToListAsync(cancellationToken);
   }
 }

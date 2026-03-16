@@ -5,6 +5,6 @@ namespace Domain.Abstractions;
 
 public interface ITicketRepository : IBaseRepository<Ticket>
 {
-  Task<List<Ticket>> FindByUserIdAsync(int userId);
-  Task<List<Ticket>> FindByAssigneeIdAsync(int assigneeId);
+  Task<List<Ticket>> FindByUserIdAsync(int userId, CancellationToken cancellationToken = default);
+  Task<List<Ticket>> FindByAssigneeIdAsync(int assigneeId, CancellationToken cancellationToken = default);
 }

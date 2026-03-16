@@ -1,7 +1,10 @@
 using System;
-using Domain.Entities;
+using Application.Dtos;
 using MediatR;
 
 namespace Application.Commands.TicketCategoryCommands.UpdateTicketCategory;
 
-public record UpdateTicketCatagoryCommand(TicketCategory TicketCatagory) : IRequest<Unit>;
+public record UpdateTicketCategoryCommand(
+  int TicketCategoryId,
+  string? Name
+) : IRequest<TicketCategoryDto>;

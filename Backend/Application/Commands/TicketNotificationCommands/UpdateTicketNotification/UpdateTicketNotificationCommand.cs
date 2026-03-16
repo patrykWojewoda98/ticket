@@ -1,7 +1,13 @@
 using System;
-using Domain.Entities;
+using Application.Dtos;
 using MediatR;
 
 namespace Application.Commands.TicketNotificationCommands.UpdateTicketNotification;
 
-public record UpdateTicketNotificationCommand(TicketNotification TicketNotification) : IRequest<Unit>;
+public record UpdateTicketNotificationCommand(
+  int TicketNotificationId,
+  int TicketId,
+  int UserId,
+  string? Message,
+  bool? Read
+) : IRequest<TicketNotificationDto>;

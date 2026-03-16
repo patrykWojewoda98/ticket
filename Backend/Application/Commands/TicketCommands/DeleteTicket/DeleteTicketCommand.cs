@@ -1,7 +1,9 @@
 using System;
-using Domain.Entities;
+using Application.Dtos;
 using MediatR;
 
 namespace Application.Commands.TicketCommands.DeleteTicket;
 
-public record DeleteTicketCommand(Ticket Ticket) : IRequest<Unit>;
+public record DeleteTicketCommand(
+  int TicketId
+) : IRequest<TicketDto>;

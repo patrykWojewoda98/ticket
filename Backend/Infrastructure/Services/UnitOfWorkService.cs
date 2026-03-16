@@ -4,13 +4,13 @@ using Domain.Entities;
 using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Repositories;
+namespace Infrastructure.Services;
 
-public class UnitOfWorkRepository : IUnitOfWorkRepository
+public class UnitOfWorkService : IUnitOfWorkService
 {
   protected readonly DatabaseContext _dbContext;
 
-  public UnitOfWorkRepository(DatabaseContext context)
+  public UnitOfWorkService(DatabaseContext context)
   {
     _dbContext = context;
   }

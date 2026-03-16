@@ -10,9 +10,9 @@ public class TicketStatusRepository : BaseRepository<TicketStatus>, ITicketStatu
 {
   public TicketStatusRepository(DatabaseContext databaseContext) : base(databaseContext) { }
 
-  public async Task<TicketStatus?> FindByNameAsync(string name)
+  public async Task<TicketStatus?> FindByNameAsync(string name, CancellationToken cancellationToken = default)
   {
-    return await _dbSet
-                 .FirstOrDefaultAsync(ticketStatus => ticketStatus.Name == name);
+    return await _dbContext.Set<TicketStatus>()
+                 .FirstOrDefaultAsync(ticketStatus => ticketStatus.Name == name, cancellationToken);
   }
 }

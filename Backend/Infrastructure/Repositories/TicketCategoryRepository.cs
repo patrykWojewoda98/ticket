@@ -10,9 +10,9 @@ public class TicketCategoryRepository : BaseRepository<TicketCategory>, ITicketC
 {
   public TicketCategoryRepository(DatabaseContext databaseContext) : base(databaseContext) { }
 
-  public async Task<TicketCategory?> FindByNameAsync(string name)
+  public async Task<TicketCategory?> FindByNameAsync(string name, CancellationToken cancellationToken = default)
   {
-    return await _dbSet
-                 .FirstOrDefaultAsync(ticketCategory => ticketCategory.Name == name);
+    return await _dbContext.Set<TicketCategory>()
+                 .FirstOrDefaultAsync(ticketCategory => ticketCategory.Name == name, cancellationToken);
   }
 }
