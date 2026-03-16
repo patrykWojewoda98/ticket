@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Application.Commands.AccountCommands.DeleteAccount;
 
-internal class DeleteAccountCommandHandler : IRequestHandler<DeleteAccountCommand, AccountDto>
+public class DeleteAccountCommandHandler : IRequestHandler<DeleteAccountCommand, AccountDto>
 {
   private readonly IAccountRepository _repository;
   private readonly IUnitOfWorkService _unitOfWork;

@@ -4,6 +4,6 @@ using MediatR;
 
 namespace Application.Commands.TicketCategoryCommands.CreateTicketCategory;
 
-public record CreateTicketCatagoryCommand(
+public record CreateTicketCategoryCommand(
   string Name
 ) : IRequest<TicketCategoryDto>;

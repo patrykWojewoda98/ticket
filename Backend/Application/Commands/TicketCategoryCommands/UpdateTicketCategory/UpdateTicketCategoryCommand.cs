@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Application.Commands.TicketCategoryCommands.UpdateTicketCategory;
 
-public record UpdateTicketCatagoryCommand(
+public record UpdateTicketCategoryCommand(
   int TicketCategoryId,
   string? Name
 ) : IRequest<TicketCategoryDto>;

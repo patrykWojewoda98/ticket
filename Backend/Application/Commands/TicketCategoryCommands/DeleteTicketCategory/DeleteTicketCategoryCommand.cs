@@ -4,6 +4,6 @@ using MediatR;
 
 namespace Application.Commands.TicketCategoryCommands.DeleteTicketCategory;
 
-public record DeleteTicketCatagoryCommand(
+public record DeleteTicketCategoryCommand(
   int TicketCategoryId
 ) : IRequest<TicketCategoryDto>;

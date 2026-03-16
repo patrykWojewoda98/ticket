@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Application.Commands.CommentCommands.CreateComment;
 
-public record UpdateCommentCommand(
+public record CreateCommentCommand(
   int UserId,
   int TicketId,
   string Content
