@@ -1,5 +1,5 @@
 import { mockTickets } from "@/lib/mock-tickets";
-import { TicketList } from "@/components/ticket/ticketList";
+import { TicketList } from "@/components/tickets/ticketList";
 
 export default function TicketsPage() {
   return (
