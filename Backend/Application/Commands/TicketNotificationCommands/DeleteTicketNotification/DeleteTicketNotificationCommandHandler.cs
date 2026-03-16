@@ -1,33 +1,37 @@
 using System;
+using Application.Dtos;
+using Domain.Abstractions;
+using MediatR;
 
 namespace Application.Commands.TicketNotificationCommands.DeleteTicketNotification;
 
-public class DeleteTicketNotificationCommandHandler : IRequestHandler<DeleteSessionCommand, SessionDto>
+public class DeleteTicketNotificationCommandHandler : IRequestHandler<DeleteTicketNotificationCommand, TicketNotificationDto>
 {
-  private readonly ISessionRepository _repository;
+  private readonly ITicketNotificationRepository _repository;
   private readonly IUnitOfWorkService _unitOfWork;
 
-  public DeleteSessionCommandHandler(ISessionRepository repository, IUnitOfWorkService unitOfWork)
+  public DeleteTicketNotificationCommandHandler(ITicketNotificationRepository repository, IUnitOfWorkService unitOfWork)
   {
     _repository = repository;
     _unitOfWork = unitOfWork;
   }
 
-  public async Task<SessionDto> Handle(DeleteSessionCommand request, CancellationToken cancellationToken)
+  public async Task<TicketNotificationDto> Handle(DeleteTicketNotificationCommand request, CancellationToken cancellationToken)
   {
-    var session = await _repository.GetByIdAsync(request.SessionId, cancellationToken);
-    if (session == null) return null;
+    var ticketNotification = await _repository.GetByIdAsync(request.TicketNotificationId, cancellationToken);
+    if (ticketNotification == null) return null;
 
-    var SessionDto = new SessionDto
+    var TicketNotificationDto = new TicketNotificationDto
     {
-      Id = session.Id,
-      UserId = session.UserId,
-      Token = session.Token,
-      ExpiresAt = session.ExpiresAt
+      Id = ticketNotification.Id,
+      TicketId = ticketNotification.TicketId,
+      UserId = ticketNotification.UserId,
+      Message = ticketNotification.Message,
+      Read = ticketNotification.Read
     };
 
-    _repository.DeleteEntity(session);
+    _repository.DeleteEntity(ticketNotification);
     await _unitOfWork.SaveChangesAsync(cancellationToken);
-    return SessionDto;
+    return TicketNotificationDto;
   }
 }

@@ -1,37 +1,45 @@
 using System;
+using Application.Dtos;
+using Domain.Abstractions;
+using Domain.Entities;
+using MediatR;
 
 namespace Application.Commands.UserCommands.CreateUser;
 
-public class CreateUserCommandHandler : IRequestHandler<CreateSessionCommand, SessionDto>
+public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, UserDto>
 {
-  private readonly ISessionRepository _repository;
+  private readonly IUserRepository _repository;
   private readonly IUnitOfWorkService _unitOfWork;
 
-  public CreateSessionCommandHandler(ISessionRepository repository, IUnitOfWorkService unitOfWork)
+  public CreateUserCommandHandler(IUserRepository repository, IUnitOfWorkService unitOfWork)
   {
     _repository = repository;
     _unitOfWork = unitOfWork;
   }
 
-  public async Task<SessionDto> Handle(CreateSessionCommand request, CancellationToken cancellationToken)
+  public async Task<UserDto> Handle(CreateUserCommand request, CancellationToken cancellationToken)
   {
-    var session = new Session
+    var user = new User
     {
-      UserId = request.UserId,
-      Token = request.Token,
-      ExpiresAt = request.ExpiresAt,
-      IpAddress = request.IpAddress,
-      UserAgent = request.UserAgent
+      CompanyId = request.CompanyId,
+      Email = request.Email,
+      EmailVerified = request.EmailVerified,
+      Role = request.Role,
+      Name = request.Name,
+      Image = request.Image
     };
 
-    _repository.CreateEntity(session);
+    _repository.CreateEntity(user);
     await _unitOfWork.SaveChangesAsync(cancellationToken);
-    return new SessionDto
+    return new UserDto
     {
-      Id = session.Id,
-      UserId = session.UserId,
-      Token = session.Token,
-      ExpiresAt = session.ExpiresAt
+      Id = user.Id,
+      CompanyId = user.CompanyId,
+      Email = user.Email,
+      EmailVerified = user.EmailVerified,
+      Role = user.Role,
+      Name = user.Name,
+      Image = user.Image
     };
   }
 }

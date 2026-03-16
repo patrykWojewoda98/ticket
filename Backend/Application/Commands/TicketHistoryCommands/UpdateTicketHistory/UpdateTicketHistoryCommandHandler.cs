@@ -1,34 +1,41 @@
 using System;
+using Application.Dtos;
+using Domain.Abstractions;
+using MediatR;
 
 namespace Application.Commands.TicketHistoryCommands.UpdateTicketHistory;
 
-public class UpdateTicketHistoryCommandHandler : IRequestHandler<UpdateSessionCommand, SessionDto>
+public class UpdateTicketHistoryCommandHandler : IRequestHandler<UpdateTicketHistoryCommand, TicketHistoryDto>
 {
-  private readonly ISessionRepository _repository;
+  private readonly ITicketHistoryRepository _repository;
   private readonly IUnitOfWorkService _unitOfWork;
 
-  public UpdateSessionCommandHandler(ISessionRepository repository, IUnitOfWorkService unitOfWork)
+  public UpdateTicketHistoryCommandHandler(ITicketHistoryRepository repository, IUnitOfWorkService unitOfWork)
   {
     _repository = repository;
     _unitOfWork = unitOfWork;
   }
-  public async Task<SessionDto> Handle(UpdateSessionCommand request, CancellationToken cancellationToken)
+  public async Task<TicketHistoryDto> Handle(UpdateTicketHistoryCommand request, CancellationToken cancellationToken)
   {
-    var session = await _repository.GetByIdAsync(request.SessionId, cancellationToken);
-    if (session == null) return null;
+    var ticketHistory = await _repository.GetByIdAsync(request.TicketId, cancellationToken);
+    if (ticketHistory == null) return null;
 
-    session.Token = request.Token;
-    session.IpAddress = request.IpAddress;
-    session.UserAgent = request.UserAgent;
+    ticketHistory.TicketId = request.TicketId;
+    ticketHistory.UserId = request.UserId;
+    ticketHistory.Action = request.Action;
+    ticketHistory.OldValue = request.OldValue;
+    ticketHistory.NewValue = request.NewValue;
 
-    _repository.UpdateEntity(session);
+    _repository.UpdateEntity(ticketHistory);
     await _unitOfWork.SaveChangesAsync(cancellationToken);
-    return new SessionDto
+    return new TicketHistoryDto
     {
-      Id = session.Id,
-      UserId = session.UserId,
-      Token = session.Token,
-      ExpiresAt = session.ExpiresAt
+      Id = ticketHistory.Id,
+      TicketId = ticketHistory.TicketId,
+      UserId = ticketHistory.UserId,
+      Action = ticketHistory.Action,
+      OldValue = ticketHistory.OldValue,
+      NewValue = ticketHistory.NewValue
     };
   }
 }

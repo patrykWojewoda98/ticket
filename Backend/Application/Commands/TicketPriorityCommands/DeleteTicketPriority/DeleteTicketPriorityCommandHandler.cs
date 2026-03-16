@@ -1,33 +1,34 @@
 using System;
+using Application.Dtos;
+using Domain.Abstractions;
+using MediatR;
 
 namespace Application.Commands.TicketPriorityCommands.DeleteTicketPriority;
 
-public class DeleteTicketPriorityCommandHandler : IRequestHandler<DeleteSessionCommand, SessionDto>
+public class DeleteTicketPriorityCommandHandler : IRequestHandler<DeleteTicketPriorityCommand, TicketPriorityDto>
 {
-  private readonly ISessionRepository _repository;
+  private readonly ITicketPriorityRepository _repository;
   private readonly IUnitOfWorkService _unitOfWork;
 
-  public DeleteSessionCommandHandler(ISessionRepository repository, IUnitOfWorkService unitOfWork)
+  public DeleteTicketPriorityCommandHandler(ITicketPriorityRepository repository, IUnitOfWorkService unitOfWork)
   {
     _repository = repository;
     _unitOfWork = unitOfWork;
   }
 
-  public async Task<SessionDto> Handle(DeleteSessionCommand request, CancellationToken cancellationToken)
+  public async Task<TicketPriorityDto> Handle(DeleteTicketPriorityCommand request, CancellationToken cancellationToken)
   {
-    var session = await _repository.GetByIdAsync(request.SessionId, cancellationToken);
-    if (session == null) return null;
+    var ticketPriority = await _repository.GetByIdAsync(request.TicketPriorityId, cancellationToken);
+    if (ticketPriority == null) return null;
 
-    var SessionDto = new SessionDto
+    var TicketPriorityDto = new TicketPriorityDto
     {
-      Id = session.Id,
-      UserId = session.UserId,
-      Token = session.Token,
-      ExpiresAt = session.ExpiresAt
+      Id = ticketPriority.Id,
+      Name = ticketPriority.Name
     };
 
-    _repository.DeleteEntity(session);
+    _repository.DeleteEntity(ticketPriority);
     await _unitOfWork.SaveChangesAsync(cancellationToken);
-    return SessionDto;
+    return TicketPriorityDto;
   }
 }

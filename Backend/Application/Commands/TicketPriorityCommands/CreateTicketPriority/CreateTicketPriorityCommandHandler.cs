@@ -1,37 +1,35 @@
 using System;
+using Application.Dtos;
+using Domain.Abstractions;
+using Domain.Entities;
+using MediatR;
 
 namespace Application.Commands.TicketPriorityCommands.CreateTicketPriority;
 
-public class CreateTicketPriorityCommandHandler : IRequestHandler<CreateSessionCommand, SessionDto>
+public class CreateTicketPriorityCommandHandler : IRequestHandler<CreateTicketPriorityCommand, TicketPriorityDto>
 {
-  private readonly ISessionRepository _repository;
+  private readonly ITicketPriorityRepository _repository;
   private readonly IUnitOfWorkService _unitOfWork;
 
-  public CreateSessionCommandHandler(ISessionRepository repository, IUnitOfWorkService unitOfWork)
+  public CreateTicketPriorityCommandHandler(ITicketPriorityRepository repository, IUnitOfWorkService unitOfWork)
   {
     _repository = repository;
     _unitOfWork = unitOfWork;
   }
 
-  public async Task<SessionDto> Handle(CreateSessionCommand request, CancellationToken cancellationToken)
+  public async Task<TicketPriorityDto> Handle(CreateTicketPriorityCommand request, CancellationToken cancellationToken)
   {
-    var session = new Session
+    var ticketPriority = new TicketPriority
     {
-      UserId = request.UserId,
-      Token = request.Token,
-      ExpiresAt = request.ExpiresAt,
-      IpAddress = request.IpAddress,
-      UserAgent = request.UserAgent
+      Name = request.Name
     };
 
-    _repository.CreateEntity(session);
+    _repository.CreateEntity(ticketPriority);
     await _unitOfWork.SaveChangesAsync(cancellationToken);
-    return new SessionDto
+    return new TicketPriorityDto
     {
-      Id = session.Id,
-      UserId = session.UserId,
-      Token = session.Token,
-      ExpiresAt = session.ExpiresAt
+      Id = ticketPriority.Id,
+      Name = ticketPriority.Name
     };
   }
 }

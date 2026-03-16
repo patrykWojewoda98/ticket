@@ -1,37 +1,41 @@
 using System;
+using Application.Dtos;
+using Domain.Abstractions;
+using Domain.Entities;
+using MediatR;
 
 namespace Application.Commands.TicketNotificationCommands.CreateTicketNotification;
 
-public class CreateTicketNotificationCommandHandler : IRequestHandler<CreateSessionCommand, SessionDto>
+public class CreateTicketNotificationCommandHandler : IRequestHandler<CreateTicketNotificationCommand, TicketNotificationDto>
 {
-  private readonly ISessionRepository _repository;
+  private readonly ITicketNotificationRepository _repository;
   private readonly IUnitOfWorkService _unitOfWork;
 
-  public CreateSessionCommandHandler(ISessionRepository repository, IUnitOfWorkService unitOfWork)
+  public CreateTicketNotificationCommandHandler(ITicketNotificationRepository repository, IUnitOfWorkService unitOfWork)
   {
     _repository = repository;
     _unitOfWork = unitOfWork;
   }
 
-  public async Task<SessionDto> Handle(CreateSessionCommand request, CancellationToken cancellationToken)
+  public async Task<TicketNotificationDto> Handle(CreateTicketNotificationCommand request, CancellationToken cancellationToken)
   {
-    var session = new Session
+    var ticketNotification = new TicketNotification
     {
+      TicketId = request.TicketId,
       UserId = request.UserId,
-      Token = request.Token,
-      ExpiresAt = request.ExpiresAt,
-      IpAddress = request.IpAddress,
-      UserAgent = request.UserAgent
+      Message = request.Message,
+      Read = false
     };
 
-    _repository.CreateEntity(session);
+    _repository.CreateEntity(ticketNotification);
     await _unitOfWork.SaveChangesAsync(cancellationToken);
-    return new SessionDto
+    return new TicketNotificationDto
     {
-      Id = session.Id,
-      UserId = session.UserId,
-      Token = session.Token,
-      ExpiresAt = session.ExpiresAt
+      Id = ticketNotification.Id,
+      TicketId = ticketNotification.TicketId,
+      UserId = ticketNotification.UserId,
+      Message = ticketNotification.Message,
+      Read = ticketNotification.Read
     };
   }
 }

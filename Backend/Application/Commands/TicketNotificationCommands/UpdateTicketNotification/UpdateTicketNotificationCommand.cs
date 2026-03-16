@@ -6,6 +6,8 @@ namespace Application.Commands.TicketNotificationCommands.UpdateTicketNotificati
 
 public record UpdateTicketNotificationCommand(
   int TicketNotificationId,
+  int TicketId,
+  int UserId,
   string? Message,
   bool? Read
 ) : IRequest<TicketNotificationDto>;

@@ -1,34 +1,33 @@
 using System;
+using Application.Dtos;
+using Domain.Abstractions;
+using MediatR;
 
 namespace Application.Commands.TicketStatusCommands.UpdateTicketStatus;
 
-public class UpdateTicketStatusCommandHandler : IRequestHandler<UpdateSessionCommand, SessionDto>
+public class UpdateTicketStatusCommandHandler : IRequestHandler<UpdateTicketStatusCommand, TicketStatusDto>
 {
-  private readonly ISessionRepository _repository;
+  private readonly ITicketStatusRepository _repository;
   private readonly IUnitOfWorkService _unitOfWork;
 
-  public UpdateSessionCommandHandler(ISessionRepository repository, IUnitOfWorkService unitOfWork)
+  public UpdateTicketStatusCommandHandler(ITicketStatusRepository repository, IUnitOfWorkService unitOfWork)
   {
     _repository = repository;
     _unitOfWork = unitOfWork;
   }
-  public async Task<SessionDto> Handle(UpdateSessionCommand request, CancellationToken cancellationToken)
+  public async Task<TicketStatusDto> Handle(UpdateTicketStatusCommand request, CancellationToken cancellationToken)
   {
-    var session = await _repository.GetByIdAsync(request.SessionId, cancellationToken);
-    if (session == null) return null;
+    var ticketStatus = await _repository.GetByIdAsync(request.TicketStatusId, cancellationToken);
+    if (ticketStatus == null) return null;
 
-    session.Token = request.Token;
-    session.IpAddress = request.IpAddress;
-    session.UserAgent = request.UserAgent;
+    ticketStatus.Name = request.Name;
 
-    _repository.UpdateEntity(session);
+    _repository.UpdateEntity(ticketStatus);
     await _unitOfWork.SaveChangesAsync(cancellationToken);
-    return new SessionDto
+    return new TicketStatusDto
     {
-      Id = session.Id,
-      UserId = session.UserId,
-      Token = session.Token,
-      ExpiresAt = session.ExpiresAt
+      Id = ticketStatus.Id,
+      Name = ticketStatus.Name
     };
   }
 }

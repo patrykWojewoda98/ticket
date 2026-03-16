@@ -1,33 +1,38 @@
 using System;
+using Application.Dtos;
+using Domain.Abstractions;
+using MediatR;
 
 namespace Application.Commands.TicketHistoryCommands.DeleteTicketHistory;
 
-public class DeleteTicketHistoryCommandHandler : IRequestHandler<DeleteSessionCommand, SessionDto>
+public class DeleteTicketHistoryCommandHandler : IRequestHandler<DeleteTicketHistoryCommand, TicketHistoryDto>
 {
-  private readonly ISessionRepository _repository;
+  private readonly ITicketHistoryRepository _repository;
   private readonly IUnitOfWorkService _unitOfWork;
 
-  public DeleteSessionCommandHandler(ISessionRepository repository, IUnitOfWorkService unitOfWork)
+  public DeleteTicketHistoryCommandHandler(ITicketHistoryRepository repository, IUnitOfWorkService unitOfWork)
   {
     _repository = repository;
     _unitOfWork = unitOfWork;
   }
 
-  public async Task<SessionDto> Handle(DeleteSessionCommand request, CancellationToken cancellationToken)
+  public async Task<TicketHistoryDto> Handle(DeleteTicketHistoryCommand request, CancellationToken cancellationToken)
   {
-    var session = await _repository.GetByIdAsync(request.SessionId, cancellationToken);
-    if (session == null) return null;
+    var ticketHistory = await _repository.GetByIdAsync(request.TicketHistoryId, cancellationToken);
+    if (ticketHistory == null) return null;
 
-    var SessionDto = new SessionDto
+    var TicketHistoryDto = new TicketHistoryDto
     {
-      Id = session.Id,
-      UserId = session.UserId,
-      Token = session.Token,
-      ExpiresAt = session.ExpiresAt
+      Id = ticketHistory.Id,
+      TicketId = ticketHistory.TicketId,
+      UserId = ticketHistory.UserId,
+      Action = ticketHistory.Action,
+      OldValue = ticketHistory.OldValue,
+      NewValue = ticketHistory.NewValue
     };
 
-    _repository.DeleteEntity(session);
+    _repository.DeleteEntity(ticketHistory);
     await _unitOfWork.SaveChangesAsync(cancellationToken);
-    return SessionDto;
+    return TicketHistoryDto;
   }
 }

@@ -1,33 +1,34 @@
 using System;
+using Application.Dtos;
+using Domain.Abstractions;
+using MediatR;
 
 namespace Application.Commands.TicketStatusCommands.DeleteTicketStatus;
 
-public class DeleteTicketStatusCommandHandler : IRequestHandler<DeleteSessionCommand, SessionDto>
+public class DeleteTicketStatusCommandHandler : IRequestHandler<DeleteTicketStatusCommand, TicketStatusDto>
 {
-  private readonly ISessionRepository _repository;
+  private readonly ITicketStatusRepository _repository;
   private readonly IUnitOfWorkService _unitOfWork;
 
-  public DeleteSessionCommandHandler(ISessionRepository repository, IUnitOfWorkService unitOfWork)
+  public DeleteTicketStatusCommandHandler(ITicketStatusRepository repository, IUnitOfWorkService unitOfWork)
   {
     _repository = repository;
     _unitOfWork = unitOfWork;
   }
 
-  public async Task<SessionDto> Handle(DeleteSessionCommand request, CancellationToken cancellationToken)
+  public async Task<TicketStatusDto> Handle(DeleteTicketStatusCommand request, CancellationToken cancellationToken)
   {
-    var session = await _repository.GetByIdAsync(request.SessionId, cancellationToken);
-    if (session == null) return null;
+    var ticketStatus = await _repository.GetByIdAsync(request.TicketStatusId, cancellationToken);
+    if (ticketStatus == null) return null;
 
-    var SessionDto = new SessionDto
+    var TicketStatusDto = new TicketStatusDto
     {
-      Id = session.Id,
-      UserId = session.UserId,
-      Token = session.Token,
-      ExpiresAt = session.ExpiresAt
+      Id = ticketStatus.Id,
+      Name = ticketStatus.Name
     };
 
-    _repository.DeleteEntity(session);
+    _repository.DeleteEntity(ticketStatus);
     await _unitOfWork.SaveChangesAsync(cancellationToken);
-    return SessionDto;
+    return TicketStatusDto;
   }
 }

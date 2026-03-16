@@ -1,34 +1,43 @@
 using System;
+using Application.Dtos;
+using Domain.Abstractions;
+using MediatR;
 
 namespace Application.Commands.UserCommands.UpdateUser;
 
-public class UpdateUserCommandHandler : IRequestHandler<UpdateSessionCommand, SessionDto>
+public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, UserDto>
 {
-  private readonly ISessionRepository _repository;
+  private readonly IUserRepository _repository;
   private readonly IUnitOfWorkService _unitOfWork;
 
-  public UpdateSessionCommandHandler(ISessionRepository repository, IUnitOfWorkService unitOfWork)
+  public UpdateUserCommandHandler(IUserRepository repository, IUnitOfWorkService unitOfWork)
   {
     _repository = repository;
     _unitOfWork = unitOfWork;
   }
-  public async Task<SessionDto> Handle(UpdateSessionCommand request, CancellationToken cancellationToken)
+  public async Task<UserDto> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
   {
-    var session = await _repository.GetByIdAsync(request.SessionId, cancellationToken);
-    if (session == null) return null;
+    var user = await _repository.GetByIdAsync(request.UserId, cancellationToken);
+    if (user == null) return null;
 
-    session.Token = request.Token;
-    session.IpAddress = request.IpAddress;
-    session.UserAgent = request.UserAgent;
+    user.Name = request.Name;
+    user.Email = request.Email;
+    user.Role = request.Role;
+    user.CompanyId = request.CompanyId;
+    user.Image = request.Image;
+    user.EmailVerified = request.EmailVerified.Value;
 
-    _repository.UpdateEntity(session);
+    _repository.UpdateEntity(user);
     await _unitOfWork.SaveChangesAsync(cancellationToken);
-    return new SessionDto
+    return new UserDto
     {
-      Id = session.Id,
-      UserId = session.UserId,
-      Token = session.Token,
-      ExpiresAt = session.ExpiresAt
+      Id = user.Id,
+      Name = user.Name,
+      Email = user.Email,
+      Role = user.Role,
+      CompanyId = user.CompanyId,
+      Image = user.Image,
+      EmailVerified = user.EmailVerified
     };
   }
 }

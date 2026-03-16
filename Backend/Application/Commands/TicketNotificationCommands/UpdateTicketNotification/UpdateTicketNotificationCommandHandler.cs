@@ -1,34 +1,39 @@
 using System;
+using Application.Dtos;
+using Domain.Abstractions;
+using MediatR;
 
 namespace Application.Commands.TicketNotificationCommands.UpdateTicketNotification;
 
-public class UpdateTicketNotificationCommandHandler : IRequestHandler<UpdateSessionCommand, SessionDto>
+public class UpdateTicketNotificationCommandHandler : IRequestHandler<UpdateTicketNotificationCommand, TicketNotificationDto>
 {
-  private readonly ISessionRepository _repository;
+  private readonly ITicketNotificationRepository _repository;
   private readonly IUnitOfWorkService _unitOfWork;
 
-  public UpdateSessionCommandHandler(ISessionRepository repository, IUnitOfWorkService unitOfWork)
+  public UpdateTicketNotificationCommandHandler(ITicketNotificationRepository repository, IUnitOfWorkService unitOfWork)
   {
     _repository = repository;
     _unitOfWork = unitOfWork;
   }
-  public async Task<SessionDto> Handle(UpdateSessionCommand request, CancellationToken cancellationToken)
+  public async Task<TicketNotificationDto> Handle(UpdateTicketNotificationCommand request, CancellationToken cancellationToken)
   {
-    var session = await _repository.GetByIdAsync(request.SessionId, cancellationToken);
-    if (session == null) return null;
+    var ticketNotification = await _repository.GetByIdAsync(request.TicketNotificationId, cancellationToken);
+    if (ticketNotification == null) return null;
 
-    session.Token = request.Token;
-    session.IpAddress = request.IpAddress;
-    session.UserAgent = request.UserAgent;
+    ticketNotification.Message = request.Message;
+    ticketNotification.Read = request.Read.Value;
+    ticketNotification.TicketId = request.TicketId;
+    ticketNotification.UserId = request.UserId;
 
-    _repository.UpdateEntity(session);
+    _repository.UpdateEntity(ticketNotification);
     await _unitOfWork.SaveChangesAsync(cancellationToken);
-    return new SessionDto
+    return new TicketNotificationDto
     {
-      Id = session.Id,
-      UserId = session.UserId,
-      Token = session.Token,
-      ExpiresAt = session.ExpiresAt
+      Id = ticketNotification.Id,
+      TicketId = ticketNotification.TicketId,
+      UserId = ticketNotification.UserId,
+      Message = ticketNotification.Message,
+      Read = ticketNotification.Read
     };
   }
 }

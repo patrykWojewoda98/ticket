@@ -23,6 +23,7 @@ public class UpdateSessionCommandHandler : IRequestHandler<UpdateSessionCommand,
     session.Token = request.Token;
     session.IpAddress = request.IpAddress;
     session.UserAgent = request.UserAgent;
+    session.ExpiresAt = request.ExpiresAt.Value;
 
     _repository.UpdateEntity(session);
     await _unitOfWork.SaveChangesAsync(cancellationToken);
