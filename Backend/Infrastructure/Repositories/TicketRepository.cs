@@ -10,17 +10,17 @@ public class TicketRepository : BaseRepository<Ticket>, ITicketRepository
 {
   public TicketRepository(DatabaseContext databaseContext) : base(databaseContext) { }
 
-  public async Task<List<Ticket>> FindByUserIdAsync(int userId)
+  public async Task<List<Ticket>> FindByUserIdAsync(int userId, CancellationToken cancellationToken = default)
   {
-    return await _dbSet
+    return await _dbContext.Set<Ticket>()
                  .Where(ticket => ticket.UserId == userId)
-                 .ToListAsync();
+                 .ToListAsync(cancellationToken);
   }
 
-  public async Task<List<Ticket>> FindByAssigneeIdAsync(int assigneeId)
+  public async Task<List<Ticket>> FindByAssigneeIdAsync(int assigneeId, CancellationToken cancellationToken = default)
   {
-    return await _dbSet
+    return await _dbContext.Set<Ticket>()
                  .Where(ticket => ticket.AssigneeId == assigneeId)
-                 .ToListAsync();
+                 .ToListAsync(cancellationToken);
   }
 }

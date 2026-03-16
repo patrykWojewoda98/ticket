@@ -10,16 +10,16 @@ public class SessionRepository : BaseRepository<Session>, ISessionRepository
 {
   public SessionRepository(DatabaseContext databaseContext) : base(databaseContext) { }
 
-  public async Task<List<Session>> FindByUserIdAsync(int userId)
+  public async Task<List<Session>> FindByUserIdAsync(int userId, CancellationToken cancellationToken = default)
   {
-    return await _dbSet
+    return await _dbContext.Set<Session>()
                  .Where(session => session.UserId == userId)
-                 .ToListAsync();
+                 .ToListAsync(cancellationToken);
   }
 
-  public async Task<Session?> FindByTokenAsync(string token)
+  public async Task<Session?> FindByTokenAsync(string token, CancellationToken cancellationToken = default)
   {
-    return await _dbSet
-                 .FirstOrDefaultAsync(session => session.Token == token);
+    return await _dbContext.Set<Session>()
+                 .FirstOrDefaultAsync(session => session.Token == token, cancellationToken);
   }
 }

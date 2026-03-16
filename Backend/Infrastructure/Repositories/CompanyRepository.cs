@@ -10,10 +10,10 @@ public class CompanyRepository : BaseRepository<Company>, ICompanyRepository
 {
   public CompanyRepository(DatabaseContext databaseContext) : base(databaseContext) { }
 
-  public async Task<List<Company>> FindByUserIdAsync(int userId)
+  public async Task<List<Company>> FindByUserIdAsync(int userId, CancellationToken cancellationToken = default)
   {
-    return await _dbSet
+    return await _dbContext.Set<Company>()
                  .Where(company => company.UserId == userId)
-                 .ToListAsync();
+                 .ToListAsync(cancellationToken);
   }
 }

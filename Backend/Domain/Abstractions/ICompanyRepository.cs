@@ -5,5 +5,5 @@ namespace Domain.Abstractions;
 
 public interface ICompanyRepository : IBaseRepository<Company>
 {
-  Task<List<Company>> FindByUserIdAsync(int userId);
+  Task<List<Company>> FindByUserIdAsync(int userId, CancellationToken cancellationToken = default);
 }

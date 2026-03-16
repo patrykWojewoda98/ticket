@@ -10,10 +10,10 @@ public class TicketHistoryRepository : BaseRepository<TicketHistory>, ITicketHis
 {
   public TicketHistoryRepository(DatabaseContext databaseContext) : base(databaseContext) { }
 
-  public async Task<List<TicketHistory>> FindByTicketIdAsync(int ticketId)
+  public async Task<List<TicketHistory>> FindByTicketIdAsync(int ticketId, CancellationToken cancellationToken = default)
   {
-    return await _dbSet
+    return await _dbContext.Set<TicketHistory>()
                  .Where(ticketHistory => ticketHistory.TicketId == ticketId)
-                 .ToListAsync();
+                 .ToListAsync(cancellationToken);
   }
 }

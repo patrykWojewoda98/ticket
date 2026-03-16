@@ -5,5 +5,5 @@ namespace Domain.Abstractions;
 
 public interface ITicketNotificationRepository : IBaseRepository<TicketNotification>
 {
-  Task<List<TicketNotification>> FindByTicketIdAsync(int ticketId);
+  Task<List<TicketNotification>> FindByTicketIdAsync(int ticketId, CancellationToken cancellationToken = default);
 }

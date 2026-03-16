@@ -5,7 +5,6 @@ namespace Domain.Abstractions;
 
 public interface ISessionRepository : IBaseRepository<Session>
 {
-  Task<List<Session>> FindByUserIdAsync(int userId);
-  Task<Session?> FindByTokenAsync(string token);
-  Task FindByTokenAsync(string token, CancellationToken cancellationToken);
+  Task<List<Session>> FindByUserIdAsync(int userId, CancellationToken cancellationToken = default);
+  Task<Session?> FindByTokenAsync(string token, CancellationToken cancellationToken = default);
 }
