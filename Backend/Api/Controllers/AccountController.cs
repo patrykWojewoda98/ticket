@@ -16,9 +16,7 @@ namespace Api.Controllers;
 [Route("api/[controller]")]
 public class AccountController : BaseController
 {
-  public AccountController(IMediator mediator) : base(mediator)
-  {
-  }
+  public AccountController(IMediator mediator) : base(mediator) { }
 
   [HttpPost]
   [SwaggerOperation(Summary = "Create account", Description = "Creates a new account for a user.")]

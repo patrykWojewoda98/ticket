@@ -15,8 +15,8 @@ static public class DependencyInjection
   {
     services.AddDbContext<DatabaseContext>(options =>
     {
-      var connectionString = configuration.GetConnectionString("connectionString");
-      options.UseSqlServer(connectionString);
+      var connectionString = configuration.GetConnectionString("DefaultConnection");
+      options.UseMySQL(connectionString);
     });
 
     services.AddScoped<IAccountRepository, AccountRepository>();
