@@ -3,7 +3,7 @@
 import React from "react";
 
 export type Ticket = {
-  id: string;
+  id: number;
   title: string;
   status: "OPEN" | "PENDING" | "CLOSED";
   createdAt: string;

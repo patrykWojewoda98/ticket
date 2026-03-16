@@ -1,5 +1,5 @@
 import { mockTickets } from "@/lib/mock-tickets";
-import { RecentTickets } from "@/components/ticket/recentTickets";
+import { RecentTickets } from "@/components/tickets/recentTickets";
 
 export default function Home() {
   const tickets = mockTickets.slice(0, 3); // tylko pierwsze 3 tickety

@@ -2,17 +2,36 @@ import { mockTickets } from "@/lib/mock-tickets";
 import { mockMessages } from "@/lib/mock-messages";
 import { notFound } from "next/navigation";
 
-type Props = { params: { id: string } };
+type Props = { params: { id: string } | Promise<{ id: string }> };
 
-export default function TicketDetailPage({ params }: Props) {
-  const ticket = mockTickets.find((t) => t.id === params.id);
+export default async function TicketDetailPage({ params }: Props) {
+  // jeśli params jest Promise, odczekujemy
+  const { id } = await params;
+  const ticketId = Number(id);
+
+  const ticket = mockTickets.find((t) => t.id === ticketId);
   if (!ticket) return notFound();
 
   const messages = mockMessages[ticket.id] || [];
 
   return (
     <div className="flex flex-col gap-6 mt-16">
+      
       <h1 className="text-2xl font-bold text-slate-900">{ticket.title}</h1>
+
+     
+      <div className="flex flex-col gap-2 bg-slate-100 p-4 rounded-lg">
+        <div><span className="font-semibold">ID:</span> {ticket.id}</div>
+        <div className="flex items-center gap-2">
+          <span className="font-semibold">Status:</span>
+          <span className={`px-2 py-1 rounded-full text-sm status-${ticket.status.toLowerCase()}`}>
+            {ticket.status}
+          </span>
+        </div>
+        <div><span className="font-semibold">Utworzono:</span> {ticket.createdAt}</div>
+      </div>
+
+     
       <div className="flex flex-col gap-4">
         {messages.map((msg) => (
           <div
@@ -29,6 +48,7 @@ export default function TicketDetailPage({ params }: Props) {
         ))}
       </div>
 
+      
       <div className="mt-6">
         <input
           type="text"
