@@ -13,13 +13,6 @@ static public class DependencyInjection
 {
   public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
   {
-    DotNetEnv.Env.Load();
-    services.AddDbContext<DatabaseContext>(options =>
-    {
-      var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING");
-      options.UseMySQL(connectionString, builder => builder.MigrationsAssembly("Infrastructure"));
-    });
-
     services.AddScoped<IAccountRepository, AccountRepository>();
     services.AddScoped<ICommentRepository, CommentRepository>();
     services.AddScoped<ICompanyRepository, CompanyRepository>();

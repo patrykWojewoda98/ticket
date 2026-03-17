@@ -15,10 +15,10 @@ public class TicketHistoryConfiguration : BaseConfiguration<TicketHistory>
     builder.HasIndex(ticketHistory => ticketHistory.TicketId);
 
     builder.Property(ticketHistory => ticketHistory.TicketId).IsRequired();
+    builder.Property(ticketHistory => ticketHistory.UserId).IsRequired();
     builder.Property(ticketHistory => ticketHistory.Action).IsRequired();
     builder.Property(ticketHistory => ticketHistory.OldValue).IsRequired(false);
     builder.Property(ticketHistory => ticketHistory.NewValue).IsRequired(false);
-    builder.Property(ticketHistory => ticketHistory.UserId).IsRequired(false);
 
     builder.HasOne(ticketHistory => ticketHistory.Ticket)
            .WithMany(ticket => ticket.History)
@@ -28,6 +28,6 @@ public class TicketHistoryConfiguration : BaseConfiguration<TicketHistory>
     builder.HasOne(ticketHistory => ticketHistory.User)
            .WithMany(user => user.TicketHistories)
            .HasForeignKey(ticketHistory => ticketHistory.UserId)
-           .OnDelete(DeleteBehavior.SetNull);
+           .OnDelete(DeleteBehavior.Restrict);
   }
 }

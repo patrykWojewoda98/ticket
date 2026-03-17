@@ -8,5 +8,5 @@ public record UpdateTicketAttachmentCommand(
   int TicketAttachmentId,
   string? Filename,
   string? Path,
-  string? UploadedBy
+  int? UploadedBy
 ) : IRequest<TicketAttachmentDto>;

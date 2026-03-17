@@ -12,11 +12,11 @@ public abstract class BaseConfiguration<T> : IEntityTypeConfiguration<T> where T
     builder.HasKey(entity => entity.Id);
 
     builder.Property(entity => entity.CreatedAt)
-           .HasDefaultValueSql("GETUTCDATE()")
+           .HasDefaultValueSql("(UTC_TIMESTAMP())")
            .IsRequired();
 
     builder.Property(entity => entity.UpdatedAt)
-           .HasDefaultValueSql("GETUTCDATE()")
+           .HasDefaultValueSql("(UTC_TIMESTAMP())")
            .IsRequired();
   }
 }

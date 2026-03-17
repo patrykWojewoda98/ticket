@@ -22,48 +22,48 @@ public class UserConfiguration : BaseConfiguration<User>
     builder.Property(user => user.Image).IsRequired(false);
 
     builder.HasMany(user => user.Accounts)
-           .WithOne(account => account.User)
-           .HasForeignKey(account => account.UserId)
-           .OnDelete(DeleteBehavior.Cascade);
+       .WithOne(account => account.User)
+       .HasForeignKey(account => account.UserId)
+       .OnDelete(DeleteBehavior.Cascade);
 
     builder.HasMany(user => user.Sessions)
-           .WithOne(session => session.User)
-           .HasForeignKey(session => session.UserId)
-           .OnDelete(DeleteBehavior.Cascade);
+       .WithOne(session => session.User)
+       .HasForeignKey(session => session.UserId)
+       .OnDelete(DeleteBehavior.Cascade);
 
     builder.HasMany(user => user.Companies)
-           .WithOne(company => company.User)
-           .HasForeignKey(company => company.UserId)
-           .OnDelete(DeleteBehavior.Cascade);
+       .WithOne(company => company.User)
+       .HasForeignKey(company => company.UserId)
+       .OnDelete(DeleteBehavior.Cascade);
 
     builder.HasMany(user => user.Tickets)
-           .WithOne(ticket => ticket.User)
-           .HasForeignKey(ticket => ticket.UserId)
-           .OnDelete(DeleteBehavior.Cascade);
+       .WithOne(ticket => ticket.User)
+       .HasForeignKey(ticket => ticket.UserId)
+       .OnDelete(DeleteBehavior.Cascade);
 
     builder.HasMany(user => user.Assigned)
-           .WithOne(ticket => ticket.Assignee)
-           .HasForeignKey(ticket => ticket.AssigneeId)
-           .OnDelete(DeleteBehavior.SetNull);
+       .WithOne(ticket => ticket.Assignee)
+       .HasForeignKey(ticket => ticket.AssigneeId)
+       .OnDelete(DeleteBehavior.SetNull);
 
     builder.HasMany(user => user.TicketHistories)
-           .WithOne(ticketHistory => ticketHistory.User)
-           .HasForeignKey(ticketHistory => ticketHistory.UserId)
-           .OnDelete(DeleteBehavior.SetNull);
+       .WithOne(ticketHistory => ticketHistory.User)
+       .HasForeignKey(ticketHistory => ticketHistory.UserId)
+       .OnDelete(DeleteBehavior.Restrict);
 
     builder.HasMany(user => user.TicketAttachments)
-           .WithOne(ticketAttachment => ticketAttachment.User)
-           .HasForeignKey(ticketAttachment => ticketAttachment.UploadedBy)
-           .OnDelete(DeleteBehavior.SetNull);
+       .WithOne(ticketAttachment => ticketAttachment.User)
+       .HasForeignKey(ticketAttachment => ticketAttachment.UploadedBy)
+       .OnDelete(DeleteBehavior.SetNull);
 
     builder.HasMany(user => user.TicketNotifications)
-           .WithOne(ticketNotification => ticketNotification.User)
-           .HasForeignKey(ticketNotification => ticketNotification.UserId)
-           .OnDelete(DeleteBehavior.Cascade);
+       .WithOne(ticketNotification => ticketNotification.User)
+       .HasForeignKey(ticketNotification => ticketNotification.UserId)
+       .OnDelete(DeleteBehavior.Cascade);
 
     builder.HasMany(user => user.Comments)
-           .WithOne(comment => comment.User)
-           .HasForeignKey(comment => comment.UserId)
-           .OnDelete(DeleteBehavior.Cascade);
+       .WithOne(comment => comment.User)
+       .HasForeignKey(comment => comment.UserId)
+       .OnDelete(DeleteBehavior.Cascade);
   }
 }

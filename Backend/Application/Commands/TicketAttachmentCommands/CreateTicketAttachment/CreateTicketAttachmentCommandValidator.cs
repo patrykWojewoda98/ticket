@@ -26,8 +26,7 @@ public class CreateTicketAttachmentCommandValidator : AbstractValidator<CreateTi
         .WithMessage("Path cannot exceed 1000 characters.");
 
     RuleFor(command => command.UploadedBy)
-        .MaximumLength(150)
-        .When(command => !string.IsNullOrEmpty(command.UploadedBy))
-        .WithMessage("Uploader name cannot exceed 150 characters.");
+        .GreaterThan(0)
+        .WithMessage("UploadedBy must be a positive integer.");
   }
 }

@@ -8,5 +8,5 @@ public record CreateTicketAttachmentCommand(
   int TicketId,
   string Filename,
   string Path,
-  string? UploadedBy
+  int? UploadedBy
 ) : IRequest<TicketAttachmentDto>;

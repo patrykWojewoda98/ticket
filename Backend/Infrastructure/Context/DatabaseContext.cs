@@ -19,11 +19,21 @@ public class DatabaseContext : DbContext
   public DbSet<TicketStatus> TicketStatuses { get; set; }
   public DbSet<User> Users { get; set; }
 
-  public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) { }
+  public DatabaseContext() { }
 
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {
     base.OnModelCreating(modelBuilder);
     modelBuilder.ApplyConfigurationsFromAssembly(typeof(DatabaseContext).Assembly);
+  }
+
+  protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+  {
+    if (!optionsBuilder.IsConfigured)
+    {
+      DotNetEnv.Env.TraversePath().Load();
+      var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING");
+      optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+    }
   }
 }

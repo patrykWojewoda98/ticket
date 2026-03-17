@@ -11,5 +11,5 @@ public class TicketHistory : Base
   public string? NewValue { get; set; }
 
   public Ticket Ticket { get; set; }
-  public User? User { get; set; }
+  public User User { get; set; }
 }
