@@ -6,12 +6,11 @@ using Application.Dtos;
 using Application.Commands.AccountCommands.CreateAccount;
 using Application.Commands.AccountCommands.DeleteAccount;
 using Application.Commands.AccountCommands.UpdateAccount;
-using Swashbuckle.AspNetCore.Annotations;
-using Domain.Entities;
-using Application.Queries.BaseQueries.GetAllEntities;
-using Application.Queries.BaseQueries.GetEntityById;
+using Application.Queries.AccountQueries.GetAllAccounts;
+using Application.Queries.AccountQueries.GetAccountById;
 using Application.Queries.AccountQueries.FindAccountsByUserId;
 using Application.Queries.AccountQueries.FindAccountByProviderId;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Presentation.Controllers;
 
@@ -49,7 +48,7 @@ public class AccountController : BaseController
   [SwaggerOperation(Summary = "Get all accounts")]
   public async Task<ActionResult<List<AccountDto>>> GetAllAccounts()
   {
-    var result = await _mediator.Send(new GetAllEntitiesQuery<Account>());
+    var result = await _mediator.Send(new GetAllAccountsQuery());
     return (result == null) ? NotFound() : Ok(result);
   }
 
@@ -57,7 +56,7 @@ public class AccountController : BaseController
   [SwaggerOperation(Summary = "Get account by unique record ID")]
   public async Task<ActionResult<AccountDto>> GetAccountById(int id)
   {
-    var result = await _mediator.Send(new GetEntityByIdQuery<Account>(id));
+    var result = await _mediator.Send(new GetAccountByIdQuery(id));
     return result == null ? NotFound() : Ok(result);
   }
 

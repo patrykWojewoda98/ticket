@@ -24,8 +24,8 @@ C:\Users\Kacper\Desktop\ticket\Backend\Infrastructure\bin\Debug\net10.0\Infrastr
 C:\Users\Kacper\Desktop\ticket\Backend\Infrastructure\bin\Debug\net10.0\Infrastructure.pdb
 C:\Users\Kacper\Desktop\ticket\Backend\Infrastructure\bin\Debug\net10.0\Application.dll
 C:\Users\Kacper\Desktop\ticket\Backend\Infrastructure\bin\Debug\net10.0\Domain.dll
-C:\Users\Kacper\Desktop\ticket\Backend\Infrastructure\bin\Debug\net10.0\Domain.pdb
 C:\Users\Kacper\Desktop\ticket\Backend\Infrastructure\bin\Debug\net10.0\Application.pdb
+C:\Users\Kacper\Desktop\ticket\Backend\Infrastructure\bin\Debug\net10.0\Domain.pdb
 C:\Users\Kacper\Desktop\ticket\Backend\Infrastructure\obj\Debug\net10.0\Infrastructure.csproj.AssemblyReference.cache
 C:\Users\Kacper\Desktop\ticket\Backend\Infrastructure\obj\Debug\net10.0\Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Kacper\Desktop\ticket\Backend\Infrastructure\obj\Debug\net10.0\Infrastructure.AssemblyInfoInputs.cache

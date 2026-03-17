@@ -7,7 +7,6 @@ public class UpdateTicketHistoryCommandValidator : AbstractValidator<UpdateTicke
 {
   public UpdateTicketHistoryCommandValidator()
   {
-    // TicketId i UserId są zazwyczaj wymagane do zidentyfikowania kontekstu zmiany
     RuleFor(command => command.TicketId)
         .NotEmpty()
         .GreaterThan(0);
