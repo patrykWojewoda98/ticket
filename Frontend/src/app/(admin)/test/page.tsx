@@ -1,141 +1,91 @@
 "use client";
-
 import React, { useState, useEffect } from "react";
 
-// Twoje DTO zgodne z bazą danych
-export interface Account {
-  id: number;
-  userId: number;
-  providerId: number;
-  accountId: number;
-  scope?: string;
-}
+const API = "http://localhost:5229/api/account";
 
-const API_URL = "http://localhost:5229/api/account";
+export default function CompactAccountPage() {
+  const [data, setData] = useState<any>(null);
+  const [id, setId] = useState("1");
+  const [pId, setPId] = useState("1"); // ProviderID
+  const [form, setForm] = useState({ userId: 1, providerId: 1, accountId: 1 });
 
-export default function AccountPage() {
-  const [accounts, setAccounts] = useState<Account[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [formData, setFormData] = useState({ userId: 0, providerId: 0, accountId: 0 });
-
-  // --- 1. POBIERANIE (READ) ---
-  const loadAccounts = async () => {
-    setLoading(true);
+  const fetcher = async (url: string, method = "GET", body?: any) => {
     try {
-      const res = await fetch(API_URL, { cache: "no-store" });
-      if (res.ok) {
-        const data = await res.json();
-        setAccounts(Array.isArray(data) ? data : []);
-      }
+      const res = await fetch(url, {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body: body ? JSON.stringify(body) : undefined,
+      });
+      const result = res.ok ? await res.json() : { error: res.status };
+      setData(result);
     } catch (e) {
-      console.error("Błąd połączenia z API");
-    } finally {
-      setLoading(false);
+      setData({ error: "API DOWN" });
     }
-  };
-
-  useEffect(() => {
-    loadAccounts();
-  }, []);
-
-  // --- 2. TWORZENIE (CREATE) ---
-  const handleCreate = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const res = await fetch(API_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
-    if (res.ok) {
-      setFormData({ userId: 0, providerId: 0, accountId: 0 }); // reset form
-      loadAccounts();
-    }
-  };
-
-  // --- 3. USUWANIE (DELETE) ---
-  const handleDelete = async (id: number) => {
-    if (!confirm("Na pewno usunąć?")) return;
-    const res = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
-    if (res.ok) loadAccounts();
-  };
-
-  // --- 4. AKTUALIZACJA (UPDATE) ---
-  const handleUpdate = async (account: Account) => {
-    const newProvider = prompt("Wpisz nowy ProviderId:", account.providerId.toString());
-    if (newProvider === null) return;
-
-    const updatedAccount = { ...account, providerId: Number(newProvider) };
-
-    const res = await fetch(`${API_URL}/${account.id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(updatedAccount),
-    });
-    if (res.ok) loadAccounts();
   };
 
   return (
-    <div className="space-y-10 mx-auto p-10 max-w-4xl">
-      <h1 className="pb-4 border-b font-bold text-3xl">Zarządzanie Kontami</h1>
+    <div className="space-y-6 mx-auto p-8 max-w-5xl font-sans">
+      <h1 className="mb-4 font-bold text-2xl">Account API Tester 🛠️</h1>
 
-      {/* --- FORMA CREATE --- */}
-      <section className="bg-gray-50 p-6 border rounded-xl">
-        <h2 className="mb-4 font-semibold text-blue-600 text-xl">Dodaj konto</h2>
-        <form onSubmit={handleCreate} className="flex items-end gap-4">
-          <div>
-            <label className="block text-gray-500 text-xs">User ID</label>
-            <input type="number" className="p-2 border rounded w-24" value={formData.userId} onChange={(e) => setFormData({ ...formData, userId: Number(e.target.value) })} />
-          </div>
-          <div>
-            <label className="block text-gray-500 text-xs">Provider ID</label>
-            <input type="number" className="p-2 border rounded w-24" value={formData.providerId} onChange={(e) => setFormData({ ...formData, providerId: Number(e.target.value) })} />
-          </div>
-          <div>
-            <label className="block text-gray-500 text-xs">Account ID</label>
-            <input type="number" className="p-2 border rounded w-24" value={formData.accountId} onChange={(e) => setFormData({ ...formData, accountId: Number(e.target.value) })} />
-          </div>
-          <button type="submit" className="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded font-bold text-white">
-            STWÓRZ
-          </button>
-        </form>
-      </section>
+      <div className="gap-4 grid grid-cols-1 md:grid-cols-2">
+        {/* --- LEWA KOLUMNA: AKCJE (INPUTY) --- */}
+        <div className="space-y-4">
+          <section className="bg-blue-50 p-4 border rounded">
+            <h3 className="mb-2 font-bold">Pobieranie (GET)</h3>
+            <div className="flex gap-2 mb-4">
+              <input type="number" value={id} onChange={(e) => setId(e.target.value)} className="p-1 border w-16" placeholder="ID" />
+              <input type="number" value={pId} onChange={(e) => setPId(e.target.value)} className="p-1 border w-16" placeholder="PID" />
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <button onClick={() => fetcher(API)} className="bg-blue-500 px-3 py-1 rounded text-white text-sm">
+                All
+              </button>
+              <button onClick={() => fetcher(`${API}/${id}`)} className="bg-blue-600 px-3 py-1 rounded text-white text-sm">
+                By ID ({id})
+              </button>
+              <button onClick={() => fetcher(`${API}/user/${id}`)} className="bg-blue-700 px-3 py-1 rounded text-white text-sm">
+                By User ({id})
+              </button>
+              <button onClick={() => fetcher(`${API}/provider/${pId}/${id}`)} className="bg-blue-800 px-3 py-1 rounded text-white text-sm">
+                By Prov ({pId}/{id})
+              </button>
+            </div>
+          </section>
 
-      {/* --- LISTA I TESTY (READ/DELETE/UPDATE) --- */}
-      <section className="space-y-4">
-        <h2 className="font-semibold text-green-600 text-xl">Konta w bazie ({accounts.length})</h2>
-        {loading ? (
-          <p>Ładowanie...</p>
-        ) : (
-          <div className="gap-4 grid">
-            {accounts.map((acc) => (
-              <div key={acc.id} className="flex justify-between items-center bg-white shadow-sm p-4 border rounded-lg">
-                <div>
-                  <p className="font-mono text-gray-400 text-sm">#ID: {acc.id}</p>
-                  <p>
-                    <strong>Provider:</strong> {acc.providerId} | <strong>User:</strong> {acc.userId}
-                  </p>
-                  <p className="text-gray-500 text-xs italic">Scope: {acc.scope || "brak"}</p>
-                </div>
-                <div className="flex gap-2">
-                  <button onClick={() => handleUpdate(acc)} className="bg-yellow-500 px-3 py-1 rounded font-bold text-white text-sm">
-                    EDYTUJ
-                  </button>
-                  <button onClick={() => handleDelete(acc.id)} className="bg-red-500 px-3 py-1 rounded font-bold text-white text-sm">
-                    USUŃ
-                  </button>
-                </div>
-              </div>
-            ))}
-            {accounts.length === 0 && <p className="text-gray-400">Baza jest pusta.</p>}
-          </div>
-        )}
-      </section>
+          <section className="bg-green-50 p-4 border rounded">
+            <h3 className="mb-2 font-bold">Create / Delete / Update</h3>
+            <div className="flex gap-2 mb-2">
+              <input type="number" placeholder="UID" className="p-1 border w-full" onChange={(e) => setForm({ ...form, userId: +e.target.value })} />
+              <input type="number" placeholder="PID" className="p-1 border w-full" onChange={(e) => setForm({ ...form, providerId: +e.target.value })} />
+              <input type="number" placeholder="AID" className="p-1 border w-full" onChange={(e) => setForm({ ...form, accountId: +e.target.value })} />
+            </div>
+            <div className="flex gap-2">
+              <button onClick={() => fetcher(API, "POST", form)} className="bg-green-600 px-4 py-1 rounded w-full text-white text-sm">
+                CREATE
+              </button>
+              <button onClick={() => fetcher(`${API}/${id}`, "PUT", { ...form, id: +id })} className="bg-yellow-600 px-4 py-1 rounded w-full text-white text-sm">
+                UPDATE ({id})
+              </button>
+              <button onClick={() => fetcher(`${API}/${id}`, "DELETE")} className="bg-red-600 px-4 py-1 rounded w-full text-white text-sm">
+                DELETE ({id})
+              </button>
+            </div>
+          </section>
+        </div>
 
-      {/* --- DEBUG JSON --- */}
-      <details className="mt-10">
-        <summary className="text-gray-400 text-sm cursor-pointer">Pokaż surowy JSON</summary>
-        <pre className="bg-gray-100 mt-2 p-4 rounded overflow-auto text-xs">{JSON.stringify(accounts, null, 2)}</pre>
-      </details>
+        {/* --- PRAWA KOLUMNA: WYNIK (WIDOK JSON) --- */}
+        <div className="bg-gray-900 p-4 border rounded min-h-[400px] overflow-auto text-green-400">
+          <h3 className="flex justify-between mb-2 pb-2 border-gray-700 border-b font-mono text-white text-sm">
+            API RESPONSE:{" "}
+            <button onClick={() => setData(null)} className="text-red-400 text-xs underline">
+              Clear
+            </button>
+          </h3>
+          <pre className="text-xs">{JSON.stringify(data, null, 2)}</pre>
+        </div>
+      </div>
+
+      <footer className="text-gray-400 text-xs text-center italic">Status: {data?.error ? "❌ ERROR: " + data.error : "✅ OK / READY"}</footer>
     </div>
   );
 }

@@ -13,19 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-<<<<<<< HEAD
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+737082997abc89270a00535f9eb4595517dc4c79")]
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d5cfbf92d36c79b13f830eaac302d75dbc9a9dee")]
-=======
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7a23e446a581ee691f7dc653c55eb3c63b7f3a8b")]
->>>>>>> 84c2d9cfaa0a4d88d0f5c447fef3db07232483d8
-=======
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+84c2d9cfaa0a4d88d0f5c447fef3db07232483d8")]
->>>>>>> 86fa1922a4e500b82fcf646c561ccbcbe7dc70b6
->>>>>>> 7965c87d4b79de22c242273419291968b3f67e10
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+db8eca9f4f3009a83a65a436b3d08f22c70cc38f")]
 [assembly: System.Reflection.AssemblyProductAttribute("Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

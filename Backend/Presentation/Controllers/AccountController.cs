@@ -13,7 +13,7 @@ using Application.Queries.BaseQueries.GetEntityById;
 using Application.Queries.AccountQueries.FindAccountsByUserId;
 using Application.Queries.AccountQueries.FindAccountByProviderId;
 
-namespace Api.Controllers;
+namespace Presentation.Controllers;
 
 [Route("api/[controller]")]
 public class AccountController : BaseController

@@ -1,7 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Controllers;
+namespace Presentation.Controllers;
 
 public abstract class BaseController : Controller
 {
