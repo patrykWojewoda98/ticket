@@ -17,7 +17,7 @@ public class UpdateTicketHistoryCommandHandler : IRequestHandler<UpdateTicketHis
   }
   public async Task<TicketHistoryDto> Handle(UpdateTicketHistoryCommand request, CancellationToken cancellationToken)
   {
-    var ticketHistory = await _repository.GetByIdAsync(request.TicketId, cancellationToken);
+    var ticketHistory = await _repository.GetByIdAsync(request.TicketHistoryId, cancellationToken);
     if (ticketHistory == null) return null;
 
     ticketHistory.TicketId = request.TicketId;

@@ -1,6 +1,4 @@
 using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Infrastructure.Context;
 using Infrastructure.Services;
@@ -11,11 +9,11 @@ namespace Infrastructure;
 
 static public class DependencyInjection
 {
-  public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+  public static IServiceCollection AddInfrastructure(this IServiceCollection services)
   {
     services.AddDbContext<DatabaseContext>();
-
     services.AddScoped<IAccountRepository, AccountRepository>();
+    services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
     services.AddScoped<ICommentRepository, CommentRepository>();
     services.AddScoped<ICompanyRepository, CompanyRepository>();
     services.AddScoped<ISessionRepository, SessionRepository>();

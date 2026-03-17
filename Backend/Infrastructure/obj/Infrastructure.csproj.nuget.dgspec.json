@@ -710,11 +710,16 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
+<<<<<<< HEAD
               "C:\\Users\\lukas.DESKTOP-CEOF10E\\Documents\\GitHub\\ticket\\Backend\\Application\\Application.csproj": {
                 "projectPath": "C:\\Users\\lukas.DESKTOP-CEOF10E\\Documents\\GitHub\\ticket\\Backend\\Application\\Application.csproj"
               },
               "C:\\Users\\lukas.DESKTOP-CEOF10E\\Documents\\GitHub\\ticket\\Backend\\Domain\\Domain.csproj": {
                 "projectPath": "C:\\Users\\lukas.DESKTOP-CEOF10E\\Documents\\GitHub\\ticket\\Backend\\Domain\\Domain.csproj"
+=======
+              "C:\\Users\\Kacper\\Desktop\\ticket\\Backend\\Application\\Application.csproj": {
+                "projectPath": "C:\\Users\\Kacper\\Desktop\\ticket\\Backend\\Application\\Application.csproj"
+>>>>>>> 431c35edf13e39a0de72d86cbffa432502b024f5
               }
             }
           }

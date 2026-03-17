@@ -1,6 +1,10 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "MddrhdLY9E0=",
+=======
+  "dgSpecHash": "aqHDUYcDUNg=",
+>>>>>>> 431c35edf13e39a0de72d86cbffa432502b024f5
   "success": true,
   "projectFilePath": "C:\\Users\\lukas.DESKTOP-CEOF10E\\Documents\\GitHub\\ticket\\Backend\\Infrastructure\\Infrastructure.csproj",
   "expectedPackageFiles": [
