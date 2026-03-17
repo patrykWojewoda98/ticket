@@ -13,6 +13,8 @@ static public class DependencyInjection
 {
   public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
   {
+    services.AddDbContext<DatabaseContext>();
+
     services.AddScoped<IAccountRepository, AccountRepository>();
     services.AddScoped<ICommentRepository, CommentRepository>();
     services.AddScoped<ICompanyRepository, CompanyRepository>();
