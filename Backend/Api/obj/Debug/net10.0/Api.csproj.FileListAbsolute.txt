@@ -69,7 +69,6 @@ C:\Users\Kacper\Desktop\ticket\Backend\Api\bin\Debug\net10.0\FluentValidation.dl
 C:\Users\Kacper\Desktop\ticket\Backend\Api\bin\Debug\net10.0\FluentValidation.DependencyInjectionExtensions.dll
 C:\Users\Kacper\Desktop\ticket\Backend\Api\bin\Debug\net10.0\MediatR.dll
 C:\Users\Kacper\Desktop\ticket\Backend\Api\bin\Debug\net10.0\MediatR.Contracts.dll
-C:\Users\Kacper\Desktop\ticket\Backend\Api\bin\Debug\net10.0\Microsoft.AspNetCore.OpenApi.dll
 C:\Users\Kacper\Desktop\ticket\Backend\Api\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.dll
 C:\Users\Kacper\Desktop\ticket\Backend\Api\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.Abstractions.dll
 C:\Users\Kacper\Desktop\ticket\Backend\Api\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.Relational.dll
@@ -114,3 +113,6 @@ C:\Users\Kacper\Desktop\ticket\Backend\Api\obj\Debug\net10.0\refint\Api.dll
 C:\Users\Kacper\Desktop\ticket\Backend\Api\obj\Debug\net10.0\Api.pdb
 C:\Users\Kacper\Desktop\ticket\Backend\Api\obj\Debug\net10.0\Api.genruntimeconfig.cache
 C:\Users\Kacper\Desktop\ticket\Backend\Api\obj\Debug\net10.0\ref\Api.dll
+C:\Users\Kacper\Desktop\ticket\Backend\api\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\Kacper\Desktop\ticket\Backend\api\bin\Debug\net10.0\Presentation.dll
+C:\Users\Kacper\Desktop\ticket\Backend\api\bin\Debug\net10.0\Presentation.pdb

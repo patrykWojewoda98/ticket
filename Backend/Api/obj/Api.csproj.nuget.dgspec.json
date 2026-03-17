@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Kacper\\Desktop\\ticket\\Backend\\Api\\Api.csproj": {}
+    "C:\\Users\\Kacper\\Desktop\\ticket\\Backend\\api\\Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Kacper\\Desktop\\ticket\\Backend\\Api\\Api.csproj": {
+    "C:\\Users\\Kacper\\Desktop\\ticket\\Backend\\api\\Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Kacper\\Desktop\\ticket\\Backend\\Api\\Api.csproj",
+        "projectUniqueName": "C:\\Users\\Kacper\\Desktop\\ticket\\Backend\\api\\Api.csproj",
         "projectName": "Api",
-        "projectPath": "C:\\Users\\Kacper\\Desktop\\ticket\\Backend\\Api\\Api.csproj",
+        "projectPath": "C:\\Users\\Kacper\\Desktop\\ticket\\Backend\\api\\Api.csproj",
         "packagesPath": "C:\\Users\\Kacper\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Kacper\\Desktop\\ticket\\Backend\\Api\\obj\\",
+        "outputPath": "C:\\Users\\Kacper\\Desktop\\ticket\\Backend\\api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Kacper\\AppData\\Roaming\\NuGet\\NuGet.Config",
