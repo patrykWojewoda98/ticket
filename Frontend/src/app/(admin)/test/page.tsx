@@ -4,8 +4,8 @@ export interface Account {
   providerId: number;
 }
 
-async function getAccount(id: string) {
-  const res = await fetch(`http://localhost:5000/api/account/${id}`, {
+async function getAccount(id: number) {
+  const res = await fetch(`http://localhost:5229/api/account/${id}`, {
     cache: "no-store",
   });
 
@@ -21,7 +21,7 @@ export default async function AccountPage() {
   const account = await getAccount(1);
 
   if (!account) {
-    return <div>Nie znaleziono konta o ID: {params.id}</div>;
+    return <div>Nie znaleziono konta o ID: 1</div>;
   }
 
   return (
