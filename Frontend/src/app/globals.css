@@ -177,3 +177,7 @@
 .ticket-closed {
   @apply bg-slate-200 text-slate-700;
 }
+html {
+  @apply font-sans;
+  scrollbar-gutter: stable both-edges;
+}
