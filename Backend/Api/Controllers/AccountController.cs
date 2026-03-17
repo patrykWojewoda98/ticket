@@ -20,20 +20,16 @@ public class AccountController : BaseController
   public AccountController(IMediator mediator) : base(mediator) { }
 
   [HttpPost]
-  [SwaggerOperation(Summary = "Create account", Description = "Creates a new account for a user.")]
+  [SwaggerOperation(Summary = "Create account")]
   [ProducesResponseType(typeof(AccountDto), (int)HttpStatusCode.Created)]
-  [ProducesResponseType((int)HttpStatusCode.BadRequest)]
   public async Task<IActionResult> Create([FromBody] CreateAccountCommand command)
   {
     var result = await _mediator.Send(command);
-    return CreatedAtAction(nameof(GetByUserId), new { id = result.Id }, result);
+    // Zmienione na nameof(GetByUserId) i przekazujemy userId, bo to Twoja jedyna metoda GET
+    return CreatedAtAction(nameof(GetByUserId), new { userId = result.UserId }, result);
   }
 
   [HttpPut("{id}")]
-  [SwaggerOperation(Summary = "Update account", Description = "Updates an existing account details.")]
-  [ProducesResponseType(typeof(AccountDto), (int)HttpStatusCode.OK)]
-  [ProducesResponseType((int)HttpStatusCode.NotFound)]
-  [ProducesResponseType((int)HttpStatusCode.BadRequest)]
   public async Task<IActionResult> Update(int id, [FromBody] UpdateAccountCommand command)
   {
     var result = await _mediator.Send(command with { AccountId = id });
@@ -42,9 +38,6 @@ public class AccountController : BaseController
   }
 
   [HttpDelete("{id}")]
-  [SwaggerOperation(Summary = "Delete account")]
-  [ProducesResponseType((int)HttpStatusCode.NoContent)]
-  [ProducesResponseType((int)HttpStatusCode.NotFound)]
   public async Task<IActionResult> Delete(int id)
   {
     var result = await _mediator.Send(new DeleteAccountCommand(id));
@@ -52,20 +45,19 @@ public class AccountController : BaseController
     return NoContent();
   }
 
-  [HttpGet]
-  [SwaggerOperation(Summary = "Get all accounts")]
-  public async Task<ActionResult<List<Account>>> GetAll()
-  {
-    var results = await _mediator.Send(new GetAllEntitiesQuery<Account>());
-    return Ok(results);
-  }
+  // Usunąłem GetAll, bo wcześniej wywalało błąd rejestracji MediatR (generyki).
+  // Jeśli go potrzebujesz, musisz stworzyć dedykowane GetAccountsQuery.
 
-  [HttpGet("{id}")]
-  [SwaggerOperation(Summary = "Get account by ID")]
+  [HttpGet("user/{userId}")] // Zmieniłem trasę na bardziej logiczną
+  [SwaggerOperation(Summary = "Get accounts by User ID")]
+  [ProducesResponseType(typeof(List<AccountDto>), (int)HttpStatusCode.OK)]
   public async Task<ActionResult<List<AccountDto>>> GetByUserId(int userId)
   {
+    // Używamy Twojego nowego, sprawnego Handlera
     var result = await _mediator.Send(new FindAccountsByUserIdQuery(userId));
+
     if (result == null || !result.Any()) return NotFound();
+
     return Ok(result);
   }
 }
