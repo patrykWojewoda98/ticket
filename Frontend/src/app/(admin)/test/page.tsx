@@ -18,7 +18,7 @@ async function getAccount(id: number) {
 }
 
 export default async function AccountPage() {
-  const account = await getAccount(1);
+  const account = await getAccount(2);
 
   if (!account) {
     return <div>Nie znaleziono konta o ID: 1</div>;
