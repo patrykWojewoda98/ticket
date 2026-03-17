@@ -10,6 +10,7 @@ using Swashbuckle.AspNetCore.Annotations;
 using Domain.Entities;
 using Application.Queries.BaseQueries.GetAllEntities;
 using Application.Queries.BaseQueries.GetEntityById;
+using Application.Queries.AccountQueries.FindAccountsByUserId;
 
 namespace Api.Controllers;
 
@@ -25,7 +26,7 @@ public class AccountController : BaseController
   public async Task<IActionResult> Create([FromBody] CreateAccountCommand command)
   {
     var result = await _mediator.Send(command);
-    return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
+    return CreatedAtAction(nameof(GetByUserId), new { id = result.Id }, result);
   }
 
   [HttpPut("{id}")]
@@ -61,10 +62,10 @@ public class AccountController : BaseController
 
   [HttpGet("{id}")]
   [SwaggerOperation(Summary = "Get account by ID")]
-  public async Task<ActionResult<Account>> GetById(int id)
+  public async Task<ActionResult<List<AccountDto>>> GetByUserId(int userId)
   {
-    var result = await _mediator.Send(new GetEntityByIdQuery<Account>(id));
-    if (result == null) return NotFound();
+    var result = await _mediator.Send(new FindAccountsByUserIdQuery(userId));
+    if (result == null || !result.Any()) return NotFound();
     return Ok(result);
   }
 }
