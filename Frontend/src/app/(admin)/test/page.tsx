@@ -5,7 +5,7 @@ export interface Account {
 }
 
 async function getAccount(id: number) {
-  const res = await fetch(`http://localhost:5229/api/account/${id}`, {
+  const res = await fetch(`http://localhost:5229/api/account/user/${id}`, {
     cache: "no-store",
   });
 
