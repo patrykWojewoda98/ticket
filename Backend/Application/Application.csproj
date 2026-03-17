@@ -97,9 +97,7 @@
     <Folder Include="Queries\TicketQueries\FindByAssigneeId\" />
     <Folder Include="Queries\TicketQueries\GetAllTickets\" />
     <Folder Include="Queries\TicketQueries\GetTicketById\" />
-    <Folder Include="Queries\TicketStatusQueries\" />
     <Folder Include="Queries\TicketStatusQueries\FindByName\" />
-    <Folder Include="Queries\TicketStatusQueries\GetAllTicketStatus\" />
     <Folder Include="Queries\TicketStatusQueries\GetTicketStatusById\" />
     <Folder Include="Queries\UserQueries\" />
     <Folder Include="Queries\UserQueries\FindByRole\" />
