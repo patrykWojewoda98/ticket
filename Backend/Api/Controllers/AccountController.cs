@@ -11,6 +11,7 @@ using Domain.Entities;
 using Application.Queries.BaseQueries.GetAllEntities;
 using Application.Queries.BaseQueries.GetEntityById;
 using Application.Queries.AccountQueries.FindAccountsByUserId;
+using Application.Queries.AccountQueries.FindAccountByProviderId;
 
 namespace Api.Controllers;
 
@@ -25,22 +26,53 @@ public class AccountController : BaseController
   public async Task<IActionResult> Create([FromBody] CreateAccountCommand command)
   {
     var result = await _mediator.Send(command);
-    // Po stworzeniu przekierowujemy do GetByUserId, bo to masz zaimplementowane
-    return CreatedAtAction(nameof(GetByUserId), new { userId = result.UserId }, result);
+    return CreatedAtAction(nameof(GetAccountById), new { id = result.Id }, result);
   }
 
-  // ... Update i Delete bez zmian ...
-
-  [HttpGet("user/{userId}")] // Zmiana trasy, aby pasowała do FindAccountsByUserIdQuery
-  [SwaggerOperation(Summary = "Get accounts by User ID")]
-  [ProducesResponseType(typeof(List<AccountDto>), (int)HttpStatusCode.OK)]
-  public async Task<ActionResult<List<AccountDto>>> GetByUserId(int userId)
+  [HttpPut("{id}")]
+  [SwaggerOperation(Summary = "Update account")]
+  public async Task<IActionResult> Update(int id, [FromBody] UpdateAccountCommand command)
   {
-    // UŻYWAMY TWOJEGO NOWEGO HANDLERA
+    var result = await _mediator.Send(command with { AccountId = id });
+    return (result == null) ? NotFound() : Ok(result);
+  }
+
+  [HttpDelete("{id}")]
+  [SwaggerOperation(Summary = "Delete account")]
+  public async Task<IActionResult> Delete(int id)
+  {
+    var result = await _mediator.Send(new DeleteAccountCommand(id));
+    return (result == null) ? NotFound() : Ok(result);
+  }
+
+  [HttpGet]
+  [SwaggerOperation(Summary = "Get all accounts")]
+  public async Task<ActionResult<List<AccountDto>>> GetAllAccounts()
+  {
+    var result = await _mediator.Send(new GetAllEntitiesQuery<Account>());
+    return (result == null) ? NotFound() : Ok(result);
+  }
+
+  [HttpGet("{id}")]
+  [SwaggerOperation(Summary = "Get account by unique record ID")]
+  public async Task<ActionResult<AccountDto>> GetAccountById(int id)
+  {
+    var result = await _mediator.Send(new GetEntityByIdQuery<Account>(id));
+    return result == null ? NotFound() : Ok(result);
+  }
+
+  [HttpGet("provider/{providerId}/{accountId}")]
+  public async Task<ActionResult<List<AccountDto>>> FindAccountByProviderId(int providerId, int accountId)
+  {
+    var result = await _mediator.Send(new FindAccountByProviderIdQuery(providerId, accountId));
+    return (result == null) ? NotFound() : Ok(result);
+  }
+
+  [HttpGet("user/{userId}")]
+  [SwaggerOperation(Summary = "Get all accounts for a specific user")]
+  public async Task<ActionResult<List<AccountDto>>> FindAccountsByUserId(int userId)
+  {
     var result = await _mediator.Send(new FindAccountsByUserIdQuery(userId));
-
-    if (result == null || !result.Any()) return NotFound();
-
-    return Ok(result);
+    return (result == null) ? NotFound() : Ok(result);
   }
 }
