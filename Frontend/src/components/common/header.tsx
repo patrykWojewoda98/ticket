@@ -62,7 +62,7 @@ const renderButtons = (isPlain = false) =>
             <Ticket className="w-5 h-5 text-slate-700" />
           </div>
 
-          <Link href="/" className="group relative font-bold text-slate-500 group-hover:text-slate-900 text-lg transition-colors">
+          <Link href="" className="group relative font-bold text-slate-500 group-hover:text-slate-900 text-lg transition-colors">
             Ticket
             <span className="-bottom-1 left-0 absolute bg-slate-900 w-0 group-hover:w-full h-[2px] transition-all duration-300" />
           </Link>

@@ -1,10 +1,12 @@
-import { Home, Info, LogIn, LogOut, Mail, Plus, Ticket } from "lucide-react";
+import { Home, Info, LogIn, LogOut, Mail, PersonStanding, Plus, Ticket } from "lucide-react";
 
 export const NAV_LINKS = {
   authenticated: [
-    { label: "Tickety", href: "/tickets", icon: Ticket },
-    { label: "O nas", href: "/about", icon: Info },
-    { label: "Kontakt", href: "/contact", icon: Mail },
+    { label: "Panel admina", href: "/admin", icon: PersonStanding },
+    { label: "Tickety", href: "/admin/tickets", icon: Ticket },
+    { label: "Klienci", href: "/admin/clients", icon: PersonStanding },
+   
+   
   ],
   unauthenticated: [
     { label: "Strona główna", href: "/", icon: Home },
@@ -16,10 +18,10 @@ export const NAV_LINKS = {
 export const NAV_BUTTONS = {
   authenticated: [
     { label: "Wyloguj się", href: "/logout", icon: LogOut },
-    { label: "Dodaj ticketa", href: "/tickets/new", icon: Plus },
+    { label: "Dodaj klienta", href: "/admin/clients/new", icon: Plus },
   ],
   unauthenticated: [
     { label: "Zaloguj się", href: "/login", icon: LogIn },
-    { label: "Dodaj ticketa", href: "/register", icon: Plus },
+    { label: "Dodaj ticketa", href: "/login", icon: Plus },
   ],
 };
