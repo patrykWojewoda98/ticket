@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { mockTickets, TicketStatus } from "@/lib/mock-tickets";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export default function AdminTicketsPage() {
   const [tickets, setTickets] = useState(mockTickets);
@@ -20,12 +21,12 @@ export default function AdminTicketsPage() {
     }
   };
 
- const handleStatusChange = (id: string, newStatus: TicketStatus) => {
-  const updated = tickets.map((t) =>
-    t.id.toString() === id ? { ...t, status: newStatus } : t
-  );
-  setTickets(updated);
-};
+  const handleStatusChange = (id: string, newStatus: TicketStatus) => {
+    const updated = tickets.map((t) =>
+      t.id.toString() === id ? { ...t, status: newStatus } : t
+    );
+    setTickets(updated);
+  };
 
   return (
     <div>
@@ -49,17 +50,23 @@ export default function AdminTicketsPage() {
                 <td className="p-3 text-gray-600">{ticket.createdAt}</td>
 
                 <td className="p-3">
-                  <select
+                  <Select
                     value={ticket.status}
-                   onChange={(e) => handleStatusChange(ticket.id.toString(), e.target.value as TicketStatus)}
-                    className={`px-2 py-1 rounded-lg text-sm border ${getStatusColor(
-                      ticket.status
-                    )}`}
+                    onValueChange={(value) =>
+                      handleStatusChange(ticket.id.toString(), value as TicketStatus)
+                    }
                   >
-                    <option value="OPEN">OPEN</option>
-                    <option value="PENDING">PENDING</option>
-                    <option value="CLOSED">CLOSED</option>
-                  </select>
+                    <SelectTrigger
+                      className={`px-2 py-1 rounded-lg text-sm border ${getStatusColor(ticket.status)}`}
+                    >
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="OPEN">OPEN</SelectItem>
+                      <SelectItem value="PENDING">PENDING</SelectItem>
+                      <SelectItem value="CLOSED">CLOSED</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </td>
 
                 <td className="p-3">
