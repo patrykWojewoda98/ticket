@@ -94,6 +94,7 @@
     <Folder Include="Queries\TicketPriorityQueries\FindByName\" />
     <Folder Include="Queries\TicketPriorityQueries\GetAllTicketPriorities\" />
     <Folder Include="Queries\TicketPriorityQueries\GetTicketPriorityById\" />
+    <Folder Include="Queries\TicketQueries\CountByStatusId\" />
     <Folder Include="Queries\TicketQueries\FindByAssigneeId\" />
     <Folder Include="Queries\TicketQueries\GetAllTickets\" />
     <Folder Include="Queries\TicketQueries\GetTicketById\" />

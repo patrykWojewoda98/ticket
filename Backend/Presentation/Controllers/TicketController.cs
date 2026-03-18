@@ -11,6 +11,7 @@ using Application.Queries.TicketQueries.GetTicketById;
 using Application.Queries.TicketQueries.FindByUserId;
 using Application.Queries.TicketQueries.FindByAssigneeId;
 using Swashbuckle.AspNetCore.Annotations;
+using Application.Queries.TicketQueries.CountByStatusId;
 
 namespace Presentation.Controllers;
 
@@ -73,6 +74,14 @@ public class TicketController : BaseController
   public async Task<ActionResult<List<TicketDto>>> FindByAssigneeId(int assigneeId)
   {
     var result = await _mediator.Send(new FindByAssigneeIdQuery(assigneeId));
+    return (result == null) ? NotFound() : Ok(result);
+  }
+
+  [HttpGet("status/{statusId}/count")]
+  [SwaggerOperation(Summary = "Get the total count of tickets with a specific status")]
+  public async Task<ActionResult<int>> CountByStatusId(int statusId)
+  {
+    var result = await _mediator.Send(new CountByStatusIdQuery(statusId));
     return (result == null) ? NotFound() : Ok(result);
   }
 }
