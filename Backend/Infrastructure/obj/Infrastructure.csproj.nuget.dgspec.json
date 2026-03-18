@@ -1,35 +1,33 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Kacper\\Desktop\\ticket\\Backend\\Infrastructure\\Infrastructure.csproj": {}
+    "C:\\Users\\lukas.DESKTOP-CEOF10E\\Documents\\GitHub\\ticket\\Backend\\Infrastructure\\Infrastructure.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Kacper\\Desktop\\ticket\\Backend\\Application\\Application.csproj": {
+    "C:\\Users\\lukas.DESKTOP-CEOF10E\\Documents\\GitHub\\ticket\\Backend\\Application\\Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Kacper\\Desktop\\ticket\\Backend\\Application\\Application.csproj",
+        "projectUniqueName": "C:\\Users\\lukas.DESKTOP-CEOF10E\\Documents\\GitHub\\ticket\\Backend\\Application\\Application.csproj",
         "projectName": "Application",
-        "projectPath": "C:\\Users\\Kacper\\Desktop\\ticket\\Backend\\Application\\Application.csproj",
-        "packagesPath": "C:\\Users\\Kacper\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Kacper\\Desktop\\ticket\\Backend\\Application\\obj\\",
+        "projectPath": "C:\\Users\\lukas.DESKTOP-CEOF10E\\Documents\\GitHub\\ticket\\Backend\\Application\\Application.csproj",
+        "packagesPath": "C:\\Users\\lukas.DESKTOP-CEOF10E\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\lukas.DESKTOP-CEOF10E\\Documents\\GitHub\\ticket\\Backend\\Application\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Kacper\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\lukas.DESKTOP-CEOF10E\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\Kacper\\Desktop\\ticket\\Backend\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\Users\\Kacper\\Desktop\\ticket\\Backend\\Domain\\Domain.csproj"
+              "C:\\Users\\lukas.DESKTOP-CEOF10E\\Documents\\GitHub\\ticket\\Backend\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\lukas.DESKTOP-CEOF10E\\Documents\\GitHub\\ticket\\Backend\\Domain\\Domain.csproj"
               }
             }
           }
@@ -79,7 +77,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.200/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -357,24 +355,22 @@
         }
       }
     },
-    "C:\\Users\\Kacper\\Desktop\\ticket\\Backend\\Domain\\Domain.csproj": {
+    "C:\\Users\\lukas.DESKTOP-CEOF10E\\Documents\\GitHub\\ticket\\Backend\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Kacper\\Desktop\\ticket\\Backend\\Domain\\Domain.csproj",
+        "projectUniqueName": "C:\\Users\\lukas.DESKTOP-CEOF10E\\Documents\\GitHub\\ticket\\Backend\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "C:\\Users\\Kacper\\Desktop\\ticket\\Backend\\Domain\\Domain.csproj",
-        "packagesPath": "C:\\Users\\Kacper\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Kacper\\Desktop\\ticket\\Backend\\Domain\\obj\\",
+        "projectPath": "C:\\Users\\lukas.DESKTOP-CEOF10E\\Documents\\GitHub\\ticket\\Backend\\Domain\\Domain.csproj",
+        "packagesPath": "C:\\Users\\lukas.DESKTOP-CEOF10E\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\lukas.DESKTOP-CEOF10E\\Documents\\GitHub\\ticket\\Backend\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Kacper\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\lukas.DESKTOP-CEOF10E\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -414,7 +410,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.200/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -692,32 +688,38 @@
         }
       }
     },
-    "C:\\Users\\Kacper\\Desktop\\ticket\\Backend\\Infrastructure\\Infrastructure.csproj": {
+    "C:\\Users\\lukas.DESKTOP-CEOF10E\\Documents\\GitHub\\ticket\\Backend\\Infrastructure\\Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Kacper\\Desktop\\ticket\\Backend\\Infrastructure\\Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\lukas.DESKTOP-CEOF10E\\Documents\\GitHub\\ticket\\Backend\\Infrastructure\\Infrastructure.csproj",
         "projectName": "Infrastructure",
-        "projectPath": "C:\\Users\\Kacper\\Desktop\\ticket\\Backend\\Infrastructure\\Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\Kacper\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Kacper\\Desktop\\ticket\\Backend\\Infrastructure\\obj\\",
+        "projectPath": "C:\\Users\\lukas.DESKTOP-CEOF10E\\Documents\\GitHub\\ticket\\Backend\\Infrastructure\\Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\lukas.DESKTOP-CEOF10E\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\lukas.DESKTOP-CEOF10E\\Documents\\GitHub\\ticket\\Backend\\Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Kacper\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\lukas.DESKTOP-CEOF10E\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
+<<<<<<< HEAD
+              "C:\\Users\\lukas.DESKTOP-CEOF10E\\Documents\\GitHub\\ticket\\Backend\\Application\\Application.csproj": {
+                "projectPath": "C:\\Users\\lukas.DESKTOP-CEOF10E\\Documents\\GitHub\\ticket\\Backend\\Application\\Application.csproj"
+              },
+              "C:\\Users\\lukas.DESKTOP-CEOF10E\\Documents\\GitHub\\ticket\\Backend\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\lukas.DESKTOP-CEOF10E\\Documents\\GitHub\\ticket\\Backend\\Domain\\Domain.csproj"
+=======
               "C:\\Users\\Kacper\\Desktop\\ticket\\Backend\\Application\\Application.csproj": {
                 "projectPath": "C:\\Users\\Kacper\\Desktop\\ticket\\Backend\\Application\\Application.csproj"
+>>>>>>> 431c35edf13e39a0de72d86cbffa432502b024f5
               }
             }
           }
@@ -779,7 +781,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.200/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",

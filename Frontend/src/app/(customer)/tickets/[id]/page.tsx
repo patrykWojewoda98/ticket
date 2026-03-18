@@ -21,7 +21,6 @@ export default async function TicketDetailPage({ params }: Props) {
 
      
       <div className="flex flex-col gap-2 bg-slate-100 p-4 rounded-lg">
-        <div><span className="font-semibold">ID:</span> {ticket.id}</div>
         <div className="flex items-center gap-2">
           <span className="font-semibold">Status:</span>
           <span className={`px-2 py-1 rounded-full text-sm status-${ticket.status.toLowerCase()}`}>

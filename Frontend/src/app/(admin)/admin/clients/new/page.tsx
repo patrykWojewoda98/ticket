@@ -2,7 +2,7 @@ export default function NewClientPage() {
   return (
     <div>
 
-      <h1 className="text-2xl font-bold mb-6">
+      <h1 className="text-2xl font-bold mb-6 mt-16">
         Create Client
       </h1>
 
@@ -17,6 +17,16 @@ export default function NewClientPage() {
         <input
           type="email"
           placeholder="Email"
+          className="border p-2"
+        />
+        <input
+          type="password"
+          placeholder="Hasło"
+          className="border p-2"
+        />
+        <input
+          type="password"
+          placeholder="Potwierdź hasło"
           className="border p-2"
         />
 

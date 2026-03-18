@@ -71,14 +71,6 @@ export default function AdminHomePage() {
           </tbody>
         </table>
       </div>
-
-     
-      <div className="flex flex-wrap gap-4 mt-6">
-        <Link href="/admin/tickets" className="px-4 py-2 bg-black text-white rounded">All Tickets</Link>
-        <Link href="/admin/clients" className="px-4 py-2 bg-black text-white rounded">All Clients</Link>
-        <Link href="/admin/clients/new" className="px-4 py-2 bg-black text-white rounded">New Client</Link>
-      </div>
-
     </div>
   );
 }
