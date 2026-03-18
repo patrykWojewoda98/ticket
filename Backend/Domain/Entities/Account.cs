@@ -5,7 +5,7 @@ namespace Domain.Entities;
 public class Account : Base
 {
   public int UserId { get; set; }
-  public int ProviderId { get; set; }
+  public string ProviderId { get; set; }
   public int AccountId { get; set; }
   public string? Password { get; set; }
   public string? Scope { get; set; }

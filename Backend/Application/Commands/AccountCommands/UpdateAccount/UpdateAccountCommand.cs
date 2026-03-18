@@ -7,7 +7,7 @@ namespace Application.Commands.AccountCommands.UpdateAccount;
 public record UpdateAccountCommand(
     int AccountId,
     int? UserId,
-    int? ProviderId,
+    string? ProviderId,
     string? Password,
     string? Scope,
     string? IdToken,

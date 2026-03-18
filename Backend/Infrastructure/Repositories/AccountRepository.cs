@@ -17,7 +17,7 @@ public class AccountRepository : BaseRepository<Account>, IAccountRepository
                  .ToListAsync(cancellationToken);
   }
 
-  public async Task<Account?> FindByProviderIdAsync(int providerId, int accountId, CancellationToken cancellationToken = default)
+  public async Task<Account?> FindByProviderIdAsync(string providerId, int accountId, CancellationToken cancellationToken = default)
   {
     return await _dbContext.Set<Account>()
                  .FirstOrDefaultAsync(account => account.ProviderId == providerId && account.AccountId == accountId, cancellationToken);

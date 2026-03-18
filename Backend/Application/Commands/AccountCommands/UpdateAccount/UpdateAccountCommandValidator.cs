@@ -22,7 +22,7 @@ public class UpdateAccountCommandValidator : AbstractValidator<UpdateAccountComm
     RuleFor(command => command.ProviderId)
         .NotEmpty()
         .WithMessage("Provider identifier is required.")
-        .GreaterThan(50)
+        .MaximumLength(50)
         .WithMessage("Provider identifier cannot exceed 50 characters.");
 
     RuleFor(command => command.Password)

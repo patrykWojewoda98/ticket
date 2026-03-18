@@ -6,7 +6,7 @@ namespace Application.Commands.AccountCommands.CreateAccount;
 
 public record CreateAccountCommand(
   int UserId,
-  int ProviderId,
+  string ProviderId,
   string? Password,
   string? Scope,
   string? IdToken,

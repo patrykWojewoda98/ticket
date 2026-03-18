@@ -61,7 +61,7 @@ public class AccountController : BaseController
   }
 
   [HttpGet("provider/{providerId}/{accountId}")]
-  public async Task<ActionResult<List<AccountDto>>> FindAccountByProviderId(int providerId, int accountId)
+  public async Task<ActionResult<List<AccountDto>>> FindAccountByProviderId(string providerId, int accountId)
   {
     var result = await _mediator.Send(new FindAccountByProviderIdQuery(providerId, accountId));
     return (result == null) ? NotFound() : Ok(result);
