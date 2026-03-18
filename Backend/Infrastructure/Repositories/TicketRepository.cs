@@ -23,4 +23,10 @@ public class TicketRepository : BaseRepository<Ticket>, ITicketRepository
                  .Where(ticket => ticket.AssigneeId == assigneeId)
                  .ToListAsync(cancellationToken);
   }
+
+  public async Task<int> CountByStatusIdAsync(int statusId, CancellationToken cancellationToken = default)
+  {
+    return await _dbContext.Set<Ticket>()
+                 .CountAsync(ticket => ticket.StatusId == statusId, cancellationToken);
+  }
 }
