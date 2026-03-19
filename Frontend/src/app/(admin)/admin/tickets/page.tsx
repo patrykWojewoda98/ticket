@@ -1,32 +1,91 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import { mockTickets, TicketStatus } from "@/lib/mock-tickets";
+import { useEffect, useState } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-export default function AdminTicketsPage() {
-  const [tickets, setTickets] = useState(mockTickets);
+type Ticket = {
+  id: number;
+  title: string;
+  description: string;
+  createdAt?: string;
+  statusId: number;
+};
 
-  const getStatusColor = (status: TicketStatus) => {
-    switch (status) {
-      case "OPEN":
-        return "bg-green-100 text-green-700";
-      case "PENDING":
-        return "bg-yellow-100 text-yellow-700";
-      case "CLOSED":
-        return "bg-red-100 text-red-700";
-      default:
-        return "";
+export default function AdminTicketsPage() {
+  const [tickets, setTickets] = useState<Ticket[]>([]);
+
+  useEffect(() => {
+    fetchTickets();
+  }, []);
+
+  const fetchTickets = async () => {
+    try {
+      const res = await fetch("http://localhost:5229/api/ticket");
+
+      if (!res.ok) {
+        console.error("API error:", res.status);
+        return;
+      }
+
+      const text = await res.text();
+      const data = text ? JSON.parse(text) : [];
+
+      setTickets(data);
+    } catch (error) {
+      console.error("Error fetching tickets:", error);
     }
   };
 
-  const handleStatusChange = (id: string, newStatus: TicketStatus) => {
-    const updated = tickets.map((t) =>
-      t.id.toString() === id ? { ...t, status: newStatus } : t
-    );
-    setTickets(updated);
+  // ✅ POPRAWIONE — aktualizacja ticketu, nie TicketStatus
+const updateTicketStatus = async (ticketId: number, statusId: number) => {
+  try {
+    const res = await fetch(`http://localhost:5229/api/ticket/${ticketId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        statusId: statusId,
+      }),
+    });
+
+    if (!res.ok) {
+      console.error("Update failed:", res.status);
+    }
+
+    // 👉 drugi fetch (odświeżenie listy)
+    await fetchTickets();
+
+  } catch (error) {
+    console.error("Error updating ticket:", error);
+  }
+};
+
+  const getStatusLabel = (statusId: number) => {
+    switch (statusId) {
+      case 1:
+        return { label: "OPEN", color: "text-green-600" };
+      case 2:
+        return { label: "PENDING", color: "text-yellow-600" };
+      case 3:
+        return { label: "CLOSED", color: "text-red-600" };
+      default:
+        return { label: "UNKNOWN", color: "text-gray-600" };
+    }
   };
+
+const handleStatusChange = (id: number, newStatusId: number) => {
+  // update UI
+  setTickets((prev) =>
+    prev.map((t) =>
+      t.id === id ? { ...t, statusId: newStatusId } : t
+    )
+  );
+
+  // update backend + refresh
+  updateTicketStatus(id, newStatusId);
+};
 
   return (
     <div>
@@ -37,48 +96,55 @@ export default function AdminTicketsPage() {
           <thead>
             <tr className="bg-gray-100 text-left text-sm">
               <th className="p-3">Title</th>
-              <th className="p-3">Created At</th>
+              <th className="p-3">Description</th>
               <th className="p-3">Status</th>
               <th className="p-3">Action</th>
             </tr>
           </thead>
 
           <tbody>
-            {tickets.map((ticket) => (
-              <tr key={ticket.id} className="border-t hover:bg-gray-50">
-                <td className="p-3 font-medium">{ticket.title}</td>
-                <td className="p-3 text-gray-600">{ticket.createdAt}</td>
+            {tickets.map((ticket) => {
+              const status = getStatusLabel(ticket.statusId);
 
-                <td className="p-3">
-                  <Select
-                    value={ticket.status}
-                    onValueChange={(value) =>
-                      handleStatusChange(ticket.id.toString(), value as TicketStatus)
-                    }
-                  >
-                    <SelectTrigger
-                      className={`px-2 py-1 rounded-lg text-sm border ${getStatusColor(ticket.status)}`}
+              return (
+                <tr key={ticket.id} className="border-t hover:bg-gray-50">
+                  <td className="p-3 font-medium">{ticket.title}</td>
+                  <td className="p-3 text-gray-600">{ticket.description}</td>
+
+                  <td className="p-3">
+                    <Select
+                      value={ticket.statusId.toString()}
+                      onValueChange={(value) =>
+                        handleStatusChange(ticket.id, Number(value))
+                      }
                     >
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="OPEN">OPEN</SelectItem>
-                      <SelectItem value="PENDING">PENDING</SelectItem>
-                      <SelectItem value="CLOSED">CLOSED</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </td>
+                      <SelectTrigger className="px-2 py-1 rounded-lg text-sm border">
+                        <SelectValue>
+                          <span className={status.color}>
+                            {status.label}
+                          </span>
+                        </SelectValue>
+                      </SelectTrigger>
 
-                <td className="p-3">
-                  <Link
-                    href={`/admin/tickets/${ticket.id}`}
-                    className="text-blue-600 hover:underline text-sm"
-                  >
-                    View
-                  </Link>
-                </td>
-              </tr>
-            ))}
+                      <SelectContent>
+                        <SelectItem value="1">OPEN</SelectItem>
+                        <SelectItem value="2">PENDING</SelectItem>
+                        <SelectItem value="3">CLOSED</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </td>
+
+                  <td className="p-3">
+                    <Link
+                      href={`/admin/tickets/${ticket.id}`}
+                      className="text-blue-600 hover:underline text-sm"
+                    >
+                      View
+                    </Link>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

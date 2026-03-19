@@ -72,7 +72,7 @@ export default async function AdminTicketDetails({
 
     <div className="bg-white rounded-2xl shadow-md border border-gray-200 p-8 space-y-8">
       
-      {/* Title */}
+      
       <div>
         <p className="text-xs uppercase tracking-wide text-gray-400">
           Title
@@ -82,7 +82,7 @@ export default async function AdminTicketDetails({
         </p>
       </div>
 
-      {/* Info grid */}
+     
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         
         <div>
@@ -112,7 +112,7 @@ export default async function AdminTicketDetails({
         </div>
       </div>
 
-      {/* Description */}
+      
       <div>
         <p className="text-xs uppercase text-gray-400 mb-2">
           Description
