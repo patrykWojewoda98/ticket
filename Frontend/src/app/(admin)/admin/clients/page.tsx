@@ -13,9 +13,11 @@ export default function ClientsPage() {
   const fetchUsers = async () => {
     setLoading(true);
     setError(null);
+
     try {
       const res = await fetch(API);
       if (!res.ok) throw new Error(`Błąd ${res.status}`);
+
       const data = await res.json();
 
       const mappedUsers = data.map((u: any) => ({
@@ -35,6 +37,24 @@ export default function ClientsPage() {
     fetchUsers();
   }, []);
 
+  const handleDelete = async (id: number) => {
+    if (!confirm("Na pewno usunąć użytkownika?")) return;
+
+    try {
+      const res = await fetch(`${API}/${id}`, {
+        method: "DELETE",
+      });
+
+      if (!res.ok) throw new Error("Błąd usuwania");
+
+      // usuń z UI bez reload
+      setUsers((prev) => prev.filter((u) => u.id !== id));
+    } catch (err) {
+      console.error(err);
+      alert("Nie udało się usunąć użytkownika");
+    }
+  };
+
   return (
     <div className="mt-16">
       <div className="flex justify-between mb-6">
@@ -44,7 +64,9 @@ export default function ClientsPage() {
       {loading && <p className="text-gray-500">Ładowanie danych...</p>}
       {error && <p className="text-red-500">Błąd: {error}</p>}
 
-      {!loading && !error && <ClientsTable users={users} />}
+      {!loading && !error && (
+        <ClientsTable users={users} onDelete={handleDelete} />
+      )}
     </div>
   );
 }

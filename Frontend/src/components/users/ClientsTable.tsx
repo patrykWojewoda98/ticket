@@ -12,9 +12,10 @@ export interface User {
 
 interface ClientsTableProps {
   users: User[];
+  onDelete: (id: number) => void;
 }
 
-export default function ClientsTable({ users }: ClientsTableProps) {
+export default function ClientsTable({ users, onDelete }: ClientsTableProps) {
   return (
     <div className="overflow-auto rounded-2xl border shadow-sm">
       <table className="w-full min-w-[900px]">
@@ -58,7 +59,10 @@ export default function ClientsTable({ users }: ClientsTableProps) {
                     Edit
                   </Link>
 
-                  <button className="px-3 py-1.5 text-sm rounded-lg border border-red-300 text-red-600 hover:bg-red-50 transition">
+                  <button
+                    onClick={() => onDelete(user.id)}
+                    className="px-3 py-1.5 text-sm rounded-lg border border-red-300 text-red-600 hover:bg-red-50 transition"
+                  >
                     Delete
                   </button>
                 </div>
