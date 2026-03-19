@@ -1,171 +1,128 @@
-// ================= EDIT CLIENT PAGE =================
-"use client";
-
-import { useState } from "react";
-import { useRouter, useParams } from "next/navigation";
-import { mockUsers } from "@/lib/mock-client";
-
-export function EditClientPage() {
-  const router = useRouter();
-  const params = useParams();
-  const userIndex = Number(params.id);
-
-  const [users, setUsers] = useState(mockUsers);
-  const user = users[userIndex];
-
-  const [formData, setFormData] = useState({
-    companyName: user?.companyName || "",
-    email: user?.email || "",
-    emailVerified: user?.emailVerified || false,
-    role: user?.role || "user",
+async function getTicket(id: string) {
+  const res = await fetch(`http://localhost:5229/api/ticket/${id}`, {
+    cache: "no-store",
   });
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const target = e.target;
+  if (!res.ok) throw new Error("Failed to fetch ticket");
 
-    if (target instanceof HTMLInputElement && target.type === "checkbox") {
-      setFormData((prev) => ({
-        ...prev,
-        [target.name]: target.checked,
-      }));
-    } else {
-      setFormData((prev) => ({
-        ...prev,
-        [target.name]: target.value,
-      }));
-    }
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const updatedUsers = [...users];
-    updatedUsers[userIndex] = {
-      ...updatedUsers[userIndex],
-      ...formData,
-    };
-
-    setUsers(updatedUsers);
-    router.push("/admin/clients");
-  };
-
-  if (!user) return <div className="mt-16">User not found</div>;
-
-  return (
-    <div className="mt-16 max-w-2xl">
-      <h1 className="text-2xl font-bold mb-6">Edit Client</h1>
-
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <input
-          type="text"
-          name="companyName"
-          value={formData.companyName}
-          onChange={handleChange}
-          placeholder="Company Name"
-          className="w-full border p-2 rounded"
-        />
-
-        <input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          placeholder="Email"
-          className="w-full border p-2 rounded"
-        />
-
-        <label className="flex items-center gap-2 text-sm">
-          <input
-            type="checkbox"
-            name="emailVerified"
-            checked={formData.emailVerified}
-            onChange={handleChange}
-          />
-          Email verified
-        </label>
-
-        <select
-          name="role"
-          value={formData.role}
-          onChange={handleChange}
-          className="w-full border p-2 rounded"
-        >
-          <option value="user">User</option>
-          <option value="admin">Admin</option>
-        </select>
-
-        <div className="flex gap-3">
-          <button className="bg-blue-600 text-white px-4 py-2 rounded">
-            Save
-          </button>
-          <button
-            type="button"
-            onClick={() => router.push("/admin/clients")}
-            className="border px-4 py-2 rounded"
-          >
-            Cancel
-          </button>
-        </div>
-      </form>
-    </div>
-  );
+  return res.json();
 }
 
-// ================= ADMIN TICKET DETAILS =================
+async function getUser(userId: number) {
+  const res = await fetch(`http://localhost:5229/api/user/${userId}`, {
+    cache: "no-store",
+  });
 
-export default function AdminTicketDetails({
+  if (!res.ok) throw new Error("Failed to fetch user");
+
+  return res.json();
+}
+
+async function getStatus(statusId: number) {
+  const res = await fetch(`http://localhost:5229/api/ticketstatus/${statusId}`, {
+    cache: "no-store",
+  });
+
+  if (!res.ok) throw new Error("Failed to fetch status");
+
+  return res.json();
+}
+
+async function getPriority(priorityId: number) {
+  const res = await fetch(`http://localhost:5229/api/ticketpriority/${priorityId}`, {
+    cache: "no-store",
+  });
+
+  if (!res.ok) throw new Error("Failed to fetch priority");
+
+  return res.json();
+}
+
+async function getCategory(categoryId: number) {
+  const res = await fetch(`http://localhost:5229/api/ticketcategory/${categoryId}`, {
+    cache: "no-store",
+  });
+
+  if (!res.ok) throw new Error("Failed to fetch category");
+
+  return res.json();
+}
+
+export default async function AdminTicketDetails({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const ticket = {
-    title: "Printer not working",
-    description: "The office printer is not responding.",
-    company: "Acme Corp",
-    priority: "high",
-    status: "open",
-  };
+  const { id } = await params;
+
+  const ticket = await getTicket(id);
+
+  const [user, status, priority, category] = await Promise.all([
+    getUser(ticket.userId),
+    getStatus(ticket.statusId),
+    getPriority(ticket.priorityId),
+    ticket.categoryId ? getCategory(ticket.categoryId) : Promise.resolve(null),
+  ]);
 
   return (
-    <div className="mt-16 max-w-3xl">
-      <h1 className="text-2xl font-bold mb-6">
-        Ticket Details
-      </h1>
+  <div className="mt-16 max-w-4xl mx-auto px-4">
+    <h1 className="text-3xl font-bold mb-8 text-gray-900">
+      Ticket Details
+    </h1>
 
-      <div className="rounded-2xl border shadow-sm p-6 space-y-6">
+    <div className="bg-white rounded-2xl shadow-md border border-gray-200 p-8 space-y-8">
+      
+      {/* Title */}
+      <div>
+        <p className="text-xs uppercase tracking-wide text-gray-400">
+          Title
+        </p>
+        <p className="text-xl font-semibold text-gray-900">
+          {ticket.title}
+        </p>
+      </div>
+
+      {/* Info grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        
         <div>
-          <p className="text-sm text-gray-500">Title</p>
-          <p className="text-lg font-semibold">{ticket.title}</p>
+          <p className="text-xs uppercase text-gray-400">User</p>
+          <p className="font-medium text-gray-800">{user.name}</p>
         </div>
 
         <div>
-          <p className="text-sm text-gray-500">Company</p>
-          <p className="font-medium">{ticket.company}</p>
+          <p className="text-xs uppercase text-gray-400">Status</p>
+          <span className="inline-block px-3 py-1 text-sm rounded-full bg-blue-100 text-blue-700">
+            {status.name}
+          </span>
         </div>
 
         <div>
-          <p className="text-sm text-gray-500">Description</p>
-          <p className="mt-1 text-gray-700">{ticket.description}</p>
+          <p className="text-xs uppercase text-gray-400">Priority</p>
+          <span className="inline-block px-3 py-1 text-sm rounded-full bg-red-100 text-red-700">
+            {priority.name}
+          </span>
         </div>
 
-        <div className="flex gap-4">
-          <div>
-            <p className="text-sm text-gray-500">Status</p>
-            <span className="px-3 py-1 rounded-full text-sm bg-blue-100 text-blue-700">
-              {ticket.status}
-            </span>
-          </div>
-
-          <div>
-            <p className="text-sm text-gray-500">Priority</p>
-            <span className="px-3 py-1 rounded-full text-sm bg-red-100 text-red-700">
-              {ticket.priority}
-            </span>
-          </div>
+        <div>
+          <p className="text-xs uppercase text-gray-400">Category</p>
+          <p className="font-medium text-gray-800">
+            {category ? category.name : "No category"}
+          </p>
         </div>
       </div>
+
+      {/* Description */}
+      <div>
+        <p className="text-xs uppercase text-gray-400 mb-2">
+          Description
+        </p>
+        <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">
+          {ticket.description}
+        </p>
+      </div>
+
     </div>
-  );
+  </div>
+);
 }
