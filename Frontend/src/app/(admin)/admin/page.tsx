@@ -23,7 +23,7 @@ export default function AdminHomePage() {
 
   const fetchTickets = async () => {
     try {
-      const res = await fetch("http://localhost:5229/api/ticket");
+      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/ticket`);
 
       if (!res.ok) {
         console.error("API error:", res.status);

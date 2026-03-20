@@ -10,8 +10,8 @@ export const NAV_LINKS = {
   ],
   unauthenticated: [
     { label: "Strona główna", href: "/", icon: Home },
-    { label: "Lista ticketów", href: "/tickets", icon: Info },
-    { label: "Kontakt", href: "/contact", icon: Mail },
+    { label: "Lista ticketów", href: "/customer/tickets", icon: Info },
+    { label: "Kontakt", href: "/customer/contact", icon: Mail },
   ],
 };
 
@@ -21,7 +21,7 @@ export const NAV_BUTTONS = {
     { label: "Dodaj klienta", href: "/admin/clients/new", icon: Plus },
   ],
   unauthenticated: [
-    { label: "Zaloguj się", href: "/login", icon: LogIn },
-    { label: "Dodaj ticketa", href: "/login", icon: Plus },
+    { label: "Zaloguj się", href: "/customer/login", icon: LogIn },
+    { label: "Dodaj ticketa", href: "/customer/login", icon: Plus },
   ],
 };

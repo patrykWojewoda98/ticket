@@ -3,7 +3,7 @@
 import ClientsTable, { User } from "@/components/users/ClientsTable";
 import React, { useEffect, useState } from "react";
 
-const API = "http://localhost:5229/api/user";
+const API = `${process.env.NEXT_PUBLIC_APP_URL}/api/user`;
 
 export default function ClientsPage() {
   const [users, setUsers] = useState<User[]>([]);

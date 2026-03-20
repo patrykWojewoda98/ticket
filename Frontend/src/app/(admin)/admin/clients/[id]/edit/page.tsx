@@ -13,7 +13,7 @@ interface User {
   role: string;
 }
 
-const API = "http://localhost:5229/api/user";
+const API = `${process.env.NEXT_PUBLIC_APP_URL}/api/user`;
 
 export default function EditClientPage() {
   const router = useRouter();

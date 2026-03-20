@@ -25,7 +25,7 @@ export default function AdminTicketsPage() {
 
   const fetchTickets = async () => {
     try {
-      const res = await fetch("http://localhost:5229/api/ticket");
+      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/ticket`);
 
       if (!res.ok) {
         console.error("API error:", res.status);
@@ -45,7 +45,7 @@ export default function AdminTicketsPage() {
 const updateTicketStatus = async (ticketId: number, statusId: number) => {
   const ticket = tickets.find(t => t.id === ticketId);
 
-  const res = await fetch(`http://localhost:5229/api/ticket/${ticketId}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/ticket/${ticketId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -71,7 +71,7 @@ const updateTicketPriority = async (ticketId: number, priorityId: number) => {
   const ticket = tickets.find(t => t.id === ticketId);
 
   try {
-    const res = await fetch(`http://localhost:5229/api/ticket/${ticketId}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/ticket/${ticketId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

@@ -1,5 +1,5 @@
 async function getTicket(id: string) {
-  const res = await fetch(`http://localhost:5229/api/ticket/${id}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/ticket/${id}`, {
     cache: "no-store",
   });
 
@@ -9,7 +9,7 @@ async function getTicket(id: string) {
 }
 
 async function getUser(userId: number) {
-  const res = await fetch(`http://localhost:5229/api/user/${userId}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/user/${userId}`, {
     cache: "no-store",
   });
 
@@ -19,7 +19,7 @@ async function getUser(userId: number) {
 }
 
 async function getStatus(statusId: number) {
-  const res = await fetch(`http://localhost:5229/api/ticketstatus/${statusId}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/ticketstatus/${statusId}`, {
     cache: "no-store",
   });
 
@@ -29,7 +29,7 @@ async function getStatus(statusId: number) {
 }
 
 async function getPriority(priorityId: number) {
-  const res = await fetch(`http://localhost:5229/api/ticketpriority/${priorityId}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/ticketpriority/${priorityId}`, {
     cache: "no-store",
   });
 
@@ -39,7 +39,7 @@ async function getPriority(priorityId: number) {
 }
 
 async function getCategory(categoryId: number) {
-  const res = await fetch(`http://localhost:5229/api/ticketcategory/${categoryId}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/ticketcategory/${categoryId}`, {
     cache: "no-store",
   });
 

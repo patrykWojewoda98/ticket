@@ -38,7 +38,7 @@ export default function CreateClientPage() {
     setError(null);
 
     try {
-      const res = await fetch("http://localhost:5229/api/User", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/User`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
