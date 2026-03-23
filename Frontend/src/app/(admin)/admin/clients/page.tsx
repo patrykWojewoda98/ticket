@@ -42,7 +42,7 @@ export default function ClientsPage() {
     fetchData();
   }, []);
 
-  // 🔥 mapa companyId → companyName
+
   const companyMap = useMemo(() => {
     return Object.fromEntries(
       companies.map((c) => [c.id, c.name])
@@ -78,7 +78,7 @@ export default function ClientsPage() {
       {!loading && !error && (
         <ClientsTable
           users={users}
-          companyMap={companyMap} // 👈 przekazujemy mapę
+          companyMap={companyMap} 
           onDelete={handleDelete}
         />
       )}

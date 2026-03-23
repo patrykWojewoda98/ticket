@@ -7,7 +7,6 @@ export interface User {
   name: string;
   email: string;
   role: string;
-  password?: string;
 }
 
 export interface Company {
@@ -36,7 +35,6 @@ export default function ClientsTable({
             <th className="p-3">Company</th> 
             <th className="p-3">Email</th>
             <th className="p-3">Role</th>
-            <th className="p-3">Password</th>
             <th className="p-3">Action</th>
           </tr>
         </thead>
@@ -54,7 +52,6 @@ export default function ClientsTable({
 
               <td className="p-3 text-gray-600">{user.email}</td>
               <td className="p-3 capitalize">{user.role}</td>
-              <td className="p-3 text-gray-600">{user.password || "—"}</td>
 
               <td className="p-3">
                 <div className="flex gap-2">

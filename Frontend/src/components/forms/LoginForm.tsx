@@ -39,24 +39,10 @@ export function LoginForm() {
           />
         </div>
 
-        <Button
-          type="submit"
-          disabled={loading}
-          className="transition-all duration-200 hover:scale-105 active:scale-95"
-        >
+        <Button type="submit" disabled={loading}>
           {loading ? "Logowanie..." : "Zaloguj się"}
         </Button>
       </form>
-
-      <p className="text-sm text-slate-500 text-center">
-        Nie masz konta?{" "}
-        <Link
-          href="/register"
-          className="text-slate-900 font-medium hover:underline"
-        >
-          Zarejestruj się
-        </Link>
-      </p>
     </div>
   );
 }

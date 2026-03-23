@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function CreateClientPage() {
@@ -11,11 +11,34 @@ export default function CreateClientPage() {
     email: "",
     companyId: "",
     role: "user",
-    password: "", // ✅ dodane
+    password: "",
   });
+
+  const [companies, setCompanies] = useState<
+    { id: number; name: string }[]
+  >([]);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // ✅ pobieranie firm
+  useEffect(() => {
+    const fetchCompanies = async () => {
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_APP_URL}/api/Company`
+        );
+        if (!res.ok) throw new Error("Failed to fetch companies");
+
+        const data = await res.json();
+        setCompanies(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchCompanies();
+  }, []);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -36,7 +59,6 @@ export default function CreateClientPage() {
     setLoading(true);
     setError(null);
 
-    // ✅ prosta walidacja
     if (form.password.length < 6) {
       setError("Password must be at least 6 characters");
       setLoading(false);
@@ -54,7 +76,7 @@ export default function CreateClientPage() {
           Email: form.email,
           Role: form.role === "admin" ? "Admin" : "User",
           Name: form.name,
-          Password: form.password, // ✅ wysyłane
+          Password: form.password,
         }),
       });
 
@@ -124,17 +146,22 @@ export default function CreateClientPage() {
           />
         </div>
 
-        {/* Company ID */}
+        {/* Company Select */}
         <div>
-          <label className="block text-sm mb-1">Company ID</label>
-          <input
-            type="number"
+          <label className="block text-sm mb-1">Company</label>
+          <select
             name="companyId"
             value={form.companyId}
             onChange={handleChange}
-            placeholder="Optional"
             className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-          />
+          >
+            <option value="">-- Select company --</option>
+            {companies.map((company) => (
+              <option key={company.id} value={company.id}>
+                {company.name}
+              </option>
+            ))}
+          </select>
         </div>
 
         {/* Role */}
