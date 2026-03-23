@@ -9,11 +9,13 @@ namespace Application.Commands.UserCommands.CreateUser;
 public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, UserDto>
 {
   private readonly IUserRepository _repository;
+  private readonly IPasswordHasher _passwordHasher;
   private readonly IUnitOfWorkService _unitOfWork;
 
-  public CreateUserCommandHandler(IUserRepository repository, IUnitOfWorkService unitOfWork)
+  public CreateUserCommandHandler(IUserRepository repository, IPasswordHasher passwordHasher, IUnitOfWorkService unitOfWork)
   {
     _repository = repository;
+    _passwordHasher = passwordHasher;
     _unitOfWork = unitOfWork;
   }
 
@@ -23,7 +25,7 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, UserD
     {
       CompanyId = request.CompanyId,
       Email = request.Email,
-      Password = request.Password,
+      Password = await _passwordHasher.HashAsync(request.Password, cancellationToken),
       Role = request.Role,
       Name = request.Name,
     };
@@ -35,7 +37,6 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, UserD
       Id = user.Id,
       CompanyId = user.CompanyId,
       Email = user.Email,
-      Password = user.Password,
       Role = user.Role,
       Name = user.Name,
     };
