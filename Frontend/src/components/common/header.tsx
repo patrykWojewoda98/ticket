@@ -1,7 +1,7 @@
 "use client";
 
 import { Ticket, Menu, X } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { NAV_BUTTONS, NAV_LINKS } from "../../lib/constrants";
 import Link from "next/link";
 import { useToggle } from "@/hooks/useToggle";
@@ -11,66 +11,101 @@ import { useAuth } from "@/components/common/AuthContext";
 
 export default function Header() {
   const { isAuthenticated } = useAuth();
-
   const { stopPropagation, lockScroll, unlockScroll } = usePrevent();
   const { isOpen, toggle } = useToggle();
+
+  const [role, setRole] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchUserRole = async () => {
+      if (!isAuthenticated) {
+        setRole(null);
+        return;
+      }
+
+      try {
+        const user = localStorage.getItem("user");
+        if (!user) return;
+
+        const parsed = JSON.parse(user);
+
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_APP_URL}/api/user/${parsed.id}`
+        );
+
+        if (!res.ok) throw new Error("Nie udało się pobrać użytkownika");
+
+        const data = await res.json();
+
+        setRole(data.role); // 👈 ważne
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchUserRole();
+  }, [isAuthenticated]);
 
   useEffect(() => {
     isOpen ? lockScroll() : unlockScroll();
   }, [isOpen, lockScroll, unlockScroll]);
 
+  const isAdmin = role === "Admin";
+
+  const navKey = isAuthenticated
+    ? isAdmin
+      ? "admin"
+      : "customer"
+    : "unauthenticated";
+
   const renderLinks = () =>
-    NAV_LINKS[isAuthenticated ? "authenticated" : "unauthenticated"].map(
-      (link, index) => (
-        <Link
-          key={index}
-          href={link.href}
-          className="group relative font-bold text-slate-500 hover:text-slate-900 text-sm transition-colors"
-        >
-          {link.label}
-          <span className="-bottom-1 left-0 absolute bg-slate-900 w-0 group-hover:w-full h-[2px] transition-all duration-300" />
-        </Link>
-      )
-    );
+    NAV_LINKS[navKey].map((link, index) => (
+      <Link
+        key={index}
+        href={link.href}
+        className="group relative font-bold text-slate-500 hover:text-slate-900 text-sm transition-colors"
+      >
+        {link.label}
+        <span className="-bottom-1 left-0 absolute bg-slate-900 w-0 group-hover:w-full h-[2px] transition-all duration-300" />
+      </Link>
+    ));
 
   const renderButtons = (isPlain = false) =>
-    NAV_BUTTONS[isAuthenticated ? "authenticated" : "unauthenticated"].map(
-      (button, index) =>
-        isPlain || index === 0 ? (
-          <Link
-            key={index}
-            href={button.href}
-            className="group relative font-bold text-slate-500 hover:text-slate-900 text-sm transition-colors"
-          >
-            {button.label}
-            <span className="-bottom-1 left-0 absolute bg-slate-900 w-0 group-hover:w-full h-[2px] transition-all duration-300" />
-          </Link>
-        ) : (
-          <Link
-            key={index}
-            href={button.href}
-            className="flex items-center bg-slate-900 hover:bg-slate-800 px-5 py-2 rounded-full font-bold text-white hover:scale-95 transition-transform cursor-pointer"
-          >
-            {button.icon && <button.icon className="mr-2 w-4 h-4" />}
-            {button.label}
-          </Link>
-        )
+    NAV_BUTTONS[navKey].map((button, index) =>
+      isPlain || index === 0 ? (
+        <Link
+          key={index}
+          href={button.href}
+          className="group relative font-bold text-slate-500 hover:text-slate-900 text-sm transition-colors"
+        >
+          {button.label}
+          <span className="-bottom-1 left-0 absolute bg-slate-900 w-0 group-hover:w-full h-[2px] transition-all duration-300" />
+        </Link>
+      ) : (
+        <Link
+          key={index}
+          href={button.href}
+          className="flex items-center bg-slate-900 hover:bg-slate-800 px-5 py-2 rounded-full font-bold text-white hover:scale-95 transition-transform cursor-pointer"
+        >
+          {button.icon && <button.icon className="mr-2 w-4 h-4" />}
+          {button.label}
+        </Link>
+      )
     );
 
   return (
     <header className="relative bg-white border-slate-200 border-b w-full">
       <div className="flex justify-between items-center mx-auto px-6 py-4 max-w-7xl">
-        <div className="group flex items-center gap-3 cursor-pointer">
+        <div className="flex items-center gap-3 cursor-pointer">
           <div className="bg-slate-100 p-2 border border-slate-200 rounded-full">
             <Ticket className="w-5 h-5 text-slate-700" />
           </div>
 
           <Link
             href="/"
-            className="group relative font-bold text-slate-500 group-hover:text-slate-900 text-lg transition-colors"
+            className="font-bold text-slate-500 hover:text-slate-900 text-lg transition-colors"
           >
             Ticket
-            <span className="-bottom-1 left-0 absolute bg-slate-900 w-0 group-hover:w-full h-[2px] transition-all duration-300" />
           </Link>
         </div>
 

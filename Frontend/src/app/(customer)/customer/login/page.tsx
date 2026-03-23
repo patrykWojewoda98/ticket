@@ -57,7 +57,7 @@ export function useLoginForm() {
       const data = await loginRes.json();
 
       console.log("Zalogowano:", data);
-      console.log("Zalogowano:", data);
+      
 
       // ✅ GLOBALNY STATE
       setIsAuthenticated(true);
