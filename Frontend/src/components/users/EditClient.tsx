@@ -1,36 +1,64 @@
 "use client";
 
 import React from "react";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+interface Company {
+  id: number;
+  name: string;
+}
 
 interface EditClientProps {
   formData: {
     companyId: number;
     name: string;
     email: string;
-    emailVerified: boolean;
     role: string;
   };
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  companies: Company[];
+  onChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => void;
   onRoleChange: (role: string) => void;
   onSubmit: (e: React.FormEvent) => void;
   onCancel: () => void;
 }
 
-export function EditClient({ formData, onChange, onRoleChange, onSubmit, onCancel }: EditClientProps) {
+export function EditClient({
+  formData,
+  companies,
+  onChange,
+  onRoleChange,
+  onSubmit,
+  onCancel,
+}: EditClientProps) {
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-4">
+      {/* COMPANY SELECT */}
       <div>
-        <label className="block mb-1 font-medium">Company ID</label>
-        <input
-          type="number"
+        <label className="block mb-1 font-medium">Company</label>
+        <select
           name="companyId"
           value={formData.companyId}
           onChange={onChange}
           className="w-full border p-2 rounded"
-        />
+        >
+          <option value={0}>Wybierz firmę</option>
+          {companies.map((c) => (
+            <option key={c.id} value={c.id}>
+              {c.name}
+            </option>
+          ))}
+        </select>
       </div>
 
+      {/* NAME */}
       <div>
         <label className="block mb-1 font-medium">Name</label>
         <input
@@ -42,6 +70,7 @@ export function EditClient({ formData, onChange, onRoleChange, onSubmit, onCance
         />
       </div>
 
+      {/* EMAIL */}
       <div>
         <label className="block mb-1 font-medium">Email</label>
         <input
@@ -53,26 +82,11 @@ export function EditClient({ formData, onChange, onRoleChange, onSubmit, onCance
         />
       </div>
 
-      <div className="flex items-center gap-2">
-        <input
-          type="checkbox"
-          name="emailVerified"
-          checked={formData.emailVerified}
-          onChange={onChange}
-        />
-        <label>Email Verified</label>
-      </div>
-
+      {/* ROLE */}
       <div>
         <label className="block mb-1 font-medium">Role</label>
         <Select value={formData.role} onValueChange={onRoleChange}>
-          <SelectTrigger
-            className={`px-2 py-1 rounded-lg text-sm border ${
-              formData.role === "admin"
-                ? "bg-blue-100 text-blue-700"
-                : "bg-gray-100 text-gray-700"
-            }`}
-          >
+          <SelectTrigger className="px-2 py-1 rounded-lg text-sm border bg-gray-100 text-gray-700">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -82,6 +96,7 @@ export function EditClient({ formData, onChange, onRoleChange, onSubmit, onCance
         </Select>
       </div>
 
+      {/* BUTTONS */}
       <div className="flex gap-3 mt-4">
         <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
           Save
