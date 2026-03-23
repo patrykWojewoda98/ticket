@@ -23,10 +23,9 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, UserD
     {
       CompanyId = request.CompanyId,
       Email = request.Email,
-      EmailVerified = request.EmailVerified,
+      Password = request.Password,
       Role = request.Role,
       Name = request.Name,
-      Image = request.Image
     };
 
     _repository.CreateEntity(user);
@@ -36,10 +35,9 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, UserD
       Id = user.Id,
       CompanyId = user.CompanyId,
       Email = user.Email,
-      EmailVerified = user.EmailVerified,
+      Password = user.Password,
       Role = user.Role,
       Name = user.Name,
-      Image = user.Image
     };
   }
 }

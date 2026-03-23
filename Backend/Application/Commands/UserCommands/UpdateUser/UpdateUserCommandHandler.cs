@@ -22,10 +22,9 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, UserD
 
     user.Name = request.Name;
     user.Email = request.Email;
+    user.Password = user.Password;
     user.Role = request.Role;
     user.CompanyId = request.CompanyId;
-    user.Image = request.Image;
-    user.EmailVerified = request.EmailVerified.Value;
 
     _repository.UpdateEntity(user);
     await _unitOfWork.SaveChangesAsync(cancellationToken);
@@ -34,10 +33,9 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, UserD
       Id = user.Id,
       Name = user.Name,
       Email = user.Email,
+      Password = user.Password,
       Role = user.Role,
       CompanyId = user.CompanyId,
-      Image = user.Image,
-      EmailVerified = user.EmailVerified
     };
   }
 }

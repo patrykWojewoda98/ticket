@@ -18,6 +18,13 @@ public class UpdateUserCommandValidator : AbstractValidator<UpdateUserCommand>
         .When(command => !string.IsNullOrEmpty(command.Email))
         .WithMessage("A valid email address is required.");
 
+    RuleFor(command => command.Password)
+        .NotEmpty()
+        .When(command => command.Password != null)
+        .WithMessage("Password cannot be empty.")
+        .MaximumLength(250)
+        .WithMessage("Password cannot exceed 250 characters.");
+
     RuleFor(command => command.Role)
         .Must(role => role == "Admin" || role == "User")
         .When(command => !string.IsNullOrEmpty(command.Role))
@@ -29,11 +36,6 @@ public class UpdateUserCommandValidator : AbstractValidator<UpdateUserCommand>
         .WithMessage("Name cannot be empty.")
         .MaximumLength(150)
         .WithMessage("Name cannot exceed 150 characters.");
-
-    RuleFor(command => command.Image)
-        .MaximumLength(2048)
-        .When(command => !string.IsNullOrEmpty(command.Image))
-        .WithMessage("Image URL/path is too long.");
 
     RuleFor(command => command.CompanyId)
         .GreaterThan(0)

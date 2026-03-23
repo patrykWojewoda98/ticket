@@ -16,20 +16,9 @@ public class UserConfiguration : BaseConfiguration<User>
 
     builder.Property(user => user.CompanyId).IsRequired(false);
     builder.Property(user => user.Email).IsRequired();
-    builder.Property(user => user.EmailVerified).HasDefaultValue(false);
+    builder.Property(user => user.Password).IsRequired();
     builder.Property(user => user.Role).HasDefaultValue("user");
     builder.Property(user => user.Name).IsRequired();
-    builder.Property(user => user.Image).IsRequired(false);
-
-    builder.HasMany(user => user.Accounts)
-       .WithOne(account => account.User)
-       .HasForeignKey(account => account.UserId)
-       .OnDelete(DeleteBehavior.Cascade);
-
-    builder.HasMany(user => user.Sessions)
-       .WithOne(session => session.User)
-       .HasForeignKey(session => session.UserId)
-       .OnDelete(DeleteBehavior.Cascade);
 
     builder.HasMany(user => user.Companies)
        .WithOne(company => company.User)

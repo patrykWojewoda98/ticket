@@ -15,11 +15,8 @@ static public class DependencyInjection
     var assembly = Assembly.GetExecutingAssembly();
 
     services.AddMediatR(configuration => configuration.RegisterServicesFromAssembly(assembly));
-    services.AddTransient<IRequestHandler<Queries.AccountQueries.GetAllAccounts.GetAllAccountsQuery, List<AccountDto>>, Queries.AccountQueries.GetAllAccounts.GetAllAccountsQueryHandler>();
-    services.AddTransient<IRequestHandler<Queries.AccountQueries.GetAccountById.GetAccountByIdQuery, AccountDto>, Queries.AccountQueries.GetAccountById.GetAccountByIdQueryHandler>();
     services.AddTransient<IRequestHandler<Queries.CommentQueries.GetAllComments.GetAllCommentsQuery, List<CommentDto>>, Queries.CommentQueries.GetAllComments.GetAllCommentsQueryHandler>();
     services.AddTransient<IRequestHandler<Queries.CompanyQueries.GetAllCompanies.GetAllCompaniesQuery, List<CompanyDto>>, Queries.CompanyQueries.GetAllCompanies.GetAllCompaniesQueryHandler>();
-    services.AddTransient<IRequestHandler<Queries.SessionQueries.GetAllSessions.GetAllSessionsQuery, List<SessionDto>>, Queries.SessionQueries.GetAllSessions.GetAllSessionsQueryHandler>();
     services.AddTransient<IRequestHandler<Queries.TicketAttachmentQueries.GetAllTicketAttachments.GetAllTicketAttachmentsQuery, List<TicketAttachmentDto>>, Queries.TicketAttachmentQueries.GetAllTicketAttachments.GetAllTicketAttachmentsQueryHandler>();
     services.AddTransient<IRequestHandler<Queries.TicketCategoryQueries.GetAllTicketCategories.GetAllTicketCategoriesQuery, List<TicketCategoryDto>>, Queries.TicketCategoryQueries.GetAllTicketCategories.GetAllTicketCategoriesQueryHandler>();
     services.AddTransient<IRequestHandler<Queries.TicketHistoryQueries.GetAllTicketHistories.GetAllTicketHistoriesQuery, List<TicketHistoryDto>>, Queries.TicketHistoryQueries.GetAllTicketHistories.GetAllTicketHistoriesQueryHandler>();

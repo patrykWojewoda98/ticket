@@ -22,10 +22,9 @@ public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, List<Us
       Id = user.Id,
       CompanyId = user.CompanyId,
       Email = user.Email,
-      EmailVerified = user.EmailVerified,
+      Password = user.Password,
       Role = user.Role,
       Name = user.Name,
-      Image = user.Image
     }).ToList();
   }
 }

@@ -22,10 +22,9 @@ public class FindByRoleQueryHandler : IRequestHandler<FindByRoleQuery, List<User
       Id = user.Id,
       CompanyId = user.CompanyId,
       Email = user.Email,
-      EmailVerified = user.EmailVerified,
+      Password = user.Password,
       Role = user.Role,
       Name = user.Name,
-      Image = user.Image
     }).ToList();
   }
 }

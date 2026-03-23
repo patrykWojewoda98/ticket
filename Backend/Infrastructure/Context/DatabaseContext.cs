@@ -6,10 +6,8 @@ namespace Infrastructure.Context;
 
 public class DatabaseContext : DbContext
 {
-  public DbSet<Account> Accounts { get; set; }
   public DbSet<Comment> Comments { get; set; }
   public DbSet<Company> Companies { get; set; }
-  public DbSet<Session> Sessions { get; set; }
   public DbSet<Ticket> Tickets { get; set; }
   public DbSet<TicketAttachment> TicketAttachments { get; set; }
   public DbSet<TicketCategory> TicketCategories { get; set; }

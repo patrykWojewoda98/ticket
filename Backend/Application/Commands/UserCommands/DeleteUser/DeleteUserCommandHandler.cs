@@ -25,10 +25,9 @@ public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand, UserD
     {
       CompanyId = user.CompanyId,
       Email = user.Email,
-      EmailVerified = user.EmailVerified,
+      Password = user.Password,
       Role = user.Role,
       Name = user.Name,
-      Image = user.Image
     };
 
     _repository.DeleteEntity(user);

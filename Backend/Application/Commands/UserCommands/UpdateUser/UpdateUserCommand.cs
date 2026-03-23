@@ -7,9 +7,8 @@ namespace Application.Commands.UserCommands.UpdateUser;
 public record UpdateUserCommand(
   int UserId,
   string? Email,
-  bool? EmailVerified,
+  string? Password,
   string? Role,
   string? Name,
-  string? Image,
   int? CompanyId
 ) : IRequest<UserDto>;

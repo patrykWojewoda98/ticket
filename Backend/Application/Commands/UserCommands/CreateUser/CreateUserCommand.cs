@@ -6,9 +6,8 @@ namespace Application.Commands.UserCommands.CreateUser;
 
 public record CreateUserCommand(
   string Email,
-  bool EmailVerified,
+  string? Password,
   string Role,
   string Name,
-  string? Image,
   int? CompanyId
 ) : IRequest<UserDto>;

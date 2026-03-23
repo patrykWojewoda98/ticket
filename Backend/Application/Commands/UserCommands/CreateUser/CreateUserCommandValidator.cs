@@ -13,6 +13,12 @@ public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
         .EmailAddress()
         .WithMessage("A valid email address is required.");
 
+    RuleFor(command => command.Password)
+        .NotEmpty()
+        .WithMessage("User password is required.")
+        .MaximumLength(250)
+        .WithMessage("Password cannot exceed 250 characters.");
+
     RuleFor(command => command.Role)
         .NotEmpty()
         .WithMessage("User role is required.")
@@ -24,11 +30,6 @@ public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
         .WithMessage("User name is required.")
         .MaximumLength(150)
         .WithMessage("Name cannot exceed 150 characters.");
-
-    RuleFor(command => command.Image)
-        .MaximumLength(2048)
-        .When(command => !string.IsNullOrEmpty(command.Image))
-        .WithMessage("Image URL/path is too long.");
 
     RuleFor(command => command.CompanyId)
         .GreaterThan(0)

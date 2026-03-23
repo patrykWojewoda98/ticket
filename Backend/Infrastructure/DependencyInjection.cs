@@ -12,11 +12,9 @@ static public class DependencyInjection
   public static IServiceCollection AddInfrastructure(this IServiceCollection services)
   {
     services.AddDbContext<DatabaseContext>();
-    services.AddScoped<IAccountRepository, AccountRepository>();
     services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
     services.AddScoped<ICommentRepository, CommentRepository>();
     services.AddScoped<ICompanyRepository, CompanyRepository>();
-    services.AddScoped<ISessionRepository, SessionRepository>();
     services.AddScoped<ITicketAttachmentRepository, TicketAttachmentRepository>();
     services.AddScoped<ITicketCategoryRepository, TicketCategoryRepository>();
     services.AddScoped<ITicketHistoryRepository, TicketHistoryRepository>();
