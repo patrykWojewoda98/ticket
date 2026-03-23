@@ -19,7 +19,7 @@ export default function Layout({ children }: LayoutProps) {
     <html lang="pl">
       <body className={poppins.className}>
         <div className="flex flex-col mx-auto px-[10%] 2xl:px-32 min-w-75 max-w-325 min-h-screen">
-          <Header isAuthenticated={false} />
+          <Header isAuthenticated={true} />
           <main className="flex-grow">{children}</main>
           <Footer />
         </div>

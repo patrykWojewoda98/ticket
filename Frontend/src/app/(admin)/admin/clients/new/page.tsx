@@ -10,7 +10,6 @@ export default function CreateClientPage() {
     name: "",
     email: "",
     companyId: "",
-    emailVerified: false,
     role: "user",
     image: "",
   });
@@ -46,7 +45,6 @@ export default function CreateClientPage() {
         body: JSON.stringify({
           CompanyId: form.companyId ? Number(form.companyId) : null,
           Email: form.email,
-          EmailVerified: form.emailVerified,
           Role: form.role === "admin" ? "Admin" : "User",
           Name: form.name,
           Image: form.image || null,
@@ -129,17 +127,6 @@ export default function CreateClientPage() {
             placeholder="https://..."
             className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
           />
-        </div>
-
-        {/* Email Verified */}
-        <div className="flex items-center gap-2">
-          <input
-            type="checkbox"
-            name="emailVerified"
-            checked={form.emailVerified}
-            onChange={handleChange}
-          />
-          <label className="text-sm">Email Verified</label>
         </div>
 
         {/* Role */}

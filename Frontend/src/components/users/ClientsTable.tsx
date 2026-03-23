@@ -6,7 +6,6 @@ export interface User {
   companyId: number;
   name: string;
   email: string;
-  emailVerified: boolean;
   role: string;
 }
 
@@ -25,7 +24,6 @@ export default function ClientsTable({ users, onDelete }: ClientsTableProps) {
             <th className="p-3">Name</th>
             <th className="p-3">Company ID</th>
             <th className="p-3">Email</th>
-            <th className="p-3">Email Verified</th>
             <th className="p-3">Role</th>
             <th className="p-3">Action</th>
           </tr>
@@ -38,17 +36,6 @@ export default function ClientsTable({ users, onDelete }: ClientsTableProps) {
               <td className="p-3 font-medium">{user.name || "N/A"}</td>
               <td className="p-3">{user.companyId}</td>
               <td className="p-3 text-gray-600">{user.email}</td>
-              <td className="p-3">
-                <span
-                  className={`px-2 py-1 rounded-full text-xs font-medium ${
-                    user.emailVerified
-                      ? "bg-green-100 text-green-700"
-                      : "bg-gray-200 text-gray-600"
-                  }`}
-                >
-                  {user.emailVerified ? "Verified" : "Not verified"}
-                </span>
-              </td>
               <td className="p-3 capitalize">{user.role}</td>
               <td className="p-3">
                 <div className="flex gap-2">
