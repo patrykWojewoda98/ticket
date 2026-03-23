@@ -24,7 +24,6 @@ public class SetUserRoleQueryHandler : IRequestHandler<SetUserRoleQuery, UserDto
       Id = user.Id,
       CompanyId = user.CompanyId,
       Email = user.Email,
-      Password = user.Password,
       Role = user.Role,
       Name = user.Name,
     };

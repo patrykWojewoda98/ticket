@@ -25,7 +25,6 @@ public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand, UserD
     {
       CompanyId = user.CompanyId,
       Email = user.Email,
-      Password = user.Password,
       Role = user.Role,
       Name = user.Name,
     };

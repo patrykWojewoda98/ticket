@@ -49,6 +49,7 @@
     <Folder Include="Queries\UserQueries\FindByRole\" />
     <Folder Include="Queries\UserQueries\GetAllUsers\" />
     <Folder Include="Queries\UserQueries\GetUserById\" />
+    <Folder Include="Queries\UserQueries\LoginUser\" />
     <Folder Include="Queries\UserQueries\SetUserRole\" />
   </ItemGroup>
 

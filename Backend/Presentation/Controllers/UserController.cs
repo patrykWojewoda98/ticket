@@ -11,6 +11,7 @@ using Application.Queries.UserQueries.GetUserById;
 using Application.Queries.UserQueries.FindByRole;
 using Application.Queries.UserQueries.SetUserRole;
 using Swashbuckle.AspNetCore.Annotations;
+using Application.Queries.UserQueries.LoginUser;
 
 namespace Presentation.Controllers;
 
@@ -66,6 +67,14 @@ public class UserController : BaseController
   {
     var result = await _mediator.Send(new FindByRoleQuery(role));
     return (result == null) ? NotFound() : Ok(result);
+  }
+
+  [HttpPost("login")]
+  [SwaggerOperation(Summary = "Authenticate user and get information")]
+  public async Task<IActionResult> Login([FromBody] LoginUserQuery query)
+  {
+    var result = await _mediator.Send(query);
+    return result == null ? NotFound() : Ok(result);
   }
 
   [HttpPatch("{id}/role")]

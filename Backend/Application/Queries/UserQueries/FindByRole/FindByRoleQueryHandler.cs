@@ -22,7 +22,6 @@ public class FindByRoleQueryHandler : IRequestHandler<FindByRoleQuery, List<User
       Id = user.Id,
       CompanyId = user.CompanyId,
       Email = user.Email,
-      Password = user.Password,
       Role = user.Role,
       Name = user.Name,
     }).ToList();
