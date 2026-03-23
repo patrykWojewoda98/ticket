@@ -22,9 +22,13 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, UserD
     var user = await _repository.GetByIdAsync(request.UserId, cancellationToken);
     if (user == null) return null;
 
+    if (!string.IsNullOrWhiteSpace(request.Password))
+    {
+      user.Password = await _passwordHasher.HashAsync(request.Password, cancellationToken);
+    }
+
     user.Name = request.Name;
     user.Email = request.Email;
-    user.Password = await _passwordHasher.HashAsync(request.Password, cancellationToken);
     user.Role = request.Role;
     user.CompanyId = request.CompanyId;
 
