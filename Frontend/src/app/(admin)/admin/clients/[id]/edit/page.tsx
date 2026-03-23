@@ -9,7 +9,6 @@ interface User {
   companyId: number;
   name: string;
   email: string;
-  emailVerified: boolean;
   role: string;
 }
 

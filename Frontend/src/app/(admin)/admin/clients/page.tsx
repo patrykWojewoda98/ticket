@@ -10,28 +10,23 @@ export default function ClientsPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchUsers = async () => {
-    setLoading(true);
-    setError(null);
+ const fetchUsers = async () => {
+  setLoading(true);
+  setError(null);
 
-    try {
-      const res = await fetch(API);
-      if (!res.ok) throw new Error(`Błąd ${res.status}`);
+  try {
+    const res = await fetch(API);
+    if (!res.ok) throw new Error(`Błąd ${res.status}`);
 
-      const data = await res.json();
+    const data = await res.json();
 
-      const mappedUsers = data.map((u: any) => ({
-        ...u,
-        emailVerified: !!u.emailVerified,
-      }));
-
-      setUsers(mappedUsers);
-    } catch (err: any) {
-      setError(err.message || "Nieznany błąd");
-    } finally {
-      setLoading(false);
-    }
-  };
+    setUsers(data);
+  } catch (err: any) {
+    setError(err.message || "Nieznany błąd");
+  } finally {
+    setLoading(false);
+  }
+};
 
   useEffect(() => {
     fetchUsers();
