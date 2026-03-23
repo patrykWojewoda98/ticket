@@ -11,7 +11,7 @@ export default function CreateClientPage() {
     email: "",
     companyId: "",
     role: "user",
-    image: "",
+    password: "", // ✅ dodane
   });
 
   const [loading, setLoading] = useState(false);
@@ -36,6 +36,13 @@ export default function CreateClientPage() {
     setLoading(true);
     setError(null);
 
+    // ✅ prosta walidacja
+    if (form.password.length < 6) {
+      setError("Password must be at least 6 characters");
+      setLoading(false);
+      return;
+    }
+
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/User`, {
         method: "POST",
@@ -47,7 +54,7 @@ export default function CreateClientPage() {
           Email: form.email,
           Role: form.role === "admin" ? "Admin" : "User",
           Name: form.name,
-          Image: form.image || null,
+          Password: form.password, // ✅ wysyłane
         }),
       });
 
@@ -104,6 +111,19 @@ export default function CreateClientPage() {
           />
         </div>
 
+        {/* Password */}
+        <div>
+          <label className="block text-sm mb-1">Password *</label>
+          <input
+            type="password"
+            name="password"
+            value={form.password}
+            onChange={handleChange}
+            required
+            className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+          />
+        </div>
+
         {/* Company ID */}
         <div>
           <label className="block text-sm mb-1">Company ID</label>
@@ -113,18 +133,6 @@ export default function CreateClientPage() {
             value={form.companyId}
             onChange={handleChange}
             placeholder="Optional"
-            className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-          />
-        </div>
-
-        {/* Image */}
-        <div>
-          <label className="block text-sm mb-1">Image URL</label>
-          <input
-            name="image"
-            value={form.image}
-            onChange={handleChange}
-            placeholder="https://..."
             className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
           />
         </div>

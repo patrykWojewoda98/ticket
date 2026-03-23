@@ -1,48 +1,64 @@
 "use client";
 
-import ClientsTable, { User } from "@/components/users/ClientsTable";
-import React, { useEffect, useState } from "react";
+import ClientsTable, { User, Company } from "@/components/users/ClientsTable";
+import React, { useEffect, useState, useMemo } from "react";
 
-const API = `${process.env.NEXT_PUBLIC_APP_URL}/api/user`;
+const API_USERS = `${process.env.NEXT_PUBLIC_APP_URL}/api/user`;
+const API_COMPANIES = `${process.env.NEXT_PUBLIC_APP_URL}/api/company`;
 
 export default function ClientsPage() {
   const [users, setUsers] = useState<User[]>([]);
+  const [companies, setCompanies] = useState<Company[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
- const fetchUsers = async () => {
-  setLoading(true);
-  setError(null);
+  const fetchData = async () => {
+    setLoading(true);
+    setError(null);
 
-  try {
-    const res = await fetch(API);
-    if (!res.ok) throw new Error(`Błąd ${res.status}`);
+    try {
+      const [usersRes, companiesRes] = await Promise.all([
+        fetch(API_USERS),
+        fetch(API_COMPANIES),
+      ]);
 
-    const data = await res.json();
+      if (!usersRes.ok || !companiesRes.ok) {
+        throw new Error("Błąd pobierania danych");
+      }
 
-    setUsers(data);
-  } catch (err: any) {
-    setError(err.message || "Nieznany błąd");
-  } finally {
-    setLoading(false);
-  }
-};
+      const usersData = await usersRes.json();
+      const companiesData = await companiesRes.json();
+
+      setUsers(usersData);
+      setCompanies(companiesData);
+    } catch (err: any) {
+      setError(err.message || "Nieznany błąd");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    fetchUsers();
+    fetchData();
   }, []);
+
+  // 🔥 mapa companyId → companyName
+  const companyMap = useMemo(() => {
+    return Object.fromEntries(
+      companies.map((c) => [c.id, c.name])
+    );
+  }, [companies]);
 
   const handleDelete = async (id: number) => {
     if (!confirm("Na pewno usunąć użytkownika?")) return;
 
     try {
-      const res = await fetch(`${API}/${id}`, {
+      const res = await fetch(`${API_USERS}/${id}`, {
         method: "DELETE",
       });
 
       if (!res.ok) throw new Error("Błąd usuwania");
 
-      // usuń z UI bez reload
       setUsers((prev) => prev.filter((u) => u.id !== id));
     } catch (err) {
       console.error(err);
@@ -60,7 +76,11 @@ export default function ClientsPage() {
       {error && <p className="text-red-500">Błąd: {error}</p>}
 
       {!loading && !error && (
-        <ClientsTable users={users} onDelete={handleDelete} />
+        <ClientsTable
+          users={users}
+          companyMap={companyMap} // 👈 przekazujemy mapę
+          onDelete={handleDelete}
+        />
       )}
     </div>
   );

@@ -7,14 +7,25 @@ export interface User {
   name: string;
   email: string;
   role: string;
+  password?: string;
+}
+
+export interface Company {
+  id: number;
+  name: string;
 }
 
 interface ClientsTableProps {
   users: User[];
+  companyMap: Record<number, string>; // 👈 mapa
   onDelete: (id: number) => void;
 }
 
-export default function ClientsTable({ users, onDelete }: ClientsTableProps) {
+export default function ClientsTable({
+  users,
+  companyMap,
+  onDelete,
+}: ClientsTableProps) {
   return (
     <div className="overflow-auto rounded-2xl border shadow-sm">
       <table className="w-full min-w-[900px]">
@@ -22,9 +33,10 @@ export default function ClientsTable({ users, onDelete }: ClientsTableProps) {
           <tr className="bg-gray-100 text-left text-sm">
             <th className="p-3">ID</th>
             <th className="p-3">Name</th>
-            <th className="p-3">Company ID</th>
+            <th className="p-3">Company</th> 
             <th className="p-3">Email</th>
             <th className="p-3">Role</th>
+            <th className="p-3">Password</th>
             <th className="p-3">Action</th>
           </tr>
         </thead>
@@ -34,9 +46,16 @@ export default function ClientsTable({ users, onDelete }: ClientsTableProps) {
             <tr key={user.id} className="border-t hover:bg-gray-50 transition">
               <td className="p-3">{user.id}</td>
               <td className="p-3 font-medium">{user.name || "N/A"}</td>
-              <td className="p-3">{user.companyId}</td>
+
+              {/* 🔥 nazwa firmy */}
+              <td className="p-3">
+                {companyMap[user.companyId] || "—"}
+              </td>
+
               <td className="p-3 text-gray-600">{user.email}</td>
               <td className="p-3 capitalize">{user.role}</td>
+              <td className="p-3 text-gray-600">{user.password || "—"}</td>
+
               <td className="p-3">
                 <div className="flex gap-2">
                   <Link
