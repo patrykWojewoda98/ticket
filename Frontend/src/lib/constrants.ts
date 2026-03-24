@@ -1,13 +1,4 @@
-import {
-  Home,
-  Info,
-  LogIn,
-  LogOut,
-  Mail,
-  PersonStanding,
-  Plus,
-  Ticket,
-} from "lucide-react";
+import { Home, Info, LogIn, LogOut, Mail, PersonStanding, Plus, Ticket } from "lucide-react";
 
 export const NAV_LINKS = {
   unauthenticated: [

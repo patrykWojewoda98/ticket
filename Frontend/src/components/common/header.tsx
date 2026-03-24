@@ -29,9 +29,7 @@ export default function Header() {
 
         const parsed = JSON.parse(user);
 
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_APP_URL}/api/user/${parsed.id}`
-        );
+        const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/user/${parsed.id}`);
 
         if (!res.ok) throw new Error("Nie udało się pobrać użytkownika");
 
@@ -52,19 +50,11 @@ export default function Header() {
 
   const isAdmin = role === "Admin";
 
-  const navKey = isAuthenticated
-    ? isAdmin
-      ? "admin"
-      : "customer"
-    : "unauthenticated";
+  const navKey = isAuthenticated ? (isAdmin ? "admin" : "customer") : "unauthenticated";
 
   const renderLinks = () =>
     NAV_LINKS[navKey].map((link, index) => (
-      <Link
-        key={index}
-        href={link.href}
-        className="group relative font-bold text-slate-500 hover:text-slate-900 text-sm transition-colors"
-      >
+      <Link key={index} href={link.href} className="group relative font-bold text-slate-500 hover:text-slate-900 text-sm transition-colors">
         {link.label}
         <span className="-bottom-1 left-0 absolute bg-slate-900 w-0 group-hover:w-full h-[2px] transition-all duration-300" />
       </Link>
@@ -73,24 +63,16 @@ export default function Header() {
   const renderButtons = (isPlain = false) =>
     NAV_BUTTONS[navKey].map((button, index) =>
       isPlain || index === 0 ? (
-        <Link
-          key={index}
-          href={button.href}
-          className="group relative font-bold text-slate-500 hover:text-slate-900 text-sm transition-colors"
-        >
+        <Link key={index} href={button.href} className="group relative font-bold text-slate-500 hover:text-slate-900 text-sm transition-colors">
           {button.label}
           <span className="-bottom-1 left-0 absolute bg-slate-900 w-0 group-hover:w-full h-[2px] transition-all duration-300" />
         </Link>
       ) : (
-        <Link
-          key={index}
-          href={button.href}
-          className="flex items-center bg-slate-900 hover:bg-slate-800 px-5 py-2 rounded-full font-bold text-white hover:scale-95 transition-transform cursor-pointer"
-        >
+        <Link key={index} href={button.href} className="flex items-center bg-slate-900 hover:bg-slate-800 px-5 py-2 rounded-full font-bold text-white hover:scale-95 transition-transform cursor-pointer">
           {button.icon && <button.icon className="mr-2 w-4 h-4" />}
           {button.label}
         </Link>
-      )
+      ),
     );
 
   return (
@@ -101,46 +83,28 @@ export default function Header() {
             <Ticket className="w-5 h-5 text-slate-700" />
           </div>
 
-          <Link
-            href="/"
-            className="font-bold text-slate-500 hover:text-slate-900 text-lg transition-colors"
-          >
+          <Link href="/" className="font-bold text-slate-500 hover:text-slate-900 text-lg transition-colors">
             Ticket
           </Link>
         </div>
 
-        <nav className="hidden lg:flex items-center gap-10">
-          {renderLinks()}
-        </nav>
+        <nav className="hidden lg:flex items-center gap-10">{renderLinks()}</nav>
 
-        <div className="hidden lg:flex items-center gap-6">
-          {renderButtons()}
-        </div>
+        <div className="hidden lg:flex items-center gap-6">{renderButtons()}</div>
 
         <div className="lg:hidden">
           <Button variant="outline" size="icon" onClick={toggle}>
-            {isOpen ? (
-              <X className="w-5 h-5 rotate-90 transition-transform" />
-            ) : (
-              <Menu className="w-5 h-5 transition-transform" />
-            )}
+            {isOpen ? <X className="w-5 h-5 rotate-90 transition-transform" /> : <Menu className="w-5 h-5 transition-transform" />}
           </Button>
         </div>
       </div>
 
       {isOpen && (
         <div className="lg:hidden top-full left-0 z-50 absolute w-full">
-          <div
-            onClick={stopPropagation}
-            className="relative flex flex-col bg-white px-6 py-6 border-slate-200 border-t animate-slideDown"
-          >
-            <div className="flex flex-col items-start gap-5 w-full">
-              {renderLinks()}
-            </div>
+          <div onClick={stopPropagation} className="relative flex flex-col bg-white px-6 py-6 border-slate-200 border-t animate-slideDown">
+            <div className="flex flex-col items-start gap-5 w-full">{renderLinks()}</div>
 
-            <div className="flex flex-col items-start gap-5 pt-5 w-full">
-              {renderButtons(true)}
-            </div>
+            <div className="flex flex-col items-start gap-5 pt-5 w-full">{renderButtons(true)}</div>
           </div>
         </div>
       )}
