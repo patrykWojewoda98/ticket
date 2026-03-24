@@ -1,12 +1,17 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useAuth } from "@/components/common/AuthContext";
+
 export function useLoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+
   const { setIsAuthenticated } = useAuth();
+  const router = useRouter();
+
   const resetForm = () => {
     setEmail("");
     setPassword("");
@@ -17,7 +22,9 @@ export function useLoginForm() {
     setLoading(true);
 
     try {
-      const usersRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/user`);
+      const usersRes = await fetch(
+        `${process.env.NEXT_PUBLIC_APP_URL}/api/user`
+      );
 
       if (!usersRes.ok) {
         throw new Error("Nie udało się pobrać użytkowników");
@@ -31,30 +38,41 @@ export function useLoginForm() {
         throw new Error("Nie znaleziono użytkownika");
       }
 
-      const loginRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/user/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          id: user.id,
-          password,
-        }),
-      });
+      const loginRes = await fetch(
+        `${process.env.NEXT_PUBLIC_APP_URL}/api/user/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id: user.id,
+            password,
+          }),
+        }
+      );
 
       if (!loginRes.ok) {
         throw new Error("Błędne dane logowania");
       }
 
-      // Wewnątrz handleSubmit w useLoginForm.ts po loginRes.ok:
       const data = await loginRes.json();
-      // Zapisujemy w localStorage dla UI
-      localStorage.setItem("user", JSON.stringify(data));
-      // Zapisujemy w Cookie dla Middleware (użyj biblioteki 'js-cookie' lub czystego JS)
-      document.cookie = `user_role=${data.role}; path=/; max-age=86400`; // 24h
 
-      // ✅ TO JEST KLUCZOWE
+      // 🔹 zapis danych
+      localStorage.setItem("user", JSON.stringify(data));
+
+      // 🔹 cookie (dla middleware)
+      document.cookie = `user_role=${data.role}; path=/; max-age=86400`;
+
+      // 🔹 ustaw auth
       setIsAuthenticated(true);
+
+      // 🔹 REDIRECT na podstawie roli
+      if (data.role === "admin") {
+        router.push("/admin");
+      } else {
+        router.push("/");
+      }
 
       resetForm();
     } catch (error: any) {
