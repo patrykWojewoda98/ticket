@@ -2,6 +2,10 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { Badge } from "@/components/ui/badge";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Loader2, Ticket as TicketIcon } from "lucide-react";
+import { useAuth } from "@/components/common/AuthContext";
 
 type Ticket = {
   id: number;
@@ -16,104 +20,86 @@ type Ticket = {
 
 export default function AdminHomePage() {
   const [tickets, setTickets] = useState<Ticket[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const { isAuthenticated, user, isLoaded } = useAuth();
 
   useEffect(() => {
-    fetchTickets();
-  }, []);
+    if (!isLoaded) return;
+
+    if (isAuthenticated && user?.role === "Admin") {
+      fetchTickets();
+    } else {
+      setIsLoading(false);
+      setTickets([]);
+    }
+  }, [isAuthenticated, user, isLoaded]);
 
   const fetchTickets = async () => {
+    setIsLoading(true);
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/ticket`);
+      const timestamp = new Date().getTime();
+      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/ticket?t=${timestamp}`, {
+        cache: "no-store",
+        headers: {
+          "Content-Type": "application/json",
+          "Cache-Control": "no-cache, no-store, must-revalidate",
+        },
+      });
 
-      if (!res.ok) {
-        console.error("API error:", res.status);
-        return;
-      }
+      if (!res.ok) throw new Error(`API returned ${res.status}`);
 
-      const text = await res.text();
-      const data = text ? JSON.parse(text) : [];
-
+      const data = await res.json();
       setTickets(data);
     } catch (error) {
-      console.error("Error fetching tickets:", error);
+      console.error("Błąd fetch:", error);
+      setTickets([]);
+    } finally {
+      setIsLoading(false);
     }
   };
 
- 
-  const getStatusLabel = (statusId: number) => {
-    switch (statusId) {
-      case 1:
-        return { label: "OPEN", color: "text-green-600" };
-      case 2:
-        return { label: "PENDING", color: "text-yellow-600" };
-      case 3:
-        return { label: "CLOSED", color: "text-red-600" };
-      default:
-        return { label: "UNKNOWN", color: "text-gray-600" };
-    }
+  const getStatusBadge = (statusId: number) => {
+    const styles = {
+      1: "bg-emerald-50 text-emerald-700 border-emerald-100",
+      2: "bg-amber-50 text-amber-700 border-amber-100",
+      3: "bg-slate-50 text-slate-600 border-slate-100",
+    };
+    const labels = { 1: "Otwarte", 2: "W toku", 3: "Zamknięte" };
+
+    return (
+      <Badge variant="outline" className={`font-medium shadow-none px-2 py-0 ${styles[statusId as keyof typeof styles] || ""}`}>
+        {labels[statusId as keyof typeof labels] || "Nieznany"}
+      </Badge>
+    );
   };
 
   const ticketCounts = {
-    OPEN: tickets.filter(t => t.statusId === 1).length,
-    PENDING: tickets.filter(t => t.statusId === 2).length,
-    CLOSED: tickets.filter(t => t.statusId === 3).length,
+    open: tickets.filter((t) => t.statusId === 1).length,
+    pending: tickets.filter((t) => t.statusId === 2).length,
+    closed: tickets.filter((t) => t.statusId === 3).length,
   };
 
   return (
-    <div className="p-6 space-y-8">
-      <h1 className="text-3xl font-bold">Admin Panel</h1>
+    <div className="mx-auto px-8 py-16 max-w-7xl font-sans container">
+      <header className="mb-12">
+        <h1 className="font-semibold text-slate-900 text-3xl tracking-tight">Panel Administratora</h1>
+        <p className="mt-2 text-slate-500 text-base">Przeglądaj statystyki i zarządzaj wszystkimi zgłoszeniami w systemie.</p>
+      </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="p-4 bg-green-100 rounded-lg shadow">
-          <h2 className="text-xl font-semibold">Open Tickets</h2>
-          <p className="text-2xl font-bold">{ticketCounts.OPEN}</p>
+      {/* Sekcja Statystyk */}
+      <div className="gap-6 grid grid-cols-1 md:grid-cols-3 mb-12">
+        <div className="bg-white shadow-sm p-6 border border-slate-200 rounded-xl">
+          <p className="font-medium text-slate-500 text-sm uppercase tracking-wider">Otwarte</p>
+          <p className="mt-1 font-bold text-emerald-600 text-3xl">{ticketCounts.open}</p>
         </div>
-        <div className="p-4 bg-yellow-100 rounded-lg shadow">
-          <h2 className="text-xl font-semibold">Pending Tickets</h2>
-          <p className="text-2xl font-bold">{ticketCounts.PENDING}</p>
+        <div className="bg-white shadow-sm p-6 border border-slate-200 rounded-xl">
+          <p className="font-medium text-slate-500 text-sm uppercase tracking-wider">W toku</p>
+          <p className="mt-1 font-bold text-amber-600 text-3xl">{ticketCounts.pending}</p>
         </div>
-        <div className="p-4 bg-red-100 rounded-lg shadow">
-          <h2 className="text-xl font-semibold">Closed Tickets</h2>
-          <p className="text-2xl font-bold">{ticketCounts.CLOSED}</p>
+        <div className="bg-white shadow-sm p-6 border border-slate-200 rounded-xl">
+          <p className="font-medium text-slate-500 text-sm uppercase tracking-wider">Zamknięte</p>
+          <p className="mt-1 font-bold text-slate-900 text-3xl">{ticketCounts.closed}</p>
         </div>
-      </div>
-
-      <div>
-        <h2 className="text-2xl font-bold mb-4">Latest Tickets</h2>
-
-        <table className="w-full border">
-          <thead>
-            <tr className="bg-gray-100">
-              <th className="p-3 text-left">Title</th>
-              <th className="p-3 text-left">Description</th>
-              <th className="p-3 text-left">Status</th>
-              <th className="p-3 text-left">Action</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {tickets.slice(-5).reverse().map(ticket => {
-              const status = getStatusLabel(ticket.statusId);
-
-              return (
-                <tr key={ticket.id} className="border-t">
-                  <td className="p-3">{ticket.title}</td>
-                  <td className="p-3">{ticket.description}</td>
-
-                  <td className={`p-3 font-semibold ${status.color}`}>
-                    {status.label}
-                  </td>
-
-                  <td className="p-3">
-                    <Link href={`/admin/tickets/${ticket.id}`} className="text-blue-600">
-                      View
-                    </Link>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
       </div>
     </div>
   );

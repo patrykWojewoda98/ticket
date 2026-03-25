@@ -1,28 +1,32 @@
 "use client";
 
+import Link from "next/link";
 import { Facebook, Twitter, Instagram } from "lucide-react";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
+
+const SOCIAL_LINKS = [
+  { icon: Facebook, label: "Facebook", href: "#" },
+  { icon: Twitter, label: "Twitter", href: "#" },
+  { icon: Instagram, label: "Instagram", href: "#" },
+] as const;
 
 export default function Footer() {
-  const socialLinks = [
-    { icon: <Facebook className="w-5 h-5" />, label: "Facebook" },
-    { icon: <Twitter className="w-5 h-5" />, label: "Twitter" },
-    { icon: <Instagram className="w-5 h-5" />, label: "Instagram" },
-  ];
+  const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-white border-t">
-      <div className="flex md:flex-row flex-col justify-between items-center gap-4 mx-auto px-6 py-6 container">
-        <div className="text-slate-500 text-sm md:text-left text-center">&copy; {new Date().getFullYear()} Wszelkie prawa zastrzeżone.</div>
-        <div className="hidden md:block border-slate-200 border-l h-6"></div>
+    <footer className="bg-background py-6 border-t w-full">
+      <div className="flex md:flex-row flex-col justify-between items-center gap-4 mx-auto px-6 container">
+        <p className="text-muted-foreground text-sm">&copy; {currentYear} Wszelkie prawa zastrzeżone.</p>
 
-        <div className="flex md:flex-row flex-col items-center gap-4">
-          {socialLinks.map((item) => (
-            <Button key={item.label} variant="ghost" className="hover:bg-slate-100 p-2 rounded-full transition-colors" aria-label={item.label}>
-              {item.icon}
+        <nav className="flex items-center gap-1">
+          {SOCIAL_LINKS.map(({ icon: Icon, label, href }) => (
+            <Button key={label} variant="ghost" size="icon" className="rounded-full" asChild>
+              <Link href={href} target="_blank" rel="noreferrer" aria-label={label}>
+                <Icon className="opacity-80 hover:opacity-100 w-[1.2rem] h-[1.2rem] transition-opacity" />
+              </Link>
             </Button>
           ))}
-        </div>
+        </nav>
       </div>
     </footer>
   );

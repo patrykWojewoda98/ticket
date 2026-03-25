@@ -121,19 +121,71 @@
   --color-brand: oklab(0.26 0 0);
   --color-brand-hover: oklch(0.21 0 0);
 }
-
+html {
+  scrollbar-gutter: stable;
+  /* Opcjonalnie: wymuszenie płynnego przewijania */
+  scroll-behavior: smooth;
+}
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
   body {
+    scrollbar-gutter: stable both-edges;
+
     @apply bg-background text-foreground;
   }
   html {
+    scrollbar-gutter: stable both-edges;
     @apply font-sans;
   }
+} /* globals.css */
+
+/* 1. Wymuszamy obecność paska przewijania zawsze */
+html {
+  overflow-y: scroll !important;
+  scrollbar-gutter: stable !important;
 }
 
+/* 2. Blokujemy usuwanie paska i dodawanie paddingu przez Radix UI */
+body {
+  padding-right: 0 !important;
+  overflow: overlay !important; /* Pozwala paskowi "pływać" nad treścią w Chrome/Edge */
+}
+
+/* 3. Najważniejsze: Nadpisanie stylu, który Radix dodaje dynamicznie */
+body[data-radix-scroll-lock] {
+  overflow: visible !important;
+  padding-right: 0 !important;
+} /* globals.css */
+
+html {
+  /* Wymusza rezerwację miejsca na scrollbar ZAWSZE */
+  scrollbar-gutter: stable both-edges !important;
+}
+
+body {
+  /* Blokuje przesuwanie treści przez biblioteki UI */
+  padding-right: 0px !important;
+  margin-right: 0px !important;
+}
+
+/* To uderza bezpośrednio w atrybut dodawany przez Radix/Shadcn */
+[data-radix-scroll-lock] {
+  padding-right: 0px !important;
+  margin-right: 0px !important;
+  overflow: hidden !important; /* Pozwalamy na ukrycie scrolla, ale dzięki gutter: stable nic się nie ruszy */
+}
+/* globals.css */
+html {
+  /* Rezerwuje miejsce na scrollbar, zapobiegając przesunięciom */
+  scrollbar-gutter: stable;
+}
+
+/* Nadpisanie agresywnego paddingu dodawanego przez Radix UI */
+body[data-radix-scroll-lock] {
+  padding-right: 0 !important;
+}
 @keyframes slideDown {
   0% {
     transform: translateY(-10px);
@@ -163,7 +215,7 @@
 }
 
 .ticket-badge {
-  @apply text-xs font-medium px-2 py-1 rounded w-24 flex items-center justify-center;
+  @apply flex justify-center items-center px-2 py-1 rounded w-24 font-medium text-xs;
 }
 
 .ticket-open {
@@ -180,4 +232,8 @@
 html {
   @apply font-sans;
   scrollbar-gutter: stable both-edges;
+}
+html body[data-scroll-locked] {
+  --removed-body-scroll-bar-size: 0 !important;
+  margin-right: 0 !important;
 }

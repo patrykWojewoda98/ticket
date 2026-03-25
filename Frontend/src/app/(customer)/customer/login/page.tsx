@@ -22,9 +22,7 @@ export function useLoginForm() {
     setLoading(true);
 
     try {
-      const usersRes = await fetch(
-        `${process.env.NEXT_PUBLIC_APP_URL}/api/user`
-      );
+      const usersRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/user`);
 
       if (!usersRes.ok) {
         throw new Error("Błąd pobierania użytkowników");
@@ -38,19 +36,16 @@ export function useLoginForm() {
         throw new Error("Nie znaleziono użytkownika");
       }
 
-      const loginRes = await fetch(
-        `${process.env.NEXT_PUBLIC_APP_URL}/api/user/login`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            id: user.id,
-            password,
-          }),
-        }
-      );
+      const loginRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/user/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: user.id,
+          password,
+        }),
+      });
 
       if (!loginRes.ok) {
         throw new Error("Błędne dane logowania");
@@ -94,7 +89,7 @@ import { LoginForm } from "@/components/forms/LoginForm";
 
 export default function Page() {
   return (
-    <div className="flex justify-center items-center min-h-screen">
+    <div className="flex justify-center items-center py-12">
       <LoginForm />
     </div>
   );
