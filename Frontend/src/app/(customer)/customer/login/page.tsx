@@ -9,7 +9,8 @@ export function useLoginForm() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const { setIsAuthenticated } = useAuth(); // ✅ DODANE
+  const { setIsAuthenticated } = useAuth();
+  const router = useRouter(); // ✅ DODANE
 
   const resetForm = () => {
     setEmail("");
@@ -58,14 +59,19 @@ export function useLoginForm() {
       const data = await loginRes.json();
 
       console.log("Zalogowano:", data);
-      
 
-      // ✅ GLOBALNY STATE
       setIsAuthenticated(true);
 
       localStorage.setItem("user", JSON.stringify(data));
 
-      resetForm(); // ✅ działa teraz
+      // ✅ REDIRECT NA PODSTAWIE ROLI
+      if (data.role === "admin") {
+        router.push("/admin");
+      } else {
+        router.push("/");
+      }
+
+      resetForm();
     } catch (error: any) {
       console.error(error);
       alert(error.message || "Błąd logowania");
@@ -85,6 +91,7 @@ export function useLoginForm() {
 }
 
 import { LoginForm } from "@/components/forms/LoginForm";
+
 export default function Page() {
   return (
     <div className="flex justify-center items-center min-h-screen">

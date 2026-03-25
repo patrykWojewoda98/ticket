@@ -50,6 +50,12 @@ export const NAV_LINKS = {
       icon: PersonStanding,
       isAdmin: true,
     },
+     {
+      label: "Kontakt",
+      href: "/admin/contact",
+      icon: Mail,
+      isAdmin: false,
+    },
   ],
 };
 
