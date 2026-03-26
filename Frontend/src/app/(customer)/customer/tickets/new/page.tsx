@@ -16,7 +16,7 @@ export default function NewTicketPage() {
     title: "",
     description: "",
   });
-
+  const [statuses, setStatuses] = useState<any[]>([]); // Nowy stan
   const [categories, setCategories] = useState<any[]>([]);
   const [assignees, setAssignees] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
@@ -25,9 +25,13 @@ export default function NewTicketPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [catRes, userRes] = await Promise.all([fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/TicketCategory`), fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/User`)]);
-
+        const [catRes, userRes, statRes] = await Promise.all([
+          fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/TicketCategory`),
+          fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/User`),
+          fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/TicketStatus`), // Zakładam taką ścieżkę API
+        ]);
         if (catRes.ok) setCategories(await catRes.json());
+        if (statRes.ok) setStatuses(await statRes.json()); // Zapisujemy statusy
         if (userRes.ok) {
           const users = await userRes.json();
           const admins = users.filter((u: any) => u.role === "Admin" || u.isAdmin === true);
@@ -41,7 +45,6 @@ export default function NewTicketPage() {
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-   
     if (error) setError(null);
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -51,7 +54,6 @@ export default function NewTicketPage() {
     setLoading(true);
     setError(null);
 
-    
     if (form.title.trim().length < 5) {
       setError("Tytuł musi mieć minimum 5 znaków");
       setLoading(false);
@@ -78,6 +80,13 @@ export default function NewTicketPage() {
       setLoading(false);
       return;
     }
+    const firstStatusId = statuses.length > 0 ? statuses[0].id : null;
+
+    if (!firstStatusId) {
+      setError("Błąd konfiguracji systemu: brak zdefiniowanych statusów w bazie.");
+      setLoading(false);
+      return;
+    }
 
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/Ticket`, {
@@ -85,8 +94,8 @@ export default function NewTicketPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           userId: user.id,
-          statusId: 1, 
-          priorityId: 2, 
+          statusId: firstStatusId,
+          priorityId: 2,
           categoryId: Number(form.categoryId),
           assigneeId: form.assigneeId ? Number(form.assigneeId) : null,
           title: form.title.trim(),
@@ -95,7 +104,6 @@ export default function NewTicketPage() {
       });
 
       if (!response.ok) {
-        
         const errorText = await response.text();
         throw new Error(errorText || "Wystąpił błąd podczas wysyłania zgłoszenia");
       }
@@ -116,7 +124,6 @@ export default function NewTicketPage() {
       </header>
 
       <form onSubmit={handleSubmit} className="space-y-6">
-       
         {error && <div className="bg-red-50 slide-in-from-top-1 p-4 border border-red-100 rounded-xl font-bold text-[11px] text-red-600 text-center uppercase tracking-widest animate-in fade-in">⚠️ {error}</div>}
 
         <div className="gap-6 grid grid-cols-1 md:grid-cols-2">
