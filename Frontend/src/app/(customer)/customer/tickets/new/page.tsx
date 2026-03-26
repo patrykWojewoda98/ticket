@@ -16,22 +16,19 @@ export default function NewTicketPage() {
     title: "",
     description: "",
   });
-  const [statuses, setStatuses] = useState<any[]>([]); // Nowy stan
+  const [statuses, setStatuses] = useState<any[]>([]);
   const [categories, setCategories] = useState<any[]>([]);
   const [assignees, setAssignees] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
+  const [priorities, setPriorities] = useState<any>([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [catRes, userRes, statRes] = await Promise.all([
-          fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/TicketCategory`),
-          fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/User`),
-          fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/TicketStatus`), // Zakładam taką ścieżkę API
-        ]);
+        const [catRes, userRes, statRes, prioRes] = await Promise.all([fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/TicketCategory`), fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/User`), fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/TicketStatus`), fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/TicketPriority`)]);
         if (catRes.ok) setCategories(await catRes.json());
-        if (statRes.ok) setStatuses(await statRes.json()); // Zapisujemy statusy
+        if (statRes.ok) setStatuses(await statRes.json());
+        if (prioRes.ok) setPriorities(await prioRes.json());
         if (userRes.ok) {
           const users = await userRes.json();
           const admins = users.filter((u: any) => u.role === "Admin" || u.isAdmin === true);
@@ -87,7 +84,14 @@ export default function NewTicketPage() {
       setLoading(false);
       return;
     }
+    const defaultStatusId = statuses.length > 0 ? statuses[0].id : null;
+    const defaultPriorityId = priorities.length > 0 ? priorities[0].id : null;
 
+    if (!defaultStatusId || !defaultPriorityId) {
+      setError("Błąd systemu: brak zdefiniowanych statusów lub priorytetów w bazie.");
+      setLoading(false);
+      return;
+    }
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/Ticket`, {
         method: "POST",
@@ -95,7 +99,7 @@ export default function NewTicketPage() {
         body: JSON.stringify({
           userId: user.id,
           statusId: firstStatusId,
-          priorityId: 2,
+          priorityId: defaultPriorityId,
           categoryId: Number(form.categoryId),
           assigneeId: form.assigneeId ? Number(form.assigneeId) : null,
           title: form.title.trim(),
