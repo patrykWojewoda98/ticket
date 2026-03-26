@@ -101,9 +101,10 @@ export default function Home() {
     );
   };
 
-  return (
-    <div className="mx-auto px-8 py-16 max-w-7xl font-sans container">
+  return (    
+    <div className="mx-auto px-8  max-w-7xl font-sans container">
       <header className="mb-12">
+       <h1 className="font-semibold text-slate-900 text-3xl tracking-tight mb-12">Witaj {user?.name}</h1>
         <h1 className="font-semibold text-slate-900 text-3xl tracking-tight">{user?.role === "Admin" ? "Wszystkie zgłoszenia" : "Moje zgłoszenia"}</h1>
         <p className="mt-2 text-slate-500 text-base">{user?.role === "Admin" ? "Panel zarządzania wszystkimi zgłoszeniami w systemie." : "Przeglądaj swoje aktywne prośby o pomoc i statusy prac."}</p>
       </header>

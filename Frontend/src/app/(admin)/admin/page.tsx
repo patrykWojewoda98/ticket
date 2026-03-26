@@ -80,8 +80,9 @@ export default function AdminHomePage() {
   };
 
   return (
-    <div className="mx-auto px-8 py-16 max-w-7xl font-sans container">
+    <div className="mx-auto px-8  max-w-7xl font-sans container">
       <header className="mb-12">
+        <h1 className="font-semibold text-slate-900 text-3xl tracking-tight mb-12">Witaj {user?.name}</h1>
         <h1 className="font-semibold text-slate-900 text-3xl tracking-tight">Panel Administratora</h1>
         <p className="mt-2 text-slate-500 text-base">Przeglądaj statystyki i zarządzaj wszystkimi zgłoszeniami w systemie.</p>
       </header>
