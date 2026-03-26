@@ -2,9 +2,9 @@
 
 Prosty system do zarządzania zgłoszeniami (ticketami) zbudowany w oparciu o:
 
-* Frontend: Next.js
-* Backend: .NET + Entity Framework
-* Baza danych: MySQL
+- Frontend: Next.js
+- Backend: .NET + Entity Framework
+- Baza danych: SQL Server
 
 ---
 
@@ -12,11 +12,10 @@ Prosty system do zarządzania zgłoszeniami (ticketami) zbudowany w oparciu o:
 
 Przed uruchomieniem upewnij się, że masz zainstalowane:
 
-* Node.js (>= 18)
-* npm lub yarn
-* .NET SDK (np. .NET 7 lub 8)
-* MySQL Server
-* (opcjonalnie) `dotnet-ef`:
+- Node.js (>= 18)
+- npm lub yarn
+- .NET SDK (np. .NET 7 lub 8)
+- SQL Server
 
   ```bash
   dotnet tool install --global dotnet-ef
@@ -46,7 +45,7 @@ Przed uruchomieniem upewnij się, że masz zainstalowane:
 2. Utwórz plik `.env`:
 
    ```env
-   DB_CONNECTION_STRING="Server=localhost;Port=3306;Database=ticket;User=root;Password=;"
+   DB_CONNECTION_STRING="Server=(localdb)\\mssqllocaldb;Database=ticket;Trusted_Connection=True;MultipleActiveResultSets=true"
    ```
 
 3. Utwórz migracje i zaktualizuj bazę:
@@ -104,11 +103,10 @@ http://localhost:3000
 
 ## 🗄️ Baza danych
 
-* Upewnij się, że MySQL działa
-* Baza `ticket`:
-
-  * może zostać utworzona automatycznie przez migracje
-  * lub możesz ją stworzyć ręcznie
+- Upewnij się, że MySQL działa
+- Baza `ticket`:
+  - może zostać utworzona automatycznie przez migracje
+  - lub możesz ją stworzyć ręcznie
 
 ---
 
@@ -132,19 +130,18 @@ NEXT_PUBLIC_APP_URL="http://localhost:5229/"
 
 ### ❌ Backend nie startuje
 
-* sprawdź czy działa MySQL
-* sprawdź connection string
+- sprawdź czy działa MySQL
+- sprawdź connection string
 
 ### ❌ Błąd połączenia z bazą
 
-* upewnij się, że:
-
-  * port MySQL to `3306`
-  * użytkownik i hasło są poprawne
+- upewnij się, że:
+  - port MySQL to `3306`
+  - użytkownik i hasło są poprawne
 
 ### ❌ Migracje nie działają
 
-* upewnij się, że masz:
+- upewnij się, że masz:
 
   ```bash
   dotnet tool install --global dotnet-ef
@@ -152,19 +149,19 @@ NEXT_PUBLIC_APP_URL="http://localhost:5229/"
 
 ### ❌ Frontend nie łączy się z backendem
 
-* sprawdź:
-
-  * `NEXT_PUBLIC_APP_URL`
-  * port backendu
+- sprawdź:
+  - `NEXT_PUBLIC_APP_URL`
+  - port backendu
 
 ---
 
 ## 💡 Dodatkowe uwagi
 
-* Jeśli zmienisz modele w backend:
+- Jeśli zmienisz modele w backend:
 
   ```bash
   dotnet ef migrations add Update
   dotnet ef database update
   ```
-* Backend musi być uruchomiony przed frontendem
+
+- Backend musi być uruchomiony przed frontendem
