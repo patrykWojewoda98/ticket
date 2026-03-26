@@ -31,7 +31,7 @@ public class DatabaseContext : DbContext
     {
       DotNetEnv.Env.TraversePath().Load();
       var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING");
-      optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+      optionsBuilder.UseSqlServer(connectionString);
     }
   }
 }
