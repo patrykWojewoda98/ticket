@@ -9,7 +9,7 @@ export const NAV_LINKS = {
       isAdmin: false,
     },
     {
-      label: "Kotankt",
+      label: "Kontakt",
       href: "https://editit.pl/#kontakt",
       icon: Home,
       isAdmin: false,

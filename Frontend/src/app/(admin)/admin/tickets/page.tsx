@@ -8,7 +8,7 @@ import { Loader2, Trash2, Edit3, User } from "lucide-react";
 import { useAuth } from "@/components/common/AuthContext";
 import { cn } from "@/lib/utils";
 
-// --- INTERFEJSY ---
+
 interface Ticket {
   id: number;
   priorityId: number;
@@ -31,7 +31,7 @@ interface Priority {
 
 interface UserData {
   id: number;
-  name: string; // ZMIANA: Zgodnie z Twoim UserDto w C#
+  name: string; 
   role: string;
   email: string;
 }
@@ -99,15 +99,15 @@ export default function AdminTicketsPage() {
     }
   };
 
-  // --- POPRAWIONA FUNKCJA POBIERAJĄCA POLE 'name' ---
+
   const getAssigneeName = (assigneeId?: number | null) => {
     if (!assigneeId) return "Nieprzypisane";
 
-    // Szukamy użytkownika w pobranej liście
+    
     const foundUser = users.find((u) => u.id === assigneeId);
 
     if (foundUser) {
-      // Sprawdzamy 'name' (format JSON) oraz 'Name' (na wszelki wypadek)
+      
       return foundUser.name || (foundUser as any).Name || "Użytkownik bez imienia";
     }
 
@@ -166,7 +166,7 @@ export default function AdminTicketsPage() {
                   <TableRow key={ticket.id} className="hover:bg-slate-50/30 transition-colors">
                     <TableCell className="px-6 py-4 font-medium text-slate-900 truncate">{ticket.title}</TableCell>
 
-                    {/* KOLUMNA: PRZYPISANY DO - TU TERAZ BĘDZIE IMIĘ */}
+                    {/* KOLUMNA: PRZYPISANY DO*/}
                     <TableCell className="px-6 py-4">
                       <div className="flex items-center gap-2">
                         <div className="bg-slate-100 p-1.5 rounded-full">

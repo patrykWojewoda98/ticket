@@ -6,7 +6,7 @@ import { Edit3, Loader2, Plus, Trash2, UserPlus } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
-// Zakładając, że te typy są importowane lub zdefiniowane lokalnie
+
 export interface User {
   id: number;
   name: string;
@@ -76,7 +76,7 @@ export default function ClientsPage() {
           <h1 className="font-semibold text-slate-900 text-3xl tracking-tight">Klienci</h1>
           <p className="mt-2 text-slate-500 text-base">Zarządzaj bazą użytkowników i ich powiązaniami z firmami.</p>
         </div>
-        {/* Przycisk akcji w Twoim stylu */}{" "}
+        
         <Link href="/admin/clients/new" className="flex items-center gap-2 bg-slate-900 hover:bg-slate-800 shadow-sm px-6 py-2.5 rounded-full font-bold text-[10px] text-white uppercase tracking-widest active:scale-95 transition-all">
           <Plus className="w-3.5 h-3.5" /> Dodaj klienta
         </Link>

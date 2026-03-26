@@ -8,13 +8,13 @@ export default function LogoutPage() {
   const { setIsAuthenticated } = useAuth();
 
   useEffect(() => {
-    // Synchronizacja czyszczenia danych
+    
     const performLogout = () => {
       localStorage.removeItem("user");
       document.cookie = "user_role=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
       setIsAuthenticated(false);
 
-      // Krótkie opóźnienie (500ms), żeby loader nie mignął zbyt szybko (co wygląda jak błąd)
+     
       setTimeout(() => {
         window.location.href = "/";
       }, 500);
@@ -33,7 +33,7 @@ export default function LogoutPage() {
           </div>
         </div>
 
-        {/* Napis i Loader */}
+        
         <div className="flex items-center gap-2">
           <Loader2 className="w-4 h-4 text-slate-400 animate-spin" />
           <span className="font-black text-[10px] text-slate-400 uppercase tracking-[0.2em]">Wylogowywanie...</span>

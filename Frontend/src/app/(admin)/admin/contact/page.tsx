@@ -93,7 +93,7 @@ export default function AdminTicketChat() {
     const messageContent = content.trim();
 
     try {
-      // 1. WYŚLIJ KOMENTARZ
+    
       const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/comment`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -104,16 +104,16 @@ export default function AdminTicketChat() {
         }),
       });
 
-      // ... wewnątrz handleSend w AdminTicketChat ...
+     
 
       if (res.ok) {
-        // DODAJEMY POWIADOMIENIE DLA UŻYTKOWNIKA
+       
         await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/TicketNotification`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             TicketId: selectedTicket.id,
-            UserId: selectedTicket.userId, // Adresatem jest właściciel ticketu
+            UserId: selectedTicket.userId, 
             Message: `Admin odpowiedział na Twoje zgłoszenie: ${messageContent.substring(0, 50)}...`,
             IsRead: false,
             CreatedAt: new Date().toISOString(),

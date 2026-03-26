@@ -11,7 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { ArrowLeft, Loader2, UserCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-// --- INTERFEJSY ---
+
 
 interface Status {
   id: number;
@@ -39,7 +39,7 @@ interface Ticket {
   priorityId: number;
   categoryId: number;
   userId: number;
-  assigneeId?: number | null; // Pole z Twojego backendu
+  assigneeId?: number | null; 
 }
 
 interface EditData {
@@ -48,7 +48,7 @@ interface EditData {
   statusId: number;
   priorityId: number;
   categoryId: number;
-  assigneeId?: number | null; // Dodane do edycji
+  assigneeId?: number | null;
 }
 
 export default function TicketDetailPage({ params }: { params: any }) {
@@ -59,8 +59,8 @@ export default function TicketDetailPage({ params }: { params: any }) {
   const [isSaving, setIsSaving] = useState(false);
 
   const [ticket, setTicket] = useState<Ticket | null>(null);
-  const [creator, setCreator] = useState<User | null>(null); // Klient, który założył
-  const [admins, setAdmins] = useState<User[]>([]); // Lista adminów do przypisania
+  const [creator, setCreator] = useState<User | null>(null); 
+  const [admins, setAdmins] = useState<User[]>([]); 
 
   const [statuses, setStatuses] = useState<Status[]>([]);
   const [priorities, setPriorities] = useState<Priority[]>([]);
@@ -82,13 +82,13 @@ export default function TicketDetailPage({ params }: { params: any }) {
         const resolvedParams = await params;
         const id = resolvedParams.id;
 
-        // Pobieramy dane podstawowe + listę adminów z Twojego UserController
+       
         const [tRes, sRes, pRes, cRes, aRes] = await Promise.all([
           fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/Ticket/${id}`),
           fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/TicketStatus`),
           fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/TicketPriority`),
           fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/TicketCategory`),
-          fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/User/role/Admin`), // Używamy Twojego endpointu
+          fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/User/role/Admin`), 
         ]);
 
         if (!tRes.ok) throw new Error("Failed to fetch ticket");
@@ -109,7 +109,7 @@ export default function TicketDetailPage({ params }: { params: any }) {
           assigneeId: tData.assigneeId,
         });
 
-        // Pobranie danych autora zgłoszenia (klienta)
+        
         const uRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/user/${tData.userId}`);
         if (uRes.ok) setCreator(await uRes.json());
       } catch (error) {
@@ -219,7 +219,7 @@ export default function TicketDetailPage({ params }: { params: any }) {
               {/* TYTUŁ */}
               <TableCell className="px-6 h-20 align-middle">{isEditing ? <Input value={editData.title} onChange={(e) => setEditData({ ...editData, title: e.target.value })} className="border-slate-200 rounded-md focus-visible:ring-slate-400 h-9 text-sm" /> : <div className="py-2 font-semibold text-slate-900 truncate">{ticket.title}</div>}</TableCell>
 
-              {/* PRZYPISANIE (ASSSIGNEE) */}
+              {/* PRZYPISANIE  */}
               <TableCell className="px-6 h-20 align-middle">
                 {isEditing ? (
                   <Select value={editData.assigneeId?.toString() || "0"} onValueChange={(v) => setEditData({ ...editData, assigneeId: v === "0" ? null : Number(v) })}>

@@ -5,7 +5,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Edit3, Loader2, Trash2, Plus } from "lucide-react";
 import Link from "next/link";
 
-// --- INTERFEJSY ---
+
 export interface Company {
   id: number;
   name: string;

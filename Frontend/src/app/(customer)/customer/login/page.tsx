@@ -10,7 +10,7 @@ export function useLoginForm() {
   const [loading, setLoading] = useState(false);
 
   const { setIsAuthenticated } = useAuth();
-  const router = useRouter(); // ✅ DODANE
+  const router = useRouter(); 
 
   const resetForm = () => {
     setEmail("");
@@ -59,7 +59,7 @@ export function useLoginForm() {
 
       localStorage.setItem("user", JSON.stringify(data));
 
-      // ✅ REDIRECT NA PODSTAWIE ROLI
+      
       if (data.role === "admin") {
         router.push("/admin");
       } else {

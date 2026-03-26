@@ -12,7 +12,7 @@ export function LoginForm() {
 
   return (
     <div className="slide-in-from-bottom-4 space-y-8 w-full max-w-[350px]">
-      {/* Header z ikoną */}
+      {/* Header*/}
       <div className="flex flex-col items-center space-y-3 text-center">
         <h1 className="font-black text-slate-900 text-3xl tracking-tighter">Witaj ponownie</h1>
         <p className="font-bold text-slate-400 text-sm">Wprowadź dane, aby przejść do panelu</p>

@@ -8,7 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Loader2, Plus, Trash2, Edit3, Check, X } from "lucide-react";
 import { useAuth } from "@/components/common/AuthContext";
 
-// --- INTERFEJSY ---
+
 interface DictionaryItem {
   id: number;
   name: string;

@@ -16,14 +16,14 @@ export default function CreateCompanyPage() {
     email: "",
     phoneNumber: "",
     address: "",
-    userId: "", // Dodane pole UserId
+    userId: "", 
   });
 
   const [users, setUsers] = useState<{ id: number; name: string }[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Pobieramy użytkowników, bo backend wymaga UserId
+
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -49,7 +49,7 @@ export default function CreateCompanyPage() {
     setLoading(true);
     setError(null);
 
-    // Oczyszczanie numeru telefonu (częsty wymóg walidatorów: brak spacji)
+  
     const cleanPhone = form.phoneNumber.replace(/\s/g, "");
 
     try {
@@ -59,15 +59,15 @@ export default function CreateCompanyPage() {
         body: JSON.stringify({
           Name: form.name,
           Email: form.email,
-          PhoneNumber: cleanPhone, // Wysłanie oczyszczonego numeru
+          PhoneNumber: cleanPhone, 
           Address: form.address,
-          UserId: Number(form.userId), // Konwersja na int dla C#
+          UserId: Number(form.userId),
         }),
       });
 
       if (!res.ok) {
         const errorData = await res.json();
-        // Wyciągamy błędy z FluentValidation, jeśli API je zwraca w JSONie
+        
         throw new Error(errorData.detail || "Błąd walidacji danych. Sprawdź UserId i Telefon.");
       }
 
@@ -89,7 +89,7 @@ export default function CreateCompanyPage() {
       <form onSubmit={handleSubmit} className="space-y-6">
         {error && <div className="bg-red-50 p-4 border border-red-100 rounded-xl font-bold text-[11px] text-red-600 text-center uppercase tracking-widest">⚠️ {error}</div>}
 
-        {/* UŻYTKOWNIK (WYMAGANY PRZEZ BACKEND) */}
+        {/* UŻYTKOWNIK  */}
         <div className="space-y-2">
           <Label className="ml-1 font-black text-[10px] text-slate-400 uppercase tracking-widest">Przypisany Użytkownik (Właściciel) *</Label>
           <select name="userId" value={form.userId} onChange={handleChange} required className="flex bg-white px-4 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-slate-900 w-full h-11 font-medium text-sm transition-all appearance-none cursor-pointer">

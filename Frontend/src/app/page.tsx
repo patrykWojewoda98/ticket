@@ -25,7 +25,7 @@ type TicketStatus = {
 
 export default function Home() {
   const [tickets, setTickets] = useState<Ticket[]>([]);
-  const [statuses, setStatuses] = useState<TicketStatus[]>([]); // Stan na statusy z API
+  const [statuses, setStatuses] = useState<TicketStatus[]>([]); 
   const [isLoading, setIsLoading] = useState(true);
 
   const { isAuthenticated, user, isLoaded } = useAuth();
@@ -34,7 +34,7 @@ export default function Home() {
     if (!isLoaded) return;
 
     if (isAuthenticated && user) {
-      // Pobieramy dane równolegle
+      
       Promise.all([fetchTickets(), fetchStatuses()]).finally(() => {
         setIsLoading(false);
       });
@@ -78,19 +78,19 @@ export default function Home() {
     return ticket.userId === user?.id;
   });
 
-  // Funkcja mapująca ID na nazwę i kolor
+  
   const getStatusBadge = (statusId: number) => {
     const statusObj = statuses.find((s) => s.id === statusId);
     const statusName = statusObj ? statusObj.name.toUpperCase() : "NIEZNANY";
 
-    // Dynamiczne przypisywanie kolorów na podstawie nazwy lub ID
-    let colorClass = "bg-slate-50 border-slate-100 text-slate-600"; // domyślny
+   
+    let colorClass = "bg-slate-50 border-slate-100 text-slate-600"; 
 
     if (statusName.includes("OTWARTE") || statusId === 1) {
       colorClass = "bg-emerald-50 border-emerald-100 text-emerald-700";
     } else if (statusName.includes("TOKU") || statusId === 2) {
       colorClass = "bg-amber-50 border-amber-100 text-amber-700";
-    } else if (statusName.includes("ZAMKNI") || statusId === 3) {
+    } else if (statusName.includes("ZAMKNIĘTE") || statusId === 3) {
       colorClass = "bg-slate-50 border-slate-100 text-slate-600";
     }
 

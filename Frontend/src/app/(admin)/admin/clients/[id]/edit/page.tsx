@@ -160,7 +160,7 @@ export default function EditClientPage() {
           </TableHeader>
           <TableBody>
             <TableRow className="hover:bg-transparent border-none">
-              {/* KOLUMNA: IMIĘ (TRUNCATE) */}
+              {/* KOLUMNA: IMIĘ */}
               <TableCell className="px-6 h-20 align-middle">
                 {isEditing ? (
                   <Input value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className="shadow-none border-slate-200 focus-visible:ring-indigo-500 h-9 text-sm" />
@@ -171,7 +171,7 @@ export default function EditClientPage() {
                 )}
               </TableCell>
 
-              {/* KOLUMNA: EMAIL (TRUNCATE) */}
+              {/* KOLUMNA: EMAIL  */}
               <TableCell className="px-6 h-20 align-middle">
                 {isEditing ? (
                   <Input value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} className="shadow-none border-slate-200 focus-visible:ring-indigo-500 h-9 text-sm" />
@@ -203,7 +203,7 @@ export default function EditClientPage() {
                 )}
               </TableCell>
 
-              {/* KOLUMNA: FIRMA (TRUNCATE) */}
+              {/* KOLUMNA: FIRMA  */}
               <TableCell className="px-6 h-20 align-middle">
                 {isEditing ? (
                   <Select value={formData.companyId.toString()} onValueChange={(val) => setFormData({ ...formData, companyId: Number(val) })}>

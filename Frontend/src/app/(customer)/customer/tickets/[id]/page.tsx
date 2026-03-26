@@ -38,7 +38,7 @@ export default function TicketDetailPage({ params }: { params: any }) {
   const [isSaving, setIsSaving] = useState(false);
 
   const [ticket, setTicket] = useState<any>(null);
-  const [statuses, setStatuses] = useState<Status[]>([]); // Stan na wszystkie statusy
+  const [statuses, setStatuses] = useState<Status[]>([]); 
   const [details, setDetails] = useState<TicketDetails>({
     user: null,
     priority: null,
@@ -53,7 +53,7 @@ export default function TicketDetailPage({ params }: { params: any }) {
         const resolvedParams = await params;
         const id = resolvedParams.id;
 
-        // 1. Pobierz Ticket i Statusy równolegle
+       
         const [ticketRes, statusesRes] = await Promise.all([fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/Ticket/${id}`), fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/TicketStatus`)]);
 
         if (!ticketRes.ok) return;
@@ -64,7 +64,7 @@ export default function TicketDetailPage({ params }: { params: any }) {
         setStatuses(allStatuses);
         setEditData({ title: ticketData.title, description: ticketData.description });
 
-        // 2. Pobierz resztę detali (User, Priority, Category)
+        
         const [u, p, c] = await Promise.all([fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/user/${ticketData.userId}`).then((r) => (r.ok ? r.json() : null)), fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/ticketpriority/${ticketData.priorityId}`).then((r) => (r.ok ? r.json() : null)), ticketData.categoryId ? fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/ticketcategory/${ticketData.categoryId}`).then((r) => (r.ok ? r.json() : null)) : null]);
 
         setDetails({ user: u, priority: p, category: c });
@@ -129,7 +129,7 @@ export default function TicketDetailPage({ params }: { params: any }) {
 
   return (
     <div className="mx-auto px-8 py-16 max-w-7xl font-sans container">
-      {/* HEADER */}
+      
       <header className="flex justify-between items-start mb-12">
         <div>
           <div className="flex items-center gap-3 mb-2">

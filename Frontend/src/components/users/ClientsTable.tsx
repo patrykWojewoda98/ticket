@@ -45,7 +45,7 @@ export default function ClientsTable({
               <td className="p-3">{user.id}</td>
               <td className="p-3 font-medium">{user.name || "N/A"}</td>
 
-              {/* 🔥 nazwa firmy */}
+             
               <td className="p-3">
                 {companyMap[user.companyId] || "—"}
               </td>

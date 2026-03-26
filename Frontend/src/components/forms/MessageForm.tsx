@@ -25,7 +25,7 @@ export default function MessageForm({
         },
         body: JSON.stringify({
           userId,
-          ticketId, // 🔥 KLUCZOWE
+          ticketId, 
           content,
         }),
       }

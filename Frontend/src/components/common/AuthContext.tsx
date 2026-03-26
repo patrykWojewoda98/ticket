@@ -5,9 +5,9 @@ import { createContext, useContext, useState, useEffect } from "react";
 type AuthContextType = {
   isAuthenticated: boolean;
   user: any | null;
-  isLoaded: boolean; // NOWOŚĆ: flaga informująca, czy sprawdzanie sesji dobiegło końca
+  isLoaded: boolean; 
   setIsAuthenticated: (value: boolean) => void;
-  setUser: (user: any) => void; // Dodajemy, żeby móc ustawić usera po loginie
+  setUser: (user: any) => void;
   logout: () => void;
 };
 
@@ -16,7 +16,7 @@ const AuthContext = createContext<AuthContextType | null>(null);
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState<any | null>(null);
-  const [isLoaded, setIsLoaded] = useState(false); // Na początku false
+  const [isLoaded, setIsLoaded] = useState(false); 
 
   useEffect(() => {
     const savedUser = localStorage.getItem("user");
@@ -30,7 +30,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         localStorage.removeItem("user");
       }
     }
-    setIsLoaded(true); // KONIEC SPRAWDZANIA - teraz komponenty mogą działać
+    setIsLoaded(true); 
   }, []);
 
   const logout = () => {

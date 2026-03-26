@@ -9,7 +9,7 @@ import { usePrevent } from "@/hooks/usePrevent";
 import { Button } from "../ui/button";
 import { useAuth } from "@/components/common/AuthContext";
 import { cn } from "@/lib/utils";
-import NotificationBell from "./NotificationBell"; // Import dzwonka
+import NotificationBell from "./NotificationBell"; 
 
 export default function Header() {
   const { isAuthenticated, isLoaded, user } = useAuth();
@@ -88,7 +88,7 @@ export default function Header() {
 
         {/* ACTIONS & NOTIFICATIONS */}
         <div className="hidden lg:flex items-center gap-6">
-          {/* Dzwonek powiadomień - tylko dla zalogowanych */}
+         
           {isAuthenticated && <NotificationBell />}
 
           {NAV_BUTTONS[navKey].map((btn, index) => {

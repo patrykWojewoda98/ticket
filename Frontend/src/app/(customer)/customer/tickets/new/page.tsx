@@ -41,7 +41,7 @@ export default function NewTicketPage() {
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    // Czyścimy błąd, gdy użytkownik zaczyna pisać
+   
     if (error) setError(null);
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -51,7 +51,7 @@ export default function NewTicketPage() {
     setLoading(true);
     setError(null);
 
-    // 1. WALIDACJA PO STRONIE KLIENTA
+    
     if (form.title.trim().length < 5) {
       setError("Tytuł musi mieć minimum 5 znaków");
       setLoading(false);
@@ -85,8 +85,8 @@ export default function NewTicketPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           userId: user.id,
-          statusId: 1, // OTWARTE
-          priorityId: 2, // ŚREDNI
+          statusId: 1, 
+          priorityId: 2, 
           categoryId: Number(form.categoryId),
           assigneeId: form.assigneeId ? Number(form.assigneeId) : null,
           title: form.title.trim(),
@@ -95,7 +95,7 @@ export default function NewTicketPage() {
       });
 
       if (!response.ok) {
-        // Próba wyciągnięcia komunikatu błędu z API
+        
         const errorText = await response.text();
         throw new Error(errorText || "Wystąpił błąd podczas wysyłania zgłoszenia");
       }
@@ -116,7 +116,7 @@ export default function NewTicketPage() {
       </header>
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Wyświetlanie błędu */}
+       
         {error && <div className="bg-red-50 slide-in-from-top-1 p-4 border border-red-100 rounded-xl font-bold text-[11px] text-red-600 text-center uppercase tracking-widest animate-in fade-in">⚠️ {error}</div>}
 
         <div className="gap-6 grid grid-cols-1 md:grid-cols-2">

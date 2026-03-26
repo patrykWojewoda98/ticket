@@ -8,7 +8,7 @@ import { Loader2, Send } from "lucide-react";
 type Ticket = {
   id: number;
   title?: string;
-  assigneeId?: number | null; // Dodane pole
+  assigneeId?: number | null; 
 };
 
 type Message = {
@@ -22,26 +22,26 @@ type Message = {
 export default function TicketChat() {
   const { user, isAuthenticated } = useAuth();
 
-  // Stany danych
+ 
   const [tickets, setTickets] = useState<Ticket[]>([]);
   const [selectedTicket, setSelectedTicket] = useState<Ticket | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [fallbackAdminId, setFallbackAdminId] = useState<number | null>(null);
 
-  // Stany UI
+  
   const [content, setContent] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  // 1. Auto-scroll
+  
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [messages]);
 
-  // 2. Pobieranie listy ticketów i ID głównego admina (jako fallback)
+ 
   useEffect(() => {
     if (!isAuthenticated || !user) return;
 
@@ -52,7 +52,7 @@ export default function TicketChat() {
       .then(setTickets)
       .catch((err) => console.error("Błąd pobierania ticketów:", err));
 
-    // Pobieramy listę adminów tylko po to, by mieć kogoś "pod ręką" jeśli ticket nie ma przypisanej osoby
+   
     fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/User/role/Admin`)
       .then((res) => res.json())
       .then((admins) => {
@@ -61,17 +61,17 @@ export default function TicketChat() {
       .catch((err) => console.error("Błąd adminów:", err));
   }, [isAuthenticated, user]);
 
-  // 3. Pobieranie wiadomości I szczegółów ticketu (aby mieć aktualne assigneeId)
+  
   const handleSelectTicket = async (ticketId: number) => {
     try {
-      // Pobieramy detale ticketu, żeby wiedzieć kto jest przypisany (assigneeId)
+      
       const ticketRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/ticket/${ticketId}`);
       if (ticketRes.ok) {
         const ticketData = await ticketRes.json();
         setSelectedTicket(ticketData);
       }
 
-      // Pobieramy wiadomości
+      
       const msgRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/comment/ticket/${ticketId}`);
       if (msgRes.ok) {
         setMessages(await msgRes.json());
@@ -80,7 +80,7 @@ export default function TicketChat() {
       console.error("Błąd ładowania danych wątku:", error);
     }
   };
-  // 4. Wysyłanie wiadomości - powiadomienie TYLKO jeśli jest przypisany opiekun
+  
   const handleSend = async () => {
     if (!selectedTicket || !content.trim() || !user) return;
 
@@ -88,7 +88,7 @@ export default function TicketChat() {
     const messageToSend = content.trim();
 
     try {
-      // KROK A: Zawsze wysyłamy komentarz do bazy (historia rozmowy)
+      
       const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/comment`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -100,7 +100,7 @@ export default function TicketChat() {
       });
 
       if (res.ok) {
-        // KROK B: Powiadomienie wysyłamy TYLKO do przypisanej osoby (assigneeId)
+        
         const recipientId = selectedTicket.assigneeId;
 
         if (recipientId) {
@@ -119,7 +119,7 @@ export default function TicketChat() {
           console.log("Brak przypisanego opiekuna - powiadomienie nie zostało wysłane.");
         }
 
-        // KROK C: Czyszczenie i odświeżenie
+        
         setContent("");
         await handleSelectTicket(selectedTicket.id);
       }
@@ -154,7 +154,7 @@ export default function TicketChat() {
       </header>
 
       <div className="flex flex-col bg-white shadow-sm border border-slate-200 rounded-lg h-[450px] overflow-hidden">
-        {/* Wskaźnik kto obsługuje ticket */}
+        
         {selectedTicket && <div className="bg-slate-50 px-6 py-2 border-slate-100 border-b font-bold text-[10px] text-slate-400 uppercase tracking-widest">{selectedTicket.assigneeId ? "Obsługujący przypisany" : "Oczekiwanie na przypisanie operatora"}</div>}
 
         <div ref={scrollRef} className="flex-1 space-y-4 bg-slate-50/30 p-8 overflow-y-auto">

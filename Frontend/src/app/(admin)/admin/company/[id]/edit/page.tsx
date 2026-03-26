@@ -7,13 +7,13 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Input } from "@/components/ui/input";
 import { ArrowLeft, Loader2 } from "lucide-react";
 
-// Dostosowane do Twojego CompanyDto w C#
+
 interface Company {
   id: number;
   name: string;
   email: string;
-  phoneNumber: string; // Zmienione z phone -> phoneNumber
-  address: string; // Dodane pole
+  phoneNumber: string; 
+  address: string; 
 }
 
 const API = `${process.env.NEXT_PUBLIC_APP_URL}/api/company`;
@@ -48,7 +48,7 @@ export default function EditCompanyPage() {
         setFormData({
           name: data.name ?? "",
           email: data.email ?? "",
-          phoneNumber: data.phoneNumber ?? "", // Mapowanie z backendu
+          phoneNumber: data.phoneNumber ?? "",
           address: data.address ?? "",
         });
       } catch (err: any) {
@@ -70,7 +70,7 @@ export default function EditCompanyPage() {
           CompanyId: companyId,
           Name: formData.name,
           Email: formData.email,
-          PhoneNumber: formData.phoneNumber, // Musi pasować do C# property
+          PhoneNumber: formData.phoneNumber, 
           Address: formData.address,
         }),
       });
