@@ -8,21 +8,34 @@ export const NAV_LINKS = {
       icon: Home,
       isAdmin: false,
     },
-  ],
-
-  customer: [
     {
-      label: "Strona główna",
-      href: "/",
+      label: "Kotankt",
+      href: "https://editit.pl/#kontakt",
       icon: Home,
       isAdmin: false,
     },
     {
-      label: "Lista ticketów",
-      href: "/customer/tickets",
-      icon: Info,
+      label: "Oferta",
+      href: "https://editit.pl/uslugi-informatyczne-edit/",
+      icon: Home,
       isAdmin: false,
     },
+    {
+      label: "Usługi",
+      href: "https://editit.pl/#Uslugi",
+      icon: Home,
+      isAdmin: false,
+    },
+  ],
+
+  customer: [
+    {
+      label: "Lista ticketów",
+      href: "/",
+      icon: Home,
+      isAdmin: false,
+    },
+
     {
       label: "Kontakt",
       href: "/customer/contact",
@@ -50,7 +63,19 @@ export const NAV_LINKS = {
       icon: PersonStanding,
       isAdmin: true,
     },
-     {
+    {
+      label: "Firmy",
+      href: "/admin/company",
+      icon: PersonStanding,
+      isAdmin: true,
+    },
+    {
+      label: "Opcje",
+      href: "/admin/settings",
+      icon: PersonStanding,
+      isAdmin: true,
+    },
+    {
       label: "Kontakt",
       href: "/admin/contact",
       icon: Mail,
@@ -65,6 +90,12 @@ export const NAV_BUTTONS = {
       label: "Zaloguj się",
       href: "/customer/login",
       icon: LogIn,
+      isAdmin: false,
+    },
+    {
+      label: "Dodaj ticketa",
+      href: "/customer/login",
+      icon: Plus,
       isAdmin: false,
     },
   ],

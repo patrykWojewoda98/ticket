@@ -1,43 +1,43 @@
 "use client";
 
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { useAuth } from "@/components/common/AuthContext";
+import { Loader2, Ticket } from "lucide-react";
 
 export default function LogoutPage() {
-  const router = useRouter();
   const { setIsAuthenticated } = useAuth();
 
   useEffect(() => {
-    // 1. Czyścimy dane z localStorage
-    localStorage.removeItem("user");
+    // Synchronizacja czyszczenia danych
+    const performLogout = () => {
+      localStorage.removeItem("user");
+      document.cookie = "user_role=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+      setIsAuthenticated(false);
 
-    // 2. Czyścimy ciasteczko roli (KLUCZOWE dla Middleware)
-    // Ustawiamy datę wygaśnięcia na 1970 rok, co zmusza przeglądarkę do usunięcia ciastka
-    document.cookie = "user_role=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+      // Krótkie opóźnienie (500ms), żeby loader nie mignął zbyt szybko (co wygląda jak błąd)
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 500);
+    };
 
-    // 3. Czyścimy stan globalny
-    setIsAuthenticated(false);
-
-    // 4. Przekierowanie
-    const timeout = setTimeout(() => {
-      // Używamy window.location.href zamiast router.push,
-      // aby wymusić pełne odświeżenie strony i "reset" Middleware
-      window.location.href = "/";
-    }, 1500);
-
-    return () => clearTimeout(timeout);
+    performLogout();
   }, [setIsAuthenticated]);
 
   return (
-    <div className="flex justify-center items-center bg-slate-50 min-h-screen">
-      <div className="bg-white shadow-sm p-10 border border-slate-200 rounded-2xl text-center">
-        <div className="flex justify-center mb-4">
-          {/* Opcjonalny spinner/ikona */}
-          <div className="border-4 border-slate-200 border-t-slate-900 rounded-full w-8 h-8 animate-spin"></div>
+    <div className="z-[9999] fixed inset-0 flex flex-col justify-center items-center bg-white">
+      <div className="flex flex-col items-center gap-4 animate-in duration-300 fade-in">
+        <div className="relative flex justify-center items-center">
+          <div className="absolute bg-slate-100 opacity-75 rounded-full w-12 h-12 animate-ping"></div>
+          <div className="relative bg-white shadow-sm p-3 border border-slate-100 rounded-2xl">
+            <Ticket className="w-6 h-6 text-slate-900" />
+          </div>
         </div>
-        <h1 className="mb-2 font-bold text-slate-900 text-2xl">Wylogowywanie...</h1>
-        <p className="text-slate-600">Za chwilę zostaniesz bezpiecznie przekierowany.</p>
+
+        {/* Napis i Loader */}
+        <div className="flex items-center gap-2">
+          <Loader2 className="w-4 h-4 text-slate-400 animate-spin" />
+          <span className="font-black text-[10px] text-slate-400 uppercase tracking-[0.2em]">Wylogowywanie...</span>
+        </div>
       </div>
     </div>
   );

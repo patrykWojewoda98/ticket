@@ -5,34 +5,34 @@ export function proxy(request: NextRequest) {
   const role = request.cookies.get("user_role")?.value;
   const { pathname } = request.nextUrl;
 
-  // 1. JEŚLI NIE JESTEŚ ZALOGOWANY (brak role)
+  // 1. BLOKADA STRONY GŁÓWNEJ DLA ADMINA
+  if (pathname === "/" && role === "Admin") {
+    return NextResponse.redirect(new URL("/admin", request.url));
+  }
+
+  // 2. JEŚLI NIE JESTEŚ ZALOGOWANY
   if (!role) {
-    // Pozwól wejść TYLKO na stronę logowania, wszystko inne -> redirect do login
     if (pathname.startsWith("/admin") || (pathname.startsWith("/customer") && pathname !== "/customer/login")) {
       return NextResponse.redirect(new URL("/customer/login", request.url));
     }
     return NextResponse.next();
   }
 
-  // 2. OCHRONA TRAS ADMINA (Tylko dla zalogowanych)
+  // 3. OCHRONA TRAS ADMINA
   if (pathname.startsWith("/admin")) {
     if (role !== "Admin") {
-      // Jeśli jesteś Customerem, a pchasz się do Admina -> na stronę główną lub do swoich ticketów
       return NextResponse.redirect(new URL("/customer/tickets", request.url));
     }
   }
 
-  // 3. OCHRONA TRAS CUSTOMERA (Tylko dla zalogowanych)
+  // 4. OCHRONA TRAS CUSTOMERA (Admin też nie może tu wchodzić)
   if (pathname.startsWith("/customer") && pathname !== "/customer/login") {
-    if (role !== "Customer") {
-      // Jeśli jesteś Adminem, a pchasz się do Customera -> do panelu admina
-      if (role === "Admin") {
-        return NextResponse.redirect(new URL("/admin", request.url));
-      }
+    if (role === "Admin") {
+      return NextResponse.redirect(new URL("/admin", request.url));
     }
   }
 
-  // 4. BLOKADA STRONY LOGOWANIA DLA ZALOGOWANYCH
+  // 5. BLOKADA STRONY LOGOWANIA DLA ZALOGOWANYCH
   if (pathname === "/customer/login") {
     const target = role === "Admin" ? "/admin" : "/customer/tickets";
     return NextResponse.redirect(new URL(target, request.url));
@@ -42,5 +42,6 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/customer/:path*"],
+  // DODANO "/" DO MATCHERA
+  matcher: ["/", "/admin/:path*", "/customer/:path*"],
 };
