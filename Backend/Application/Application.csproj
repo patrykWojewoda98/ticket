@@ -1,0 +1,67 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="12.1.1" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
+    <PackageReference Include="MediatR" Version="14.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.7">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Common\" />
+    <Folder Include="Common\Behaviours\" />
+    <Folder Include="Queries\CommentQueries\GetAllComments\" />
+    <Folder Include="Queries\CommentQueries\GetCommentById\" />
+    <Folder Include="Queries\CommentQueries\GetCommentsByUser\" />
+    <Folder Include="Queries\CompanyQueries\" />
+    <Folder Include="Queries\CompanyQueries\FindByUserId\" />
+    <Folder Include="Queries\CompanyQueries\GetAllCompanies\" />
+    <Folder Include="Queries\CompanyQueries\GetCompanyById\" />
+    <Folder Include="Queries\TicketAttachmentQueries\" />
+    <Folder Include="Queries\TicketAttachmentQueries\FindByTicketId\" />
+    <Folder Include="Queries\TicketAttachmentQueries\GetAllTicketAttachments\" />
+    <Folder Include="Queries\TicketAttachmentQueries\GetTicketAttachmentById\" />
+    <Folder Include="Queries\TicketCategoryQueries\" />
+    <Folder Include="Queries\TicketCategoryQueries\FindByName\" />
+    <Folder Include="Queries\TicketCategoryQueries\GetAllTicketCategories\" />
+    <Folder Include="Queries\TicketCategoryQueries\GetTicketCategoryById\" />
+    <Folder Include="Queries\TicketHistoryQueries\" />
+    <Folder Include="Queries\TicketHistoryQueries\FindByTicketId\" />
+    <Folder Include="Queries\TicketHistoryQueries\GetAllTicketHistories\" />
+    <Folder Include="Queries\TicketHistoryQueries\GetTicketHistoryById\" />
+    <Folder Include="Queries\TicketNotificationQueries\FindByTicketId\" />
+    <Folder Include="Queries\TicketNotificationQueries\GetAllTicketNotifications\" />
+    <Folder Include="Queries\TicketNotificationQueries\GetTicketNotificationById\" />
+    <Folder Include="Queries\TicketPriorityQueries\" />
+    <Folder Include="Queries\TicketPriorityQueries\FindByName\" />
+    <Folder Include="Queries\TicketPriorityQueries\GetAllTicketPriorities\" />
+    <Folder Include="Queries\TicketPriorityQueries\GetTicketPriorityById\" />
+    <Folder Include="Queries\TicketQueries\CountByStatusId\" />
+    <Folder Include="Queries\TicketQueries\FindByAssigneeId\" />
+    <Folder Include="Queries\TicketQueries\GetAllTickets\" />
+    <Folder Include="Queries\TicketQueries\GetTicketById\" />
+    <Folder Include="Queries\TicketStatusQueries\FindByName\" />
+    <Folder Include="Queries\TicketStatusQueries\GetTicketStatusById\" />
+    <Folder Include="Queries\UserQueries\" />
+    <Folder Include="Queries\UserQueries\FindByRole\" />
+    <Folder Include="Queries\UserQueries\GetAllUsers\" />
+    <Folder Include="Queries\UserQueries\GetUserById\" />
+    <Folder Include="Queries\UserQueries\LoginUser\" />
+    <Folder Include="Queries\UserQueries\SetUserRole\" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>

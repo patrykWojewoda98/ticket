@@ -1,0 +1,46 @@
+services:
+  # 1. Baza danych (SQL Server)
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: ticket_db
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=TwojeSilneHaslo123!
+    ports:
+      - "1433:1433"
+    networks:
+      - ticket-network
+
+  # 2. Backend (.NET)
+  api:
+    build:
+      context: ./Backend
+      dockerfile: Api/Dockerfile
+    container_name: ticket_api
+    depends_on:
+      - db
+    ports:
+      - "5229:8080"
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=db;Database=ticket;User=sa;Password=TwojeSilneHaslo123!;TrustServerCertificate=True;
+    networks:
+      - ticket-network
+
+  # 3. Frontend (Next.js)
+  frontend:
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile
+    container_name: ticket_frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+    environment:
+      - NEXT_PUBLIC_APP_URL=/api
+    networks:
+      - ticket-network
+
+networks:
+  ticket-network:
+    driver: bridge
