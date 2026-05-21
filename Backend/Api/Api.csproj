@@ -4,6 +4,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+<<<<<<< HEAD
     <UserSecretsId>369f237d-4245-4d94-b031-2782fd074c09</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
@@ -18,6 +19,11 @@
   </ItemGroup>
 
   <ItemGroup>
+=======
+  </PropertyGroup>
+
+  <ItemGroup>
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
     <ProjectReference Include="..\Application\Application.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />

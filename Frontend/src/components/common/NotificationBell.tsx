@@ -22,7 +22,11 @@ export default function NotificationBell() {
   const fetchNotifications = async () => {
     if (!isAuthenticated || !user) return;
     try {
+<<<<<<< HEAD
       const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || ""}/api/TicketNotification`);
+=======
+      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/TicketNotification`);
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
       if (res.ok) {
         const data = await res.json();
         const mapped = data
@@ -55,7 +59,11 @@ export default function NotificationBell() {
     try {
       await Promise.all(
         unreadNotifications.map((n) =>
+<<<<<<< HEAD
           fetch(`${process.env.NEXT_PUBLIC_APP_URL || ""}/api/TicketNotification/${n.id}`, {
+=======
+          fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/TicketNotification/${n.id}`, {
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

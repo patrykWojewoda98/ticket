@@ -25,7 +25,11 @@ export default function NewTicketPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+<<<<<<< HEAD
         const [catRes, userRes, statRes, prioRes] = await Promise.all([fetch(`/api/TicketCategory`), fetch(`/api/User`), fetch(`/api/TicketStatus`), fetch(`/api/TicketPriority`)]);
+=======
+        const [catRes, userRes, statRes, prioRes] = await Promise.all([fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/TicketCategory`), fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/User`), fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/TicketStatus`), fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/TicketPriority`)]);
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
         if (catRes.ok) setCategories(await catRes.json());
         if (statRes.ok) setStatuses(await statRes.json());
         if (prioRes.ok) setPriorities(await prioRes.json());
@@ -93,7 +97,11 @@ export default function NewTicketPage() {
       return;
     }
     try {
+<<<<<<< HEAD
       const response = await fetch(`/api/Ticket`, {
+=======
+      const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/Ticket`, {
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

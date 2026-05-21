@@ -18,6 +18,7 @@ namespace Infrastructure.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "9.0.0")
+<<<<<<< HEAD
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -59,6 +60,11 @@ namespace Infrastructure.Migrations
 
                     b.ToTable("BlockedUsers", (string)null);
                 });
+=======
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
+
+            MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
 
             modelBuilder.Entity("Domain.Entities.Comment", b =>
                 {
@@ -66,7 +72,11 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+<<<<<<< HEAD
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+=======
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
 
                     b.Property<string>("Content")
                         .IsRequired()
@@ -74,16 +84,26 @@ namespace Infrastructure.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
+<<<<<<< HEAD
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("(SYSUTCDATETIME())");
+=======
+                        .HasColumnType("datetime(6)")
+                        .HasDefaultValueSql("(UTC_TIMESTAMP())");
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
 
                     b.Property<int>("TicketId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
+<<<<<<< HEAD
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("(SYSUTCDATETIME())");
+=======
+                        .HasColumnType("datetime(6)")
+                        .HasDefaultValueSql("(UTC_TIMESTAMP())");
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -103,6 +123,7 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+<<<<<<< HEAD
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
@@ -130,6 +151,35 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("(SYSUTCDATETIME())");
+=======
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime(6)")
+                        .HasDefaultValueSql("(UTC_TIMESTAMP())");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime(6)")
+                        .HasDefaultValueSql("(UTC_TIMESTAMP())");
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -150,7 +200,11 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+<<<<<<< HEAD
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+=======
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
 
                     b.Property<int?>("AssigneeId")
                         .HasColumnType("int");
@@ -160,8 +214,13 @@ namespace Infrastructure.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
+<<<<<<< HEAD
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("(SYSUTCDATETIME())");
+=======
+                        .HasColumnType("datetime(6)")
+                        .HasDefaultValueSql("(UTC_TIMESTAMP())");
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -175,12 +234,21 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
+<<<<<<< HEAD
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("(SYSUTCDATETIME())");
+=======
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime(6)")
+                        .HasDefaultValueSql("(UTC_TIMESTAMP())");
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -206,6 +274,7 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+<<<<<<< HEAD
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
@@ -220,14 +289,35 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Path")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+=======
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime(6)")
+                        .HasDefaultValueSql("(UTC_TIMESTAMP())");
+
+                    b.Property<string>("Filename")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Path")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
 
                     b.Property<int>("TicketId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
+<<<<<<< HEAD
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("(SYSUTCDATETIME())");
+=======
+                        .HasColumnType("datetime(6)")
+                        .HasDefaultValueSql("(UTC_TIMESTAMP())");
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
 
                     b.Property<int?>("UploadedBy")
                         .HasColumnType("int");
@@ -247,6 +337,7 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+<<<<<<< HEAD
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
@@ -262,6 +353,23 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("(SYSUTCDATETIME())");
+=======
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime(6)")
+                        .HasDefaultValueSql("(UTC_TIMESTAMP())");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime(6)")
+                        .HasDefaultValueSql("(UTC_TIMESTAMP())");
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
 
                     b.HasKey("Id");
 
@@ -279,6 +387,7 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+<<<<<<< HEAD
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Action")
@@ -295,14 +404,37 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("OldValue")
                         .HasColumnType("nvarchar(max)");
+=======
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Action")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime(6)")
+                        .HasDefaultValueSql("(UTC_TIMESTAMP())");
+
+                    b.Property<string>("NewValue")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("OldValue")
+                        .HasColumnType("longtext");
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
 
                     b.Property<int>("TicketId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
+<<<<<<< HEAD
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("(SYSUTCDATETIME())");
+=======
+                        .HasColumnType("datetime(6)")
+                        .HasDefaultValueSql("(UTC_TIMESTAMP())");
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -322,6 +454,7 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+<<<<<<< HEAD
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
@@ -336,6 +469,22 @@ namespace Infrastructure.Migrations
                     b.Property<bool>("Read")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+=======
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime(6)")
+                        .HasDefaultValueSql("(UTC_TIMESTAMP())");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("Read")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("tinyint(1)")
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
                         .HasDefaultValue(false);
 
                     b.Property<int>("TicketId")
@@ -343,8 +492,13 @@ namespace Infrastructure.Migrations
 
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
+<<<<<<< HEAD
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("(SYSUTCDATETIME())");
+=======
+                        .HasColumnType("datetime(6)")
+                        .HasDefaultValueSql("(UTC_TIMESTAMP())");
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -364,6 +518,7 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+<<<<<<< HEAD
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
@@ -379,6 +534,23 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("(SYSUTCDATETIME())");
+=======
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime(6)")
+                        .HasDefaultValueSql("(UTC_TIMESTAMP())");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime(6)")
+                        .HasDefaultValueSql("(UTC_TIMESTAMP())");
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
 
                     b.HasKey("Id");
 
@@ -396,6 +568,7 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+<<<<<<< HEAD
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
@@ -411,6 +584,23 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("(SYSUTCDATETIME())");
+=======
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime(6)")
+                        .HasDefaultValueSql("(UTC_TIMESTAMP())");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime(6)")
+                        .HasDefaultValueSql("(UTC_TIMESTAMP())");
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
 
                     b.HasKey("Id");
 
@@ -428,13 +618,18 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+<<<<<<< HEAD
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+=======
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
 
                     b.Property<int?>("CompanyId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
+<<<<<<< HEAD
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("(SYSUTCDATETIME())");
 
@@ -455,17 +650,42 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+=======
+                        .HasColumnType("datetime(6)")
+                        .HasDefaultValueSql("(UTC_TIMESTAMP())");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
 
                     b.Property<string>("Role")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
+<<<<<<< HEAD
                         .HasColumnType("nvarchar(max)")
+=======
+                        .HasColumnType("longtext")
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
                         .HasDefaultValue("user");
 
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
+<<<<<<< HEAD
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("(SYSUTCDATETIME())");
+=======
+                        .HasColumnType("datetime(6)")
+                        .HasDefaultValueSql("(UTC_TIMESTAMP())");
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
 
                     b.HasKey("Id");
 
@@ -531,7 +751,11 @@ namespace Infrastructure.Migrations
                     b.HasOne("Domain.Entities.User", "User")
                         .WithMany("Tickets")
                         .HasForeignKey("UserId")
+<<<<<<< HEAD
                         .OnDelete(DeleteBehavior.Restrict)
+=======
+                        .OnDelete(DeleteBehavior.Cascade)
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
                         .IsRequired();
 
                     b.Navigation("Assignee");

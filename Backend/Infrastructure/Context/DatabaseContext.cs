@@ -1,6 +1,9 @@
 using System;
+<<<<<<< HEAD
 using System.IO;
 using System.Text.Json;
+=======
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,9 +21,14 @@ public class DatabaseContext : DbContext
   public DbSet<TicketPriority> TicketPriorities { get; set; }
   public DbSet<TicketStatus> TicketStatuses { get; set; }
   public DbSet<User> Users { get; set; }
+<<<<<<< HEAD
   public DbSet<BlockedUser> BlockedUsers { get; set; }
 
   public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) { }
+=======
+
+  public DatabaseContext() { }
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
 
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {
@@ -34,6 +42,7 @@ public class DatabaseContext : DbContext
     {
       DotNetEnv.Env.TraversePath().Load();
       var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING");
+<<<<<<< HEAD
 
       if (string.IsNullOrWhiteSpace(connectionString))
       {
@@ -63,6 +72,8 @@ public class DatabaseContext : DbContext
         throw new InvalidOperationException("Database connection string is not configured. Set ConnectionStrings:DefaultConnection in configuration or DB_CONNECTION_STRING environment variable.");
       }
 
+=======
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
       optionsBuilder.UseSqlServer(connectionString);
     }
   }

@@ -84,11 +84,19 @@ export default function TicketDetailPage({ params }: { params: any }) {
 
        
         const [tRes, sRes, pRes, cRes, aRes] = await Promise.all([
+<<<<<<< HEAD
           fetch(`${process.env.NEXT_PUBLIC_APP_URL || ""}/api/Ticket/${id}`),
           fetch(`${process.env.NEXT_PUBLIC_APP_URL || ""}/api/TicketStatus`),
           fetch(`${process.env.NEXT_PUBLIC_APP_URL || ""}/api/TicketPriority`),
           fetch(`${process.env.NEXT_PUBLIC_APP_URL || ""}/api/TicketCategory`),
           fetch(`${process.env.NEXT_PUBLIC_APP_URL || ""}/api/User/role/Admin`), 
+=======
+          fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/Ticket/${id}`),
+          fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/TicketStatus`),
+          fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/TicketPriority`),
+          fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/TicketCategory`),
+          fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/User/role/Admin`), 
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
         ]);
 
         if (!tRes.ok) throw new Error("Failed to fetch ticket");
@@ -110,7 +118,11 @@ export default function TicketDetailPage({ params }: { params: any }) {
         });
 
         
+<<<<<<< HEAD
         const uRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || ""}/api/user/${tData.userId}`);
+=======
+        const uRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/user/${tData.userId}`);
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
         if (uRes.ok) setCreator(await uRes.json());
       } catch (error) {
         console.error("Fetch error:", error);
@@ -125,7 +137,11 @@ export default function TicketDetailPage({ params }: { params: any }) {
     if (!ticket) return;
     try {
       setIsSaving(true);
+<<<<<<< HEAD
       const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || ""}/api/Ticket/${ticket.id}`, {
+=======
+      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/Ticket/${ticket.id}`, {
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

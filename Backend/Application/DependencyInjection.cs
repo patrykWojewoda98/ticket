@@ -27,7 +27,10 @@ static public class DependencyInjection
     services.AddTransient<IRequestHandler<Queries.TicketStatusQueries.GetTicketStatusById.GetTicketStatusByIdQuery, TicketStatusDto>, Queries.TicketStatusQueries.GetTicketStatusById.GetTicketStatusByIdQueryHandler>();
     services.AddTransient<IRequestHandler<Queries.UserQueries.GetAllUsers.GetAllUsersQuery, List<UserDto>>, Queries.UserQueries.GetAllUsers.GetAllUsersQueryHandler>();
     services.AddTransient<IRequestHandler<Queries.UserQueries.GetUserById.GetUserByIdQuery, UserDto>, Queries.UserQueries.GetUserById.GetUserByIdQueryHandler>();
+<<<<<<< HEAD
     services.AddTransient<IRequestHandler<Queries.UserQueries.LoginUser.LoginUserQuery, LoginResultDto>, Queries.UserQueries.LoginUser.LoginUserQueryHandler>();
+=======
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
     services.AddValidatorsFromAssembly(assembly);
     services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 

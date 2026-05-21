@@ -4,7 +4,10 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter, useParams } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
+<<<<<<< HEAD
 import { useAuth } from "@/components/common/AuthContext";
+=======
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -17,8 +20,11 @@ interface User {
   name: string;
   email: string;
   role: string;
+<<<<<<< HEAD
   isBlocked?: boolean;
   failedLoginAttempts?: number;
+=======
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
 }
 
 interface Company {
@@ -26,7 +32,11 @@ interface Company {
   name: string;
 }
 
+<<<<<<< HEAD
 const API = `${process.env.NEXT_PUBLIC_APP_URL || ""}/api`;
+=======
+const API = `${process.env.NEXT_PUBLIC_APP_URL}/api`;
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
 
 export default function EditClientPage() {
   const router = useRouter();
@@ -47,8 +57,11 @@ export default function EditClientPage() {
     role: "user",
   });
 
+<<<<<<< HEAD
   const { user: currentUser } = useAuth();
 
+=======
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -150,6 +163,7 @@ export default function EditClientPage() {
               Edytuj profil
             </button>
           )}
+<<<<<<< HEAD
           {user?.isBlocked && (
             <button
               onClick={async () => {
@@ -174,6 +188,8 @@ export default function EditClientPage() {
               Odblokuj konto
             </button>
           )}
+=======
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
         </div>
       </header>
 

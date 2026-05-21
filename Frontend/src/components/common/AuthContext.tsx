@@ -1,16 +1,26 @@
 "use client";
 
 import { createContext, useContext, useState, useEffect } from "react";
+<<<<<<< HEAD
 import { secureStorage, sanitizeInput } from "@/lib/security";
+=======
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
 
 type AuthContextType = {
   isAuthenticated: boolean;
   user: any | null;
+<<<<<<< HEAD
   isLoaded: boolean;
   setIsAuthenticated: (value: boolean) => void;
   setUser: (user: any) => void;
   logout: () => void;
   login: (userData: any) => void;
+=======
+  isLoaded: boolean; 
+  setIsAuthenticated: (value: boolean) => void;
+  setUser: (user: any) => void;
+  logout: () => void;
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
 };
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -18,6 +28,7 @@ const AuthContext = createContext<AuthContextType | null>(null);
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState<any | null>(null);
+<<<<<<< HEAD
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -124,6 +135,33 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       {children}
     </AuthContext.Provider>
   );
+=======
+  const [isLoaded, setIsLoaded] = useState(false); 
+
+  useEffect(() => {
+    const savedUser = localStorage.getItem("user");
+    if (savedUser) {
+      try {
+        const parsedUser = JSON.parse(savedUser);
+        setUser(parsedUser);
+        setIsAuthenticated(true);
+      } catch (e) {
+        console.error("Błąd parsowania użytkownika", e);
+        localStorage.removeItem("user");
+      }
+    }
+    setIsLoaded(true); 
+  }, []);
+
+  const logout = () => {
+    localStorage.removeItem("user");
+    setIsAuthenticated(false);
+    setUser(null);
+    window.location.href = "/customer/login";
+  };
+
+  return <AuthContext.Provider value={{ isAuthenticated, user, isLoaded, setIsAuthenticated, setUser, logout }}>{children}</AuthContext.Provider>;
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
 }
 
 export function useAuth() {

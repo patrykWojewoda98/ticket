@@ -35,6 +35,7 @@ public class UserRepository : BaseRepository<User>, IUserRepository
     await _dbContext.SaveChangesAsync(cancellationToken);
     return newUser;
   }
+<<<<<<< HEAD
 
   public async Task IncrementFailedAttemptsAsync(int userId, CancellationToken cancellationToken = default)
   {
@@ -106,4 +107,6 @@ public class UserRepository : BaseRepository<User>, IUserRepository
     await _dbContext.SaveChangesAsync(cancellationToken);
     return true;
   }
+=======
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
 }

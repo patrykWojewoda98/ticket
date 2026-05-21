@@ -46,7 +46,11 @@ export default function Home() {
 
   const fetchStatuses = async () => {
     try {
+<<<<<<< HEAD
       const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || ""}/api/TicketStatus`, {
+=======
+      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/TicketStatus`, {
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
         cache: "no-store",
       });
       if (res.ok) {
@@ -61,7 +65,11 @@ export default function Home() {
   const fetchTickets = async () => {
     try {
       const timestamp = new Date().getTime();
+<<<<<<< HEAD
       const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || ""}/api/ticket?t=${timestamp}`, {
+=======
+      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/ticket?t=${timestamp}`, {
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
         cache: "no-store",
       });
       if (!res.ok) throw new Error(`API returned ${res.status}`);

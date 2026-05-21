@@ -2,6 +2,7 @@ import { type NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
+<<<<<<< HEAD
   // API rewrites for backend
   async rewrites() {
     return {
@@ -51,6 +52,8 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+=======
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
 };
 
 export default nextConfig;

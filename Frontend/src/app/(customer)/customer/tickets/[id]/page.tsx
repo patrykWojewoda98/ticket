@@ -54,7 +54,11 @@ export default function TicketDetailPage({ params }: { params: any }) {
         const id = resolvedParams.id;
 
        
+<<<<<<< HEAD
         const [ticketRes, statusesRes] = await Promise.all([fetch(`${process.env.NEXT_PUBLIC_APP_URL || ""}/api/Ticket/${id}`), fetch(`${process.env.NEXT_PUBLIC_APP_URL || ""}/api/TicketStatus`)]);
+=======
+        const [ticketRes, statusesRes] = await Promise.all([fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/Ticket/${id}`), fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/TicketStatus`)]);
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
 
         if (!ticketRes.ok) return;
         const ticketData = await ticketRes.json();
@@ -65,7 +69,11 @@ export default function TicketDetailPage({ params }: { params: any }) {
         setEditData({ title: ticketData.title, description: ticketData.description });
 
         
+<<<<<<< HEAD
         const [u, p, c] = await Promise.all([fetch(`${process.env.NEXT_PUBLIC_APP_URL || ""}/api/user/${ticketData.userId}`).then((r) => (r.ok ? r.json() : null)), fetch(`${process.env.NEXT_PUBLIC_APP_URL || ""}/api/ticketpriority/${ticketData.priorityId}`).then((r) => (r.ok ? r.json() : null)), ticketData.categoryId ? fetch(`${process.env.NEXT_PUBLIC_APP_URL || ""}/api/ticketcategory/${ticketData.categoryId}`).then((r) => (r.ok ? r.json() : null)) : null]);
+=======
+        const [u, p, c] = await Promise.all([fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/user/${ticketData.userId}`).then((r) => (r.ok ? r.json() : null)), fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/ticketpriority/${ticketData.priorityId}`).then((r) => (r.ok ? r.json() : null)), ticketData.categoryId ? fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/ticketcategory/${ticketData.categoryId}`).then((r) => (r.ok ? r.json() : null)) : null]);
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
 
         setDetails({ user: u, priority: p, category: c });
       } catch (error) {
@@ -80,7 +88,11 @@ export default function TicketDetailPage({ params }: { params: any }) {
   const handleSave = async () => {
     try {
       setIsSaving(true);
+<<<<<<< HEAD
       const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || ""}/api/Ticket/${ticket.id}`, {
+=======
+      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/Ticket/${ticket.id}`, {
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

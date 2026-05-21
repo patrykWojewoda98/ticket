@@ -17,7 +17,11 @@ export default function MessageForm({
     e.preventDefault();
 
     const res = await fetch(
+<<<<<<< HEAD
       `${process.env.NEXT_PUBLIC_APP_URL || ""}/api/comment`,
+=======
+      `${process.env.NEXT_PUBLIC_APP_URL}/api/comment`,
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
       {
         method: "POST",
         headers: {

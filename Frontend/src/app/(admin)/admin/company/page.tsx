@@ -13,7 +13,11 @@ export interface Company {
   phone?: string;
 }
 
+<<<<<<< HEAD
 const API_COMPANIES = `${process.env.NEXT_PUBLIC_APP_URL || ""}/api/company`;
+=======
+const API_COMPANIES = `${process.env.NEXT_PUBLIC_APP_URL}/api/company`;
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
 
 export default function CompaniesPage() {
   const [companies, setCompanies] = useState<Company[]>([]);

@@ -45,7 +45,11 @@ export default function TicketChat() {
   useEffect(() => {
     if (!isAuthenticated || !user) return;
 
+<<<<<<< HEAD
     const ticketUrl = user.role === "Admin" ? `${process.env.NEXT_PUBLIC_APP_URL || ""}/api/ticket` : `${process.env.NEXT_PUBLIC_APP_URL || ""}/api/ticket/user/${user.id}`;
+=======
+    const ticketUrl = user.role === "Admin" ? `${process.env.NEXT_PUBLIC_APP_URL}/api/ticket` : `${process.env.NEXT_PUBLIC_APP_URL}/api/ticket/user/${user.id}`;
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
 
     fetch(ticketUrl)
       .then((res) => res.json())
@@ -53,7 +57,11 @@ export default function TicketChat() {
       .catch((err) => console.error("Błąd pobierania ticketów:", err));
 
    
+<<<<<<< HEAD
     fetch(`${process.env.NEXT_PUBLIC_APP_URL || ""}/api/User/role/Admin`)
+=======
+    fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/User/role/Admin`)
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
       .then((res) => res.json())
       .then((admins) => {
         if (admins && admins.length > 0) setFallbackAdminId(admins[0].id);
@@ -65,14 +73,22 @@ export default function TicketChat() {
   const handleSelectTicket = async (ticketId: number) => {
     try {
       
+<<<<<<< HEAD
       const ticketRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || ""}/api/ticket/${ticketId}`);
+=======
+      const ticketRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/ticket/${ticketId}`);
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
       if (ticketRes.ok) {
         const ticketData = await ticketRes.json();
         setSelectedTicket(ticketData);
       }
 
       
+<<<<<<< HEAD
       const msgRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || ""}/api/comment/ticket/${ticketId}`);
+=======
+      const msgRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/comment/ticket/${ticketId}`);
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
       if (msgRes.ok) {
         setMessages(await msgRes.json());
       }
@@ -89,7 +105,11 @@ export default function TicketChat() {
 
     try {
       
+<<<<<<< HEAD
       const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || ""}/api/comment`, {
+=======
+      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/comment`, {
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -104,7 +124,11 @@ export default function TicketChat() {
         const recipientId = selectedTicket.assigneeId;
 
         if (recipientId) {
+<<<<<<< HEAD
           await fetch(`${process.env.NEXT_PUBLIC_APP_URL || ""}/api/TicketNotification`, {
+=======
+          await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/TicketNotification`, {
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

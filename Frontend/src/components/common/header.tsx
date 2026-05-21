@@ -31,7 +31,11 @@ export default function Header() {
     } else {
       const fetchUserRole = async () => {
         try {
+<<<<<<< HEAD
           const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || ""}/api/user/${user.id}`);
+=======
+          const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/user/${user.id}`);
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
           if (res.ok) {
             const data = await res.json();
             setRole(data.role);

@@ -49,7 +49,11 @@ export default function AdminTicketChat() {
 
     const fetchTickets = async () => {
       try {
+<<<<<<< HEAD
         const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || ""}/api/ticket`);
+=======
+        const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/ticket`);
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
         if (res.ok) {
           const data = await res.json();
           setTickets(data);
@@ -66,7 +70,11 @@ export default function AdminTicketChat() {
   const fetchMessages = async (ticketId: number) => {
     setIsLoadingMessages(true);
     try {
+<<<<<<< HEAD
       const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || ""}/api/comment/ticket/${ticketId}`);
+=======
+      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/comment/ticket/${ticketId}`);
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
       if (res.ok) {
         const data = await res.json();
         setMessages(data);
@@ -94,7 +102,11 @@ export default function AdminTicketChat() {
 
     try {
     
+<<<<<<< HEAD
       const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || ""}/api/comment`, {
+=======
+      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/comment`, {
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -108,7 +120,11 @@ export default function AdminTicketChat() {
 
       if (res.ok) {
        
+<<<<<<< HEAD
         await fetch(`${process.env.NEXT_PUBLIC_APP_URL || ""}/api/TicketNotification`, {
+=======
+        await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/TicketNotification`, {
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({

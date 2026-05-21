@@ -7,8 +7,11 @@ export interface User {
   name: string;
   email: string;
   role: string;
+<<<<<<< HEAD
   isBlocked?: boolean;
   failedLoginAttempts?: number;
+=======
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
 }
 
 export interface Company {

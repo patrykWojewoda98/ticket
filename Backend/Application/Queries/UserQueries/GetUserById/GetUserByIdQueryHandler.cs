@@ -26,8 +26,11 @@ public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UserDto
       Email = user.Email,
       Role = user.Role,
       Name = user.Name,
+<<<<<<< HEAD
       IsBlocked = user.IsBlocked,
       FailedLoginAttempts = user.FailedLoginAttempts
+=======
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
     };
   }
 }

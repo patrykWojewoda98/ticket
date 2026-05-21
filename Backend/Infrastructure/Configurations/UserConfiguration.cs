@@ -28,7 +28,11 @@ public class UserConfiguration : BaseConfiguration<User>
     builder.HasMany(user => user.Tickets)
        .WithOne(ticket => ticket.User)
        .HasForeignKey(ticket => ticket.UserId)
+<<<<<<< HEAD
        .OnDelete(DeleteBehavior.Restrict);
+=======
+       .OnDelete(DeleteBehavior.Cascade);
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
 
     builder.HasMany(user => user.Assigned)
        .WithOne(ticket => ticket.Assignee)

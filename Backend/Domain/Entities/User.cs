@@ -7,8 +7,11 @@ public class User : Base
   public int? CompanyId { get; set; }
   public string Email { get; set; }
   public string? Password { get; set; }
+<<<<<<< HEAD
   public int FailedLoginAttempts { get; set; }
   public bool IsBlocked { get; set; }
+=======
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
   public string Role { get; set; }
   public string Name { get; set; }
 

@@ -18,8 +18,12 @@ namespace Presentation.Controllers;
 [Route("api/[controller]")]
 public class UserController : BaseController
 {
+<<<<<<< HEAD
   private readonly Domain.Abstractions.IUserRepository _userRepository;
   public UserController(IMediator mediator, Domain.Abstractions.IUserRepository userRepository) : base(mediator) { _userRepository = userRepository; }
+=======
+  public UserController(IMediator mediator) : base(mediator) { }
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
 
   [HttpPost]
   [SwaggerOperation(Summary = "Create a new user")]
@@ -75,9 +79,13 @@ public class UserController : BaseController
   public async Task<IActionResult> Login([FromBody] LoginUserQuery query)
   {
     var result = await _mediator.Send(query);
+<<<<<<< HEAD
     if (result == null) return NotFound();
     if (result.IsBlocked) return StatusCode(423, new { message = result.Message ?? "Account blocked" });
     return Ok(result.User);
+=======
+    return result == null ? NotFound() : Ok(result);
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
   }
 
   [HttpPatch("{id}/role")]
@@ -87,6 +95,7 @@ public class UserController : BaseController
     var result = await _mediator.Send(new SetUserRoleQuery(id, role));
     return result == null ? NotFound() : Ok(result);
   }
+<<<<<<< HEAD
 
   [HttpGet("blocked")]
   [SwaggerOperation(Summary = "Get all blocked users")]
@@ -103,4 +112,6 @@ public class UserController : BaseController
     var ok = await _userRepository.UnblockUserAsync(id, adminId);
     return ok ? Ok() : NotFound();
   }
+=======
+>>>>>>> 8bdda2c58a129a22e9d27085a8ac580aa62d740e
 }
