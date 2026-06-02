@@ -24,6 +24,7 @@ public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, List<Us
       Email = user.Email,
       Role = user.Role,
       Name = user.Name,
+      LockoutEnd = user.LockoutEnd
     }).ToList();
   }
 }

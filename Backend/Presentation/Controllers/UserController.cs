@@ -73,7 +73,22 @@ public class UserController : BaseController
   [SwaggerOperation(Summary = "Authenticate user and get information")]
   public async Task<IActionResult> Login([FromBody] LoginUserQuery query)
   {
-    var result = await _mediator.Send(query);
+    try
+    {
+      var result = await _mediator.Send(query);
+      return result == null ? NotFound() : Ok(result);
+    }
+    catch (Exception ex) when (ex.Message.Contains("Konto zostało zablokowane"))
+    {
+      return StatusCode(423, new { message = ex.Message });
+    }
+  }
+
+  [HttpPost("{id}/unlock")]
+  [SwaggerOperation(Summary = "Unlock a locked user account (Admin only)")]
+  public async Task<IActionResult> Unlock(int id)
+  {
+    var result = await _mediator.Send(new Application.Commands.UserCommands.UnlockUser.UnlockUserCommand(id));
     return result == null ? NotFound() : Ok(result);
   }
 

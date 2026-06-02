@@ -45,7 +45,7 @@ export default function TicketChat() {
   useEffect(() => {
     if (!isAuthenticated || !user) return;
 
-    const ticketUrl = user.role === "Admin" ? `${process.env.NEXT_PUBLIC_APP_URL}/api/ticket` : `${process.env.NEXT_PUBLIC_APP_URL}/api/ticket/user/${user.id}`;
+    const ticketUrl = user.role === "Admin" ? `${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/ticket` : `${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/ticket/user/${user.id}`;
 
     fetch(ticketUrl)
       .then((res) => res.json())
@@ -53,7 +53,7 @@ export default function TicketChat() {
       .catch((err) => console.error("Błąd pobierania ticketów:", err));
 
    
-    fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/User/role/Admin`)
+    fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/User/role/Admin`)
       .then((res) => res.json())
       .then((admins) => {
         if (admins && admins.length > 0) setFallbackAdminId(admins[0].id);
@@ -65,14 +65,14 @@ export default function TicketChat() {
   const handleSelectTicket = async (ticketId: number) => {
     try {
       
-      const ticketRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/ticket/${ticketId}`);
+      const ticketRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/ticket/${ticketId}`);
       if (ticketRes.ok) {
         const ticketData = await ticketRes.json();
         setSelectedTicket(ticketData);
       }
 
       
-      const msgRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/comment/ticket/${ticketId}`);
+      const msgRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/comment/ticket/${ticketId}`);
       if (msgRes.ok) {
         setMessages(await msgRes.json());
       }
@@ -89,7 +89,7 @@ export default function TicketChat() {
 
     try {
       
-      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/comment`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/comment`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -104,7 +104,7 @@ export default function TicketChat() {
         const recipientId = selectedTicket.assigneeId;
 
         if (recipientId) {
-          await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/TicketNotification`, {
+          await fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/TicketNotification`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

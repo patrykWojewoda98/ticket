@@ -38,7 +38,7 @@ export default function AdminHomePage() {
     setIsLoading(true);
     try {
       const timestamp = new Date().getTime();
-      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/ticket?t=${timestamp}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/ticket?t=${timestamp}`, {
         cache: "no-store",
         headers: {
           "Content-Type": "application/json",

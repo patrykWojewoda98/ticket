@@ -23,7 +23,7 @@ interface Company {
   name: string;
 }
 
-const API = `${process.env.NEXT_PUBLIC_APP_URL}/api`;
+const API = `${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api`;
 
 export default function EditClientPage() {
   const router = useRouter();

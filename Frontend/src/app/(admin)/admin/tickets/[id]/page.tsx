@@ -84,11 +84,11 @@ export default function TicketDetailPage({ params }: { params: any }) {
 
        
         const [tRes, sRes, pRes, cRes, aRes] = await Promise.all([
-          fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/Ticket/${id}`),
-          fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/TicketStatus`),
-          fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/TicketPriority`),
-          fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/TicketCategory`),
-          fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/User/role/Admin`), 
+          fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/Ticket/${id}`),
+          fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/TicketStatus`),
+          fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/TicketPriority`),
+          fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/TicketCategory`),
+          fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/User/role/Admin`), 
         ]);
 
         if (!tRes.ok) throw new Error("Failed to fetch ticket");
@@ -110,7 +110,7 @@ export default function TicketDetailPage({ params }: { params: any }) {
         });
 
         
-        const uRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/user/${tData.userId}`);
+        const uRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/user/${tData.userId}`);
         if (uRes.ok) setCreator(await uRes.json());
       } catch (error) {
         console.error("Fetch error:", error);
@@ -125,7 +125,7 @@ export default function TicketDetailPage({ params }: { params: any }) {
     if (!ticket) return;
     try {
       setIsSaving(true);
-      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/Ticket/${ticket.id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/Ticket/${ticket.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

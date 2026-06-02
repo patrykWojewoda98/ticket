@@ -1,0 +1,53 @@
+services:
+  # 1. Baza danych (MySQL)
+  db:
+    image: mysql:8.4
+    container_name: ticket_db
+    environment:
+      - MYSQL_ROOT_PASSWORD=TwojeSilneHaslo123!
+      - MYSQL_DATABASE=ticket
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - ticket-network
+
+  # 2. Backend (.NET)
+  api:
+    build:
+      context: ./Backend
+      dockerfile: Api/Dockerfile
+    container_name: ticket_api
+    depends_on:
+      - db
+    ports:
+      - "5229:8080"
+    environment:
+      - DB_CONNECTION_STRING=Server=db;Port=3306;Database=ticket;User=root;Password=TwojeSilneHaslo123!;
+    networks:
+      - ticket-network
+
+  # 3. Frontend (Next.js)
+  frontend:
+    container_name: ticket_frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+    environment:
+      - NEXT_PUBLIC_APP_URL=http://localhost:5229
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_APP_URL: http://localhost:5229
+    networks:
+      - ticket-network
+
+networks:
+  ticket-network:
+    driver: bridge
+
+volumes:
+  db_data:

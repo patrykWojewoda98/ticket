@@ -4,4 +4,4 @@ using MediatR;
 
 namespace Application.Queries.UserQueries.LoginUser;
 
-public record LoginUserQuery(int Id, string Password) : IRequest<UserDto?>;
+public record LoginUserQuery(string Email, string Password) : IRequest<UserDto?>;

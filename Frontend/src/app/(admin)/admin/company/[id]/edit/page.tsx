@@ -16,7 +16,7 @@ interface Company {
   address: string; 
 }
 
-const API = `${process.env.NEXT_PUBLIC_APP_URL}/api/company`;
+const API = `${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/company`;
 
 export default function EditCompanyPage() {
   const router = useRouter();

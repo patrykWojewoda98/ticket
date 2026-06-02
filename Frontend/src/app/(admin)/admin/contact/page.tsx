@@ -49,7 +49,7 @@ export default function AdminTicketChat() {
 
     const fetchTickets = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/ticket`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/ticket`);
         if (res.ok) {
           const data = await res.json();
           setTickets(data);
@@ -66,7 +66,7 @@ export default function AdminTicketChat() {
   const fetchMessages = async (ticketId: number) => {
     setIsLoadingMessages(true);
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/comment/ticket/${ticketId}`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/comment/ticket/${ticketId}`);
       if (res.ok) {
         const data = await res.json();
         setMessages(data);
@@ -94,7 +94,7 @@ export default function AdminTicketChat() {
 
     try {
     
-      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/comment`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/comment`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -108,7 +108,7 @@ export default function AdminTicketChat() {
 
       if (res.ok) {
        
-        await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/TicketNotification`, {
+        await fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/TicketNotification`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({

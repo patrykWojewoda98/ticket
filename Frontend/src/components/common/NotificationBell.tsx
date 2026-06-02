@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { Bell, MessageSquare } from "lucide-react";
 import { useAuth } from "@/components/common/AuthContext";
 import { cn } from "@/lib/utils";
@@ -19,10 +19,10 @@ export default function NotificationBell() {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const fetchNotifications = async () => {
+  const fetchNotifications = useCallback(async () => {
     if (!isAuthenticated || !user) return;
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/TicketNotification`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/TicketNotification`);
       if (res.ok) {
         const data = await res.json();
         const mapped = data
@@ -41,7 +41,7 @@ export default function NotificationBell() {
     } catch (err) {
       console.error("Błąd pobierania powiadomień:", err);
     }
-  };
+  }, [isAuthenticated, user]);
 
   // FUNKCJA OZNACZAJĄCA WSZYSTKO JAKO PRZECZYTANE
   const markAllAsRead = async () => {
@@ -55,7 +55,7 @@ export default function NotificationBell() {
     try {
       await Promise.all(
         unreadNotifications.map((n) =>
-          fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/TicketNotification/${n.id}`, {
+          fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/TicketNotification/${n.id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -88,7 +88,7 @@ export default function NotificationBell() {
       clearInterval(interval);
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isAuthenticated, user]);
+  }, [fetchNotifications]);
 
   // Reagujemy na otwarcie dzwonka
   const toggleDropdown = () => {

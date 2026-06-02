@@ -17,6 +17,12 @@ public class UserRepository : BaseRepository<User>, IUserRepository
                  .ToListAsync(cancellationToken);
   }
 
+  public async Task<User?> GetByEmailAsync(string email, CancellationToken cancellationToken = default)
+  {
+    return await _dbContext.Set<User>()
+                 .FirstOrDefaultAsync(u => u.Email == email, cancellationToken);
+  }
+
   public async Task<User> SetUserRoleAsync(int userId, string role, CancellationToken cancellationToken = default)
   {
     var existingUser = await _dbContext.Set<User>()

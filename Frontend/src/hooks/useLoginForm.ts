@@ -12,30 +12,41 @@ export function useLoginForm() {
   // Wyciągamy potrzebne funkcje z Twojego Contextu
   const { setIsAuthenticated, setUser } = useAuth();
   const router = useRouter();
+  const apiBaseUrl = process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "");
+
+  const safeParseJson = async (response: Response) => {
+    const contentType = response.headers.get("content-type") || "";
+    if (!contentType.includes("application/json")) {
+      const text = await response.text();
+      throw new Error(text || "Odpowiedź serwera nie jest JSON-em");
+    }
+    return response.json();
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      // 1. Pobranie użytkowników (Twój flow)
-      const usersRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/user`);
-      if (!usersRes.ok) throw new Error("Błąd pobierania użytkowników");
-
-      const users = await usersRes.json();
-      const foundUser = users.find((u: any) => u.email === email);
-      if (!foundUser) throw new Error("Nie znaleziono użytkownika");
-
-      // 2. Logowanie
-      const loginRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/user/login`, {
+      if (!apiBaseUrl) {
+        throw new Error("Brak konfiguracji NEXT_PUBLIC_APP_URL");
+      }
+      // 1. Logowanie
+      const loginRes = await fetch(`${apiBaseUrl}/api/user/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: foundUser.id, password }),
+        body: JSON.stringify({ email, password }),
       });
 
-      if (!loginRes.ok) throw new Error("Błędne dane logowania");
+      if (!loginRes.ok) {
+        if (loginRes.status === 423) {
+           const errData = await safeParseJson(loginRes);
+           throw new Error(errData.message || "Zbyt wiele nieudanych prób logowania. Konto zostało zablokowane na 15 minut.");
+        }
+        throw new Error("Błędne dane logowania");
+      }
 
-      const data = await loginRes.json();
+      const data = await safeParseJson(loginRes);
 
       // --- TO ROZWIĄZUJE PROBLEM F5 ---
       // 1. Zapisujemy w localStorage (na przyszłość, po odświeżeniu)

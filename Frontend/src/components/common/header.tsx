@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Ticket, Menu, X } from "lucide-react";
-import { NAV_BUTTONS, NAV_LINKS } from "../../lib/constrants";
+import { NAV_BUTTONS, NAV_LINKS } from "../../lib/constants";
 import { useToggle } from "@/hooks/useToggle";
 import { usePrevent } from "@/hooks/usePrevent";
 import { Button } from "../ui/button";
@@ -31,7 +31,7 @@ export default function Header() {
     } else {
       const fetchUserRole = async () => {
         try {
-          const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/user/${user.id}`);
+          const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/user/${user.id}`);
           if (res.ok) {
             const data = await res.json();
             setRole(data.role);

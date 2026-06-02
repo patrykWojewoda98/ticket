@@ -46,7 +46,7 @@ export default function Home() {
 
   const fetchStatuses = async () => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/TicketStatus`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/TicketStatus`, {
         cache: "no-store",
       });
       if (res.ok) {
@@ -61,7 +61,7 @@ export default function Home() {
   const fetchTickets = async () => {
     try {
       const timestamp = new Date().getTime();
-      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/ticket?t=${timestamp}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/ticket?t=${timestamp}`, {
         cache: "no-store",
       });
       if (!res.ok) throw new Error(`API returned ${res.status}`);
@@ -104,7 +104,7 @@ export default function Home() {
   return (    
     <div className="mx-auto px-8  max-w-7xl font-sans container">
       <header className="mb-12">
-       <h1 className="font-semibold text-slate-900 text-3xl tracking-tight mb-12">Witaj {user?.name}</h1>
+        {user?.name && <h1 className="font-semibold text-slate-900 text-3xl tracking-tight mb-12">Witaj {user.name}</h1>}
         <h1 className="font-semibold text-slate-900 text-3xl tracking-tight">{user?.role === "Admin" ? "Wszystkie zgłoszenia" : "Moje zgłoszenia"}</h1>
         <p className="mt-2 text-slate-500 text-base">{user?.role === "Admin" ? "Panel zarządzania wszystkimi zgłoszeniami w systemie." : "Przeglądaj swoje aktywne prośby o pomoc i statusy prac."}</p>
       </header>

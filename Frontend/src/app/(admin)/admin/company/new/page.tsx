@@ -27,7 +27,7 @@ export default function CreateCompanyPage() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/User`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/User`);
         if (res.ok) {
           const data = await res.json();
           setUsers(data);
@@ -53,7 +53,7 @@ export default function CreateCompanyPage() {
     const cleanPhone = form.phoneNumber.replace(/\s/g, "");
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/Company`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/Company`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

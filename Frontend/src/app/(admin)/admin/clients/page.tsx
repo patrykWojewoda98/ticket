@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, useMemo } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Edit3, Loader2, Plus, Trash2, UserPlus } from "lucide-react";
+import { Edit3, Loader2, Plus, Trash2, UserPlus, Lock, Unlock } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
@@ -12,6 +12,8 @@ export interface User {
   name: string;
   email: string;
   companyId: number;
+  lockoutEnd: string | null;
+  isLocked: boolean;
 }
 
 export interface Company {
@@ -19,8 +21,8 @@ export interface Company {
   name: string;
 }
 
-const API_USERS = `${process.env.NEXT_PUBLIC_APP_URL}/api/user`;
-const API_COMPANIES = `${process.env.NEXT_PUBLIC_APP_URL}/api/company`;
+const API_USERS = `${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/user`;
+const API_COMPANIES = `${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/company`;
 
 export default function ClientsPage() {
   const [users, setUsers] = useState<User[]>([]);
@@ -69,6 +71,19 @@ export default function ClientsPage() {
     }
   };
 
+  const handleUnlock = async (id: number) => {
+    if (!confirm("Na pewno odblokować użytkownika?")) return;
+
+    try {
+      const res = await fetch(`${API_USERS}/${id}/unlock`, { method: "POST" });
+      if (!res.ok) throw new Error("Błąd odblokowania");
+      fetchData();
+    } catch (err) {
+      console.error(err);
+      alert("Nie udało się odblokować użytkownika");
+    }
+  };
+
   return (
     <div className="mx-auto px-8 py-16 max-w-7xl font-sans container">
       <header className="flex justify-between items-end mb-12">
@@ -88,7 +103,8 @@ export default function ClientsPage() {
             <TableRow>
               <TableHead className="px-6 w-[30%] h-12 font-bold text-[10px] text-slate-500 uppercase tracking-widest">Imię i Nazwisko</TableHead>
               <TableHead className="px-6 w-[30%] h-12 font-bold text-[10px] text-slate-500 uppercase tracking-widest">Email</TableHead>
-              <TableHead className="px-6 w-[32%] h-12 font-bold text-[10px] text-slate-500 uppercase tracking-widest">Firma</TableHead>
+              <TableHead className="px-6 w-[20%] h-12 font-bold text-[10px] text-slate-500 uppercase tracking-widest">Firma</TableHead>
+              <TableHead className="px-6 w-[12%] h-12 font-bold text-[10px] text-slate-500 uppercase tracking-widest">Status</TableHead>
               <TableHead className="px-6 w-[14%] h-12 font-bold text-[10px] text-slate-500 text-right uppercase tracking-widest">Akcja</TableHead>
             </TableRow>
           </TableHeader>
@@ -113,7 +129,21 @@ export default function ClientsPage() {
                   <TableCell className="px-6 py-4">
                     <span className="font-semibold text-[10px] text-slate-500 uppercase tracking-tight">{companyMap[user.companyId] || "Brak firmy"}</span>
                   </TableCell>
-                  <TableCell className="flex gap-2 px-6 py-4 text-right">
+                  <TableCell className="px-6 py-4">
+                    {user.isLocked ? (
+                      <span className="flex items-center gap-1 font-semibold text-[10px] text-red-500 uppercase tracking-tight">
+                        <Lock className="w-3 h-3" /> Zablokowany
+                      </span>
+                    ) : (
+                      <span className="font-semibold text-[10px] text-green-500 uppercase tracking-tight">Aktywny</span>
+                    )}
+                  </TableCell>
+                  <TableCell className="flex justify-end gap-2 px-6 py-4 text-right">
+                    {user.isLocked && (
+                      <button onClick={() => handleUnlock(user.id)} className="flex items-center gap-1 bg-green-600 hover:bg-green-700 px-3 py-1.5 rounded-lg text-white text-sm transition" title="Odblokuj">
+                        <Unlock className="w-3 h-3" />
+                      </button>
+                    )}
                     <Link href={`/admin/clients/${user.id}/edit`} className="flex items-center gap-1 bg-blue-600 hover:bg-blue-700 px-3 py-1.5 rounded-lg text-white text-sm transition">
                       <Edit3 className="w-3 h-3" /> Edit
                     </Link>

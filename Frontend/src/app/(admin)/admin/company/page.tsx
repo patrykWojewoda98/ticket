@@ -13,7 +13,7 @@ export interface Company {
   phone?: string;
 }
 
-const API_COMPANIES = `${process.env.NEXT_PUBLIC_APP_URL}/api/company`;
+const API_COMPANIES = `${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/Company`;
 
 export default function CompaniesPage() {
   const [companies, setCompanies] = useState<Company[]>([]);
@@ -25,7 +25,11 @@ export default function CompaniesPage() {
     setError(null);
     try {
       const res = await fetch(API_COMPANIES, { cache: "no-store" });
-      if (!res.ok) throw new Error("Błąd pobierania firm");
+      if (!res.ok) {
+        const contentType = res.headers.get("content-type") || "";
+        const details = contentType.includes("application/json") ? (await res.json())?.detail : await res.text();
+        throw new Error(details || `Błąd pobierania firm (${res.status})`);
+      }
       const data = await res.json();
       setCompanies(data);
     } catch (err: any) {

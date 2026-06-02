@@ -1,5 +1,11 @@
 import { ReactNode } from "react";
+import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
+
+export const metadata: Metadata = {
+  title: "Ticket System",
+  description: "Prosty system do zarządzania zgłoszeniami",
+};
 import "./globals.css";
 import Header from "@/components/common/header";
 import Footer from "@/components/common/footer";

@@ -8,4 +8,6 @@ public class UserDto : BaseDto
   public string Email { get; set; }
   public string Role { get; set; }
   public string Name { get; set; }
+  public DateTime? LockoutEnd { get; set; }
+  public bool IsLocked => LockoutEnd.HasValue && LockoutEnd.Value > DateTime.UtcNow;
 }

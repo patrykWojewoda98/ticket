@@ -1,6 +1,7 @@
 using System;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 namespace Infrastructure.Context;
 
@@ -31,7 +32,12 @@ public class DatabaseContext : DbContext
     {
       DotNetEnv.Env.TraversePath().Load();
       var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING");
-      optionsBuilder.UseSqlServer(connectionString);
+      if (string.IsNullOrWhiteSpace(connectionString))
+      {
+        throw new InvalidOperationException("DB_CONNECTION_STRING is not configured.");
+      }
+
+      optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
     }
   }
 }

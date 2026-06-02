@@ -55,13 +55,13 @@ Przed uruchomieniem upewnij się, że masz zainstalowane:
    dotnet ef database update
    ```
 
-4. Uruchom backend:
+4. Uruchom backend (z hot-reloadem):
 
    ```bash
-   dotnet run
+   dotnet watch
    ```
 
-Backend uruchomi się na porcie widocznym w konsoli (np. `http://localhost:5229/`).
+Backend uruchomi się na porcie ustawionym w profilu (np. `http://localhost:5229/` lub w Dockerze zgodnie z `docker-compose.yml`).
 
 ---
 
@@ -79,7 +79,7 @@ Backend uruchomi się na porcie widocznym w konsoli (np. `http://localhost:5229/
    NEXT_PUBLIC_APP_URL="http://localhost:5229/"
    ```
 
-   ⚠️ Uwaga: port musi być taki sam jak backendu
+   ⚠️ Uwaga: port musi być taki sam jak port backendu wystawiony na zewnątrz przez Dockera (`5229`)
 
 3. Zainstaluj zależności:
 

@@ -1,0 +1,19 @@
+# Build stage
+FROM node:22-alpine AS build
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+ARG NEXT_PUBLIC_APP_URL
+ENV NEXT_PUBLIC_APP_URL=$NEXT_PUBLIC_APP_URL
+RUN npm run build
+
+# Production stage
+FROM node:22-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --production
+COPY --from=build /app/.next ./.next
+COPY --from=build /app/public ./public
+EXPOSE 3000
+CMD ["npm", "start"]

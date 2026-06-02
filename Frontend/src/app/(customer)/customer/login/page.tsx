@@ -22,32 +22,22 @@ export function useLoginForm() {
     setLoading(true);
 
     try {
-      const usersRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/user`);
-
-      if (!usersRes.ok) {
-        throw new Error("Błąd pobierania użytkowników");
-      }
-
-      const users = await usersRes.json();
-
-      const user = users.find((u: any) => u.email === email);
-
-      if (!user) {
-        throw new Error("Nie znaleziono użytkownika");
-      }
-
-      const loginRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/user/login`, {
+      const loginRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/user/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          id: user.id,
+          email,
           password,
         }),
       });
 
       if (!loginRes.ok) {
+        if (loginRes.status === 423) {
+           const errData = await loginRes.json();
+           throw new Error(errData.message || "Zbyt wiele nieudanych prób logowania. Konto zostało zablokowane na 15 minut.");
+        }
         throw new Error("Błędne dane logowania");
       }
 

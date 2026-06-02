@@ -53,7 +53,7 @@ export default function AdminTicketsPage() {
 
     try {
       const timestamp = new Date().getTime();
-      const [tRes, sRes, pRes, uRes] = await Promise.all([fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/ticket?t=${timestamp}`, { cache: "no-store" }), fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/TicketStatus`), fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/TicketPriority`), fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/User`)]);
+      const [tRes, sRes, pRes, uRes] = await Promise.all([fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/ticket?t=${timestamp}`, { cache: "no-store" }), fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/TicketStatus`), fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/TicketPriority`), fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/User`)]);
 
       if (!tRes.ok || !sRes.ok || !pRes.ok || !uRes.ok) throw new Error("Błąd pobierania danych");
 
@@ -79,7 +79,7 @@ export default function AdminTicketsPage() {
     setTickets((prev) => prev.map((t) => (t.id === ticketId ? { ...t, ...updatedFields } : t)));
 
     try {
-      await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/ticket/${ticketId}`, {
+      await fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/ticket/${ticketId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...currentTicket, ...updatedFields }),
@@ -92,7 +92,7 @@ export default function AdminTicketsPage() {
   const handleDelete = async (id: number) => {
     if (!confirm("Czy na pewno chcesz usunąć to zgłoszenie?")) return;
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/ticket/${id}`, { method: "DELETE" });
+      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/ticket/${id}`, { method: "DELETE" });
       if (res.ok) setTickets((prev) => prev.filter((t) => t.id !== id));
     } catch (err) {
       alert("Nie udało się usunąć zgłoszenia.");

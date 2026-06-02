@@ -54,7 +54,7 @@ export default function TicketDetailPage({ params }: { params: any }) {
         const id = resolvedParams.id;
 
        
-        const [ticketRes, statusesRes] = await Promise.all([fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/Ticket/${id}`), fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/TicketStatus`)]);
+        const [ticketRes, statusesRes] = await Promise.all([fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/Ticket/${id}`), fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/TicketStatus`)]);
 
         if (!ticketRes.ok) return;
         const ticketData = await ticketRes.json();
@@ -65,7 +65,7 @@ export default function TicketDetailPage({ params }: { params: any }) {
         setEditData({ title: ticketData.title, description: ticketData.description });
 
         
-        const [u, p, c] = await Promise.all([fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/user/${ticketData.userId}`).then((r) => (r.ok ? r.json() : null)), fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/ticketpriority/${ticketData.priorityId}`).then((r) => (r.ok ? r.json() : null)), ticketData.categoryId ? fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/ticketcategory/${ticketData.categoryId}`).then((r) => (r.ok ? r.json() : null)) : null]);
+        const [u, p, c] = await Promise.all([fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/user/${ticketData.userId}`).then((r) => (r.ok ? r.json() : null)), fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/ticketpriority/${ticketData.priorityId}`).then((r) => (r.ok ? r.json() : null)), ticketData.categoryId ? fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/ticketcategory/${ticketData.categoryId}`).then((r) => (r.ok ? r.json() : null)) : null]);
 
         setDetails({ user: u, priority: p, category: c });
       } catch (error) {
@@ -80,7 +80,7 @@ export default function TicketDetailPage({ params }: { params: any }) {
   const handleSave = async () => {
     try {
       setIsSaving(true);
-      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/Ticket/${ticket.id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/Ticket/${ticket.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

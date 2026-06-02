@@ -9,6 +9,8 @@ public class User : Base
   public string? Password { get; set; }
   public string Role { get; set; }
   public string Name { get; set; }
+  public int FailedLoginAttempts { get; set; } = 0;
+  public DateTime? LockoutEnd { get; set; }
 
   public List<Company> Companies { get; set; }
   public List<Ticket> Tickets { get; set; }

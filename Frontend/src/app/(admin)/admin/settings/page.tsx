@@ -34,7 +34,7 @@ export default function AdminSettingsPage() {
 
   const fetchDictionaries = async () => {
     try {
-      const [sRes, pRes, cRes] = await Promise.all([fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/TicketStatus`), fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/TicketPriority`), fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/TicketCategory`)]);
+      const [sRes, pRes, cRes] = await Promise.all([fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/TicketStatus`), fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/TicketPriority`), fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/TicketCategory`)]);
 
       if (sRes.ok) setStatuses(await sRes.json());
       if (pRes.ok) setPriorities(await pRes.json());
@@ -63,7 +63,7 @@ export default function AdminSettingsPage() {
     const type = typeMap[activeTab];
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/Ticket${type}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/Ticket${type}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name: newName }),
@@ -82,7 +82,7 @@ export default function AdminSettingsPage() {
   const handleDeleteItem = async (type: DictionaryType, id: number) => {
     if (!confirm(`Czy na pewno chcesz to usunąć?`)) return;
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/Ticket${type}/${id}`, { method: "DELETE" });
+      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/Ticket${type}/${id}`, { method: "DELETE" });
       if (res.ok) await fetchDictionaries();
     } catch (err) {
       alert("Błąd podczas usuwania.");
@@ -93,7 +93,7 @@ export default function AdminSettingsPage() {
     if (!editingId || !editingName.trim()) return;
     setIsSavingEdit(true);
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/Ticket${type}/${editingId}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/Ticket${type}/${editingId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ [`Ticket${type}Id`]: editingId, name: editingName }),

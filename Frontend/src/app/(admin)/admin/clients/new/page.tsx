@@ -26,7 +26,7 @@ export default function CreateClientPage() {
   useEffect(() => {
     const fetchCompanies = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/Company`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/Company`);
         if (!res.ok) throw new Error("Nie udało się pobrać listy firm");
         const data = await res.json();
         setCompanies(data);
@@ -54,7 +54,7 @@ export default function CreateClientPage() {
     }
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/User`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "")}/api/User`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
